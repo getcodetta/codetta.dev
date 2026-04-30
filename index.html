@@ -456,6 +456,82 @@
       line-height: 1.55;
     }
 
+    /* ---------- Subscription callout ---------- */
+    .sub-callout {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 28px;
+      align-items: center;
+      padding: 32px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background:
+        radial-gradient(80% 120% at 0% 0%, rgba(124,158,255,0.10), transparent 60%),
+        radial-gradient(80% 120% at 100% 100%, rgba(167,139,250,0.10), transparent 60%),
+        var(--bg-elev);
+      box-shadow: var(--shadow);
+    }
+    .sub-callout .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(94,234,212,0.10);
+      border: 1px solid rgba(94,234,212,0.35);
+      color: var(--accent-cyan);
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: 14px;
+    }
+    .sub-callout h3 {
+      margin: 0 0 10px;
+      font-size: clamp(20px, 2.4vw, 26px);
+      letter-spacing: -0.01em;
+      font-weight: 700;
+    }
+    .sub-callout p {
+      color: var(--fg-dim);
+      margin: 0 0 16px;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .sub-callout ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 18px;
+      display: grid;
+      gap: 8px;
+    }
+    .sub-callout ul li {
+      color: var(--fg-dim);
+      font-size: 14px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .sub-callout ul li svg {
+      width: 16px; height: 16px;
+      color: var(--accent-cyan);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .sub-callout ul li strong { color: var(--fg); font-weight: 600; }
+    .sub-callout pre {
+      margin: 0;
+      font-size: 12.5px;
+    }
+    .sub-callout .pre-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--fg-mute);
+      margin-bottom: 8px;
+    }
+    @media (max-width: 760px) {
+      .sub-callout { grid-template-columns: 1fr; padding: 24px; }
+    }
+
     /* ---------- Stack row ---------- */
     .stack {
       display: grid;
@@ -566,7 +642,7 @@
       <span class="eyebrow"><span class="dot"></span> Open source · MIT · Windows build available</span>
       <h1>The lightweight code editor with <span class="grad">first-class AI</span>.</h1>
       <p class="tagline">
-        Bring your own model — Anthropic, OpenAI, Ollama, or Claude Code.
+        Bring your own model — Anthropic, OpenAI, Ollama, or sign in with Claude Code to use your <a href="#claude-subscription">existing Claude subscription</a>.
         ~30&nbsp;MB native, no telemetry, multi-window terminals, and a real BYOK AI panel built into the editor.
       </p>
       <div class="cta-row">
@@ -638,7 +714,7 @@
           <aside class="ai">
             <div class="ai-header">
               <span>AI</span>
-              <span class="ai-model"><span class="dot"></span> claude-opus-4</span>
+              <span class="ai-model"><span class="dot"></span> Claude Code · subscription</span>
             </div>
             <div class="ai-body">
               <div class="msg user">Refactor Editor.tsx to support split panes.</div>
@@ -662,7 +738,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 014 4v2h1a3 3 0 013 3v3a4 4 0 01-4 4h-1v1a3 3 0 01-6 0v-1H8a4 4 0 01-4-4v-3a3 3 0 013-3h1V6a4 4 0 014-4z"/></svg>
           </div>
           <h3>BYOK AI panel</h3>
-          <p>Anthropic, OpenAI, local Ollama, and the Claude Code CLI — switch models mid-conversation without leaving the editor.</p>
+          <p>Anthropic API, OpenAI, local Ollama — or sign in with the Claude Code CLI to use your <strong>existing Claude subscription</strong> with no extra API key.</p>
         </div>
         <div class="feature">
           <div class="icon">
@@ -719,6 +795,52 @@
           </div>
           <h3>Monaco-powered</h3>
           <p>The same editor core that drives VS Code — TypeScript, IntelliSense, and language features you already trust.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="claude-subscription">
+      <div class="sub-callout">
+        <div>
+          <span class="tag">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            No API key required
+          </span>
+          <h3>Use your Claude Pro or Max subscription</h3>
+          <p>
+            Already paying for Claude? Skip the API bill. Sign in once with the Claude Code CLI and Codetta routes its AI panel through your existing subscription — same models, same quotas, no per-token charges.
+          </p>
+          <ul>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Zero extra cost</strong> if you already have Claude Pro or Max — no Anthropic API key needed.</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Full model access</strong> — Opus, Sonnet, Haiku — driven by your subscription's plan limits, not a metered API balance.</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>One sign-in, everywhere</strong> — the same auth Claude Code uses in your terminal works inside Codetta.</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Switch any time</strong> — drop in an Anthropic, OpenAI, or local Ollama key from the same model picker.</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="pre-label">Three steps</div>
+<pre><code><span class="c"># 1. Install Claude Code (once)</span>
+npm i -g @anthropic-ai/claude-code
+
+<span class="c"># 2. Sign in with your Claude account</span>
+claude login
+
+<span class="c"># 3. In Codetta, pick "Claude Code"</span>
+<span class="c">#    in the AI panel's model picker.</span>
+<span class="c">#    That's it — no API key.</span></code></pre>
+          <div class="note">Don't have a subscription? Codetta still works with an Anthropic, OpenAI, or local Ollama key — pick whichever fits your workflow.</div>
         </div>
       </div>
     </section>
