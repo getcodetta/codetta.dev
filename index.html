@@ -27,8 +27,10 @@
   <meta name="twitter:image" content="https://codetta.dev/og-image.png" />
   <meta name="twitter:image:alt" content="Codetta — the lightweight code editor with first-class AI" />
 
-  <!-- Favicon — ⌘ glyph on the brand background -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%230b0d12'/%3E%3Ctext x='50' y='72' font-size='62' text-anchor='middle' fill='%236ea8ff' font-family='system-ui, -apple-system, sans-serif' font-weight='600'%3E%E2%8C%98%3C/text%3E%3C/svg%3E" />
+  <!-- Favicon — app icon -->
+  <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="512x512" href="/apple-touch-icon.png" />
   <link rel="preconnect" href="https://github.com" crossorigin />
 
   <style>
@@ -109,18 +111,14 @@
       align-items: center;
       gap: 10px;
       color: var(--fg);
+      text-decoration: none;
     }
+    nav .brand:hover { color: var(--fg); }
     nav .brand .logo {
-      width: 26px;
-      height: 26px;
-      border-radius: 7px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      display: grid;
-      place-items: center;
-      color: #0a0c10;
-      font-weight: 700;
-      font-size: 14px;
-      box-shadow: 0 4px 14px rgba(124,158,255,0.35);
+      width: 28px;
+      height: 28px;
+      display: block;
+      border-radius: 6px;
     }
     nav .spacer { flex: 1; }
     nav .nav-links { display: flex; gap: 22px; align-items: center; }
@@ -545,6 +543,59 @@
       .sub-callout { grid-template-columns: 1fr; padding: 24px; }
     }
 
+    /* ---------- Memory stat tiles ---------- */
+    .stat-tiles {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .stat-tile {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 14px;
+      text-align: center;
+    }
+    .stat-tile .num {
+      display: block;
+      font-size: clamp(22px, 3vw, 28px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .stat-tile .lbl {
+      font-size: 12px;
+      color: var(--fg-dim);
+      letter-spacing: 0.01em;
+    }
+    .compare-bar {
+      margin-top: 14px;
+      padding: 12px 14px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 12.5px;
+      color: var(--fg-dim);
+      line-height: 1.55;
+    }
+    .compare-bar strong { color: var(--fg); }
+    .compare-bar .vs {
+      display: inline-block;
+      padding: 1px 7px;
+      border-radius: 4px;
+      background: rgba(245,158,11,0.12);
+      color: var(--warn);
+      font-size: 11px;
+      font-weight: 600;
+      margin: 0 4px;
+      letter-spacing: 0.04em;
+    }
+
     /* ---------- Stack row ---------- */
     .stack {
       display: grid;
@@ -563,19 +614,146 @@
     .stack-item span { color: var(--fg-dim); }
 
     /* ---------- Install ---------- */
-    .install-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
+    .platforms {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
     }
-    @media (max-width: 720px) { .install-grid { grid-template-columns: 1fr; } }
-    .install-card {
+    .tab-bar {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      background: #131722;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 14px 16px;
+      background: transparent;
+      border: 0;
+      border-right: 1px solid var(--border);
+      color: var(--fg-dim);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: inherit;
+      transition: background .15s, color .15s;
+    }
+    .tab-btn:last-child { border-right: 0; }
+    .tab-btn:hover { color: var(--fg); background: rgba(255,255,255,0.02); }
+    .tab-btn.active {
+      color: var(--fg);
+      background: var(--bg-elev);
+      box-shadow: inset 0 -2px 0 var(--accent);
+    }
+    .tab-btn svg { width: 16px; height: 16px; }
+    .tab-panels { padding: 24px; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; animation: fadeIn .18s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; transform: none; } }
+
+    .download-primary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 20px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 18px;
+    }
+    .download-primary .info strong {
+      display: block;
+      color: var(--fg);
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+    .download-primary .info span {
+      color: var(--fg-dim);
+      font-size: 13px;
+    }
+    .download-primary .info code {
+      color: var(--fg-dim);
+      font-size: 12px;
+      background: rgba(255,255,255,0.03);
+      padding: 1px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    .alt-downloads {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .alt-downloads a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--fg);
+      font-size: 13px;
+      transition: border-color .15s, background .15s;
+    }
+    .alt-downloads a:hover {
+      border-color: var(--border-strong);
+      background: var(--bg-elev-2);
+      color: var(--fg);
+    }
+    .alt-downloads a .size {
+      color: var(--fg-mute);
+      font-size: 12px;
+    }
+    .platform-note {
+      color: var(--fg-mute);
+      font-size: 12.5px;
+      margin: 0;
+    }
+    .platform-note code {
+      background: rgba(255,255,255,0.03);
+      padding: 1px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      font-size: 12px;
+    }
+    .version-bar {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      align-items: center;
+      color: var(--fg-mute);
+      font-size: 13px;
+    }
+    .version-bar .ver-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--fg);
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .version-bar .ver-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-cyan); }
+
+    .source-card {
+      margin-top: 24px;
       background: var(--bg-elev);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: 22px;
     }
-    .install-card h3 {
+    .source-card h3 {
       margin: 0 0 6px;
       font-size: 15px;
       color: var(--fg);
@@ -584,11 +762,15 @@
       align-items: center;
       gap: 8px;
     }
-    .install-card h3 svg { width: 16px; height: 16px; color: var(--fg-dim); }
-    .install-card p {
+    .source-card h3 svg { width: 16px; height: 16px; color: var(--fg-dim); }
+    .source-card p {
       color: var(--fg-dim);
       font-size: 13px;
       margin: 0 0 14px;
+    }
+    @media (max-width: 560px) {
+      .tab-btn { padding: 12px 8px; font-size: 13px; }
+      .download-primary { flex-direction: column; align-items: stretch; text-align: left; }
     }
     pre {
       background: var(--bg-2);
@@ -632,10 +814,10 @@
   <div class="nav-wrap" id="navWrap">
     <div class="container">
       <nav>
-        <span class="brand">
-          <span class="logo" aria-hidden="true">⌘</span>
+        <a class="brand" href="/" aria-label="Codetta home">
+          <img class="logo" src="/favicon.png" alt="" width="28" height="28" />
           Codetta
-        </span>
+        </a>
         <span class="spacer"></span>
         <div class="nav-links">
           <a href="#features">Features</a>
@@ -659,13 +841,16 @@
         ~30&nbsp;MB native, no telemetry, multi-window terminals, and a real BYOK AI panel built into the editor.
       </p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="https://github.com/getcodetta/codetta/releases/latest">
+        <a id="heroDownload" class="btn btn-primary" href="https://github.com/getcodetta/codetta/releases/latest/download/Codetta_0.1.1_x64-setup.exe" data-os="windows">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
-          Download for Windows
+          <span data-download-label>Download for Windows</span>
+        </a>
+        <a class="btn btn-secondary" href="#install">
+          All downloads
         </a>
         <a class="btn btn-secondary" href="https://github.com/getcodetta/codetta">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.8 10.9.6.1.8-.2.8-.6v-2.1c-3.2.7-3.9-1.5-3.9-1.5-.5-1.4-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.5-1.5 7.8-5.8 7.8-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
-          View on GitHub
+          GitHub
         </a>
       </div>
       <div class="meta-row">
@@ -679,7 +864,7 @@
         </span>
         <span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
-          Multi-workspace
+          Many projects, one process
         </span>
         <span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l6-6-6-6"/><path d="M12 19h8"/></svg>
@@ -757,8 +942,8 @@
           <div class="icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
           </div>
-          <h3>Multi-workspace</h3>
-          <p>Open several projects side by side. Each keeps its own files, terminals, layout, and chat history — fully isolated.</p>
+          <h3>Multi-workspace, single window</h3>
+          <p>Open every project in <strong>one app, one process</strong>. Switch projects like switching tabs — each keeps its own files, terminals, layout, and chat history. No second window, no second Electron, no doubled RAM.</p>
         </div>
         <div class="feature">
           <div class="icon">
@@ -858,6 +1043,61 @@ claude login
       </div>
     </section>
 
+    <section id="memory">
+      <div class="sub-callout">
+        <div>
+          <span class="tag">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            Built for memory
+          </span>
+          <h3>One app, many projects — a fraction of the RAM</h3>
+          <p>
+            Most editors spawn a whole new window — a whole new process — for each project. Codetta keeps every workspace inside the same window. One Tauri process. One memory footprint. Switch projects with a hotkey, not a relaunch.
+          </p>
+          <ul>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Workspaces are tabs, not windows</strong> — open as many as you like, switch instantly, no app duplication.</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Persistent per-workspace state</strong> — files, terminals, layout, and chat history are remembered for each project, keyed by absolute path.</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Tauri 2 + system WebView</strong> — no bundled Chromium, so opening a second project doesn't double the resident memory.</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Pop a terminal out</strong> when you actually want a second window — re-dock with one click.</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="stat-tiles">
+            <div class="stat-tile">
+              <span class="num">1</span>
+              <span class="lbl">Process</span>
+            </div>
+            <div class="stat-tile">
+              <span class="num">∞</span>
+              <span class="lbl">Workspaces</span>
+            </div>
+            <div class="stat-tile">
+              <span class="num">~30 MB</span>
+              <span class="lbl">Native footprint</span>
+            </div>
+          </div>
+          <div class="compare-bar">
+            Open <strong>5 projects</strong> in Codetta — still one process, one window, one footprint.
+            <br>
+            <span class="vs">vs</span>
+            Open 5 projects in a typical Electron editor — five windows, five processes, gigabytes of RAM.
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section>
       <h2>What's inside</h2>
       <p class="lede">A small, intentional stack. Easy to reason about, fast to build from source.</p>
@@ -873,32 +1113,108 @@ claude login
 
     <section id="install">
       <h2>Install</h2>
-      <p class="lede">Grab the latest Windows installer, or build from source on any platform with a Rust toolchain.</p>
-      <div class="install-grid">
-        <div class="install-card">
-          <h3>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5l8-1v8H3zM13 4l8-1v10h-8zM3 13h8v8l-8-1zM13 13h8v9l-8-1z"/></svg>
+      <p class="lede">Native builds for Windows, macOS, and Linux. Pick your platform — we'll auto-select it for you.</p>
+
+      <!-- Release version: v0.1.1. Bump filenames + version pill when releasing a new tag. -->
+      <div class="platforms" id="platforms">
+        <div class="tab-bar" role="tablist" aria-label="Choose your platform">
+          <button class="tab-btn active" type="button" role="tab" data-os="windows" aria-controls="panel-windows" aria-selected="true">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5L10.5 4.5v7H3zM11.5 4.4L21 3v8.5h-9.5zM3 12.5h7.5v7L3 18.5zM11.5 12.5H21V21l-9.5-1.4z"/></svg>
             Windows
-          </h3>
-          <p>One-click installer. Auto-updates via GitHub Releases.</p>
-          <a class="btn btn-primary" href="https://github.com/getcodetta/codetta/releases/latest">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
-            Download latest release
-          </a>
-          <div class="note">macOS &amp; Linux builds coming soon — codebase is cross-platform; release pipeline is Windows-first today.</div>
+          </button>
+          <button class="tab-btn" type="button" role="tab" data-os="mac" aria-controls="panel-mac">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 1.5c.1 1.4-.5 2.7-1.3 3.6-.9.9-2.2 1.7-3.5 1.5-.2-1.4.5-2.7 1.3-3.6.9-.9 2.4-1.6 3.5-1.5zM20.6 17.4c-.5 1.1-1.1 2.2-1.9 3.2-1.1 1.4-2.2 2.7-3.9 2.7-1.7 0-2.2-1-4.1-1-1.9 0-2.5 1-4.1 1-1.7 0-3-1.5-4.1-2.9-2.2-2.9-3.9-8.3-1.6-12 1.1-1.8 3.1-3 5.2-3 1.7 0 3.3 1.1 4.1 1.1.9 0 2.7-1.4 4.7-1.2.8 0 3.1.3 4.6 2.5-2.4 1.5-2 4.7.1 7.5.6.8 1.4 1.6 1.0 2.1z"/></svg>
+            macOS
+          </button>
+          <button class="tab-btn" type="button" role="tab" data-os="linux" aria-controls="panel-linux">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c-2.5 0-4.5 2-4.5 4.5 0 1 .3 1.9.8 2.6-.5.6-1.5 1.9-1.8 3.7-.4 2.6.5 4.4-.4 6.4-.5 1.1-.6 2 0 2.5.6.5 1.7.4 2.6-.3.7-.5 1.1-1.5 2.4-1.5h2c1.3 0 1.7 1 2.4 1.5.9.7 2 .8 2.6.3.6-.5.5-1.4 0-2.5-.9-2 0-3.8-.4-6.4-.3-1.8-1.3-3.1-1.8-3.7.5-.7.8-1.6.8-2.6C16.5 4 14.5 2 12 2zm-1.5 3.5c.6 0 1 .4 1 1s-.4 1-1 1-1-.4-1-1 .4-1 1-1zm3 0c.6 0 1 .4 1 1s-.4 1-1 1-1-.4-1-1 .4-1 1-1zM12 8.5c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5z"/></svg>
+            Linux
+          </button>
         </div>
-        <div class="install-card">
-          <h3>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            Build from source
-          </h3>
-          <p>Requires Node 18+ and the Rust toolchain.</p>
+
+        <div class="tab-panels">
+          <!-- Windows -->
+          <div class="tab-panel active" data-os="windows" id="panel-windows" role="tabpanel">
+            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.1.1/Codetta_0.1.1_x64-setup.exe">
+              <span class="info">
+                <strong>Windows installer (.exe) — recommended</strong>
+                <span>NSIS installer · auto-update · 2.35 MB</span>
+              </span>
+              <span class="btn btn-primary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+                Download
+              </span>
+            </a>
+            <div class="alt-downloads">
+              <a href="https://github.com/getcodetta/codetta/releases/download/v0.1.1/Codetta_0.1.1_x64_en-US.msi">
+                Windows MSI <span class="size">3.43 MB</span>
+              </a>
+            </div>
+            <p class="platform-note">Requires Windows 10/11 with WebView2 (pre-installed on most modern Windows builds).</p>
+          </div>
+
+          <!-- macOS -->
+          <div class="tab-panel" data-os="mac" id="panel-mac" role="tabpanel">
+            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.1.1/Codetta_0.1.1_universal.dmg">
+              <span class="info">
+                <strong>macOS Universal disk image (.dmg)</strong>
+                <span>Apple Silicon + Intel · 6.82 MB</span>
+              </span>
+              <span class="btn btn-primary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+                Download
+              </span>
+            </a>
+            <div class="alt-downloads">
+              <a href="https://github.com/getcodetta/codetta/releases/download/v0.1.1/Codetta_universal.app.tar.gz">
+                App bundle (.app.tar.gz) <span class="size">6.75 MB</span>
+              </a>
+            </div>
+            <p class="platform-note">Unsigned build — first launch needs <code>System Settings → Privacy &amp; Security → Open Anyway</code>.</p>
+          </div>
+
+          <!-- Linux -->
+          <div class="tab-panel" data-os="linux" id="panel-linux" role="tabpanel">
+            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.1.1/Codetta_0.1.1_amd64.AppImage">
+              <span class="info">
+                <strong>Linux AppImage (.AppImage) — universal</strong>
+                <span>Portable, runs on any glibc-based distro · 78.2 MB</span>
+              </span>
+              <span class="btn btn-primary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+                Download
+              </span>
+            </a>
+            <div class="alt-downloads">
+              <a href="https://github.com/getcodetta/codetta/releases/download/v0.1.1/Codetta_0.1.1_amd64.deb">
+                Debian / Ubuntu (.deb) <span class="size">4.44 MB</span>
+              </a>
+              <a href="https://github.com/getcodetta/codetta/releases/download/v0.1.1/Codetta-0.1.1-1.x86_64.rpm">
+                Fedora / RHEL (.rpm) <span class="size">4.44 MB</span>
+              </a>
+            </div>
+            <p class="platform-note">After download: <code>chmod +x Codetta_*.AppImage</code> and run it. Needs <code>libwebkit2gtk-4.1</code>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="version-bar">
+        <span class="ver-pill"><span class="dot"></span> v0.1.1 · latest</span>
+        <a href="https://github.com/getcodetta/codetta/releases">All releases &amp; changelog</a>
+        <a href="https://github.com/getcodetta/codetta/releases/latest">Latest release on GitHub</a>
+      </div>
+
+      <div class="source-card">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          Or build from source
+        </h3>
+        <p>Requires Node 18+ and the Rust toolchain. Cross-platform.</p>
 <pre><code>git clone https://github.com/getcodetta/codetta.git
 cd codetta
 npm install
 npm run tauri dev</code></pre>
-          <div class="note">Or grab the CLI: <code>npm i -g codetta</code></div>
-        </div>
+        <p class="platform-note" style="margin-top:14px">CLI helper: <code>npm i -g codetta</code></p>
       </div>
     </section>
 
@@ -916,6 +1232,7 @@ npm run tauri dev</code></pre>
 
   <script>
     (function () {
+      // --- sticky nav scroll state ---
       var nav = document.getElementById('navWrap');
       var onScroll = function () {
         if (window.scrollY > 4) nav.classList.add('scrolled');
@@ -923,6 +1240,61 @@ npm run tauri dev</code></pre>
       };
       window.addEventListener('scroll', onScroll, { passive: true });
       onScroll();
+
+      // --- detect OS for download tabs + hero CTA ---
+      function detectOS() {
+        var ua = (navigator.userAgent || '').toLowerCase();
+        var p = (navigator.platform || '').toLowerCase();
+        if (/mac|iphone|ipad|ipod/.test(ua) || /mac/.test(p)) return 'mac';
+        if (/linux|x11|cros/.test(ua) || /linux/.test(p)) return 'linux';
+        return 'windows';
+      }
+
+      var DOWNLOADS = {
+        windows: {
+          label: 'Download for Windows',
+          href: 'https://github.com/getcodetta/codetta/releases/download/v0.1.1/Codetta_0.1.1_x64-setup.exe'
+        },
+        mac: {
+          label: 'Download for macOS',
+          href: 'https://github.com/getcodetta/codetta/releases/download/v0.1.1/Codetta_0.1.1_universal.dmg'
+        },
+        linux: {
+          label: 'Download for Linux',
+          href: 'https://github.com/getcodetta/codetta/releases/download/v0.1.1/Codetta_0.1.1_amd64.AppImage'
+        }
+      };
+
+      var detected = detectOS();
+
+      // Update hero CTA to match detected OS
+      var hero = document.getElementById('heroDownload');
+      if (hero && DOWNLOADS[detected]) {
+        hero.setAttribute('href', DOWNLOADS[detected].href);
+        hero.setAttribute('data-os', detected);
+        var heroLabel = hero.querySelector('[data-download-label]');
+        if (heroLabel) heroLabel.textContent = DOWNLOADS[detected].label;
+      }
+
+      // --- platform tab switching ---
+      var platforms = document.getElementById('platforms');
+      if (platforms) {
+        var tabs = platforms.querySelectorAll('.tab-btn');
+        var panels = platforms.querySelectorAll('.tab-panel');
+        function activate(os) {
+          tabs.forEach(function (t) {
+            t.classList.toggle('active', t.dataset.os === os);
+            t.setAttribute('aria-selected', t.dataset.os === os ? 'true' : 'false');
+          });
+          panels.forEach(function (p) {
+            p.classList.toggle('active', p.dataset.os === os);
+          });
+        }
+        tabs.forEach(function (t) {
+          t.addEventListener('click', function () { activate(t.dataset.os); });
+        });
+        activate(detected);
+      }
     })();
   </script>
 </body>
