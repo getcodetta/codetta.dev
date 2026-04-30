@@ -834,14 +834,14 @@
 
   <div class="container">
     <header class="hero">
-      <span class="eyebrow"><span class="dot"></span> Open source · MIT · Windows build available</span>
+      <span class="eyebrow"><span class="dot"></span> Source available · FSL-1.1-ALv2 · Windows build available</span>
       <h1>The lightweight code editor with <span class="grad">first-class AI</span>.</h1>
       <p class="tagline">
         Bring your own model — Anthropic, OpenAI, Ollama, or sign in with Claude Code to use your <a href="#claude-subscription">existing Claude subscription</a>.
         ~30&nbsp;MB native, no telemetry, multi-window terminals, and a real BYOK AI panel built into the editor.
       </p>
       <div class="cta-row">
-        <a id="heroDownload" class="btn btn-primary" href="https://github.com/getcodetta/codetta/releases/latest/download/Codetta_0.1.1_x64-setup.exe" data-os="windows">
+        <a id="heroDownload" class="btn btn-primary" href="https://github.com/getcodetta/codetta/releases/latest/download/Codetta_0.2.0_x64-setup.exe" data-os="windows">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
           <span data-download-label>Download for Windows</span>
         </a>
@@ -1107,7 +1107,7 @@ claude login
         <div class="stack-item"><strong>Monaco</strong><span>Editor core</span></div>
         <div class="stack-item"><strong>xterm.js</strong><span>Terminal emulator</span></div>
         <div class="stack-item"><strong>Vite</strong><span>Dev server &amp; bundler</span></div>
-        <div class="stack-item"><strong>MIT</strong><span>Free, open source</span></div>
+        <div class="stack-item"><strong>FSL-1.1</strong><span>Source available, free for personal &amp; non-commercial use</span></div>
       </div>
     </section>
 
@@ -1115,7 +1115,9 @@ claude login
       <h2>Install</h2>
       <p class="lede">Native builds for Windows, macOS, and Linux. Pick your platform — we'll auto-select it for you.</p>
 
-      <!-- Release version: v0.1.1. Bump filenames + version pill when releasing a new tag. -->
+      <!-- Release version: v0.2.0. Bump filenames + version pill when releasing a new tag.
+           Note: download links go live only after the GitHub draft release for the tag is published. -->
+
       <div class="platforms" id="platforms">
         <div class="tab-bar" role="tablist" aria-label="Choose your platform">
           <button class="tab-btn active" type="button" role="tab" data-os="windows" aria-controls="panel-windows" aria-selected="true">
@@ -1135,7 +1137,7 @@ claude login
         <div class="tab-panels">
           <!-- Windows -->
           <div class="tab-panel active" data-os="windows" id="panel-windows" role="tabpanel">
-            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.1.1/Codetta_0.1.1_x64-setup.exe">
+            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.2.0/Codetta_0.2.0_x64-setup.exe">
               <span class="info">
                 <strong>Windows installer (.exe) — recommended</strong>
                 <span>NSIS installer · auto-update · 2.35 MB</span>
@@ -1146,7 +1148,7 @@ claude login
               </span>
             </a>
             <div class="alt-downloads">
-              <a href="https://github.com/getcodetta/codetta/releases/download/v0.1.1/Codetta_0.1.1_x64_en-US.msi">
+              <a href="https://github.com/getcodetta/codetta/releases/download/v0.2.0/Codetta_0.2.0_x64_en-US.msi">
                 Windows MSI <span class="size">3.43 MB</span>
               </a>
             </div>
@@ -1155,7 +1157,7 @@ claude login
 
           <!-- macOS -->
           <div class="tab-panel" data-os="mac" id="panel-mac" role="tabpanel">
-            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.1.1/Codetta_0.1.1_universal.dmg">
+            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.2.0/Codetta_0.2.0_universal.dmg">
               <span class="info">
                 <strong>macOS Universal disk image (.dmg)</strong>
                 <span>Apple Silicon + Intel · 6.82 MB</span>
@@ -1166,7 +1168,7 @@ claude login
               </span>
             </a>
             <div class="alt-downloads">
-              <a href="https://github.com/getcodetta/codetta/releases/download/v0.1.1/Codetta_universal.app.tar.gz">
+              <a href="https://github.com/getcodetta/codetta/releases/download/v0.2.0/Codetta_universal.app.tar.gz">
                 App bundle (.app.tar.gz) <span class="size">6.75 MB</span>
               </a>
             </div>
@@ -1175,7 +1177,7 @@ claude login
 
           <!-- Linux -->
           <div class="tab-panel" data-os="linux" id="panel-linux" role="tabpanel">
-            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.1.1/Codetta_0.1.1_amd64.AppImage">
+            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.2.0/Codetta_0.2.0_amd64.AppImage">
               <span class="info">
                 <strong>Linux AppImage (.AppImage) — universal</strong>
                 <span>Portable, runs on any glibc-based distro · 78.2 MB</span>
@@ -1186,10 +1188,10 @@ claude login
               </span>
             </a>
             <div class="alt-downloads">
-              <a href="https://github.com/getcodetta/codetta/releases/download/v0.1.1/Codetta_0.1.1_amd64.deb">
+              <a href="https://github.com/getcodetta/codetta/releases/download/v0.2.0/Codetta_0.2.0_amd64.deb">
                 Debian / Ubuntu (.deb) <span class="size">4.44 MB</span>
               </a>
-              <a href="https://github.com/getcodetta/codetta/releases/download/v0.1.1/Codetta-0.1.1-1.x86_64.rpm">
+              <a href="https://github.com/getcodetta/codetta/releases/download/v0.2.0/Codetta-0.2.0-1.x86_64.rpm">
                 Fedora / RHEL (.rpm) <span class="size">4.44 MB</span>
               </a>
             </div>
@@ -1199,7 +1201,7 @@ claude login
       </div>
 
       <div class="version-bar">
-        <span class="ver-pill"><span class="dot"></span> v0.1.1 · latest</span>
+        <span class="ver-pill"><span class="dot"></span> v0.2.0 · latest</span>
         <a href="https://github.com/getcodetta/codetta/releases">All releases &amp; changelog</a>
         <a href="https://github.com/getcodetta/codetta/releases/latest">Latest release on GitHub</a>
       </div>
@@ -1223,7 +1225,7 @@ npm run tauri dev</code></pre>
         <a href="https://github.com/getcodetta/codetta">Source</a>
         <a href="https://github.com/getcodetta/codetta/issues">Issues</a>
         <a href="https://github.com/getcodetta/codetta/releases">Releases</a>
-        <a href="https://github.com/getcodetta/codetta/blob/main/LICENSE">MIT License</a>
+        <a href="https://github.com/getcodetta/codetta/blob/main/LICENSE">License (FSL-1.1)</a>
         <a href="https://www.npmjs.com/package/codetta">npm</a>
       </div>
       <p class="copy">Built with <a href="https://tauri.app">Tauri</a>. © 2026 Codetta Maintainers.</p>
@@ -1253,15 +1255,15 @@ npm run tauri dev</code></pre>
       var DOWNLOADS = {
         windows: {
           label: 'Download for Windows',
-          href: 'https://github.com/getcodetta/codetta/releases/download/v0.1.1/Codetta_0.1.1_x64-setup.exe'
+          href: 'https://github.com/getcodetta/codetta/releases/download/v0.2.0/Codetta_0.2.0_x64-setup.exe'
         },
         mac: {
           label: 'Download for macOS',
-          href: 'https://github.com/getcodetta/codetta/releases/download/v0.1.1/Codetta_0.1.1_universal.dmg'
+          href: 'https://github.com/getcodetta/codetta/releases/download/v0.2.0/Codetta_0.2.0_universal.dmg'
         },
         linux: {
           label: 'Download for Linux',
-          href: 'https://github.com/getcodetta/codetta/releases/download/v0.1.1/Codetta_0.1.1_amd64.AppImage'
+          href: 'https://github.com/getcodetta/codetta/releases/download/v0.2.0/Codetta_0.2.0_amd64.AppImage'
         }
       };
 
