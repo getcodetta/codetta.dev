@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Codetta — A lightweight desktop code editor with AI</title>
+  <meta name="description" content="A lightweight desktop code editor with first-class AI. Bring your own model — Anthropic, OpenAI, Ollama, or Claude Code. Free and open source." />
+  <meta property="og:title" content="Codetta" />
+  <meta property="og:description" content="A lightweight desktop code editor with first-class AI." />
+  <meta property="og:url" content="https://codetta.dev" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%8C%98%3C/text%3E%3C/svg%3E" />
+  <style>
+    :root {
+      --bg: #0f1115;
+      --bg-elev: #1a1d24;
+      --border: #2a2f38;
+      --fg: #e6e8eb;
+      --fg-dim: #9aa0a8;
+      --accent: #6ea8ff;
+      --accent-hover: #92bcff;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: var(--accent-hover); text-decoration: underline; }
+    .container { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+    nav {
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 14px;
+    }
+    nav .brand { font-weight: 600; font-size: 16px; }
+    nav .spacer { flex: 1; }
+    nav a { color: var(--fg-dim); }
+    nav a:hover { color: var(--fg); text-decoration: none; }
+
+    header.hero { padding: 80px 0 60px; text-align: center; }
+    header.hero h1 {
+      font-size: clamp(36px, 6vw, 56px);
+      line-height: 1.1;
+      margin: 0 0 20px;
+      letter-spacing: -0.02em;
+    }
+    header.hero .tagline {
+      font-size: clamp(16px, 2.2vw, 20px);
+      color: var(--fg-dim);
+      max-width: 620px;
+      margin: 0 auto 36px;
+    }
+    .cta-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 15px;
+      transition: background 0.15s, border-color 0.15s;
+      border: 1px solid transparent;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #0a0c10;
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      text-decoration: none;
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--fg);
+      border-color: var(--border);
+    }
+    .btn-secondary:hover {
+      border-color: var(--fg-dim);
+      text-decoration: none;
+    }
+
+    section { padding: 56px 0; border-top: 1px solid var(--border); }
+    section h2 {
+      font-size: 24px;
+      margin: 0 0 28px;
+      letter-spacing: -0.01em;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .feature h3 {
+      font-size: 15px;
+      margin: 0 0 8px;
+      color: var(--fg);
+    }
+    .feature p {
+      font-size: 14px;
+      color: var(--fg-dim);
+      margin: 0;
+    }
+
+    pre {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 18px;
+      overflow-x: auto;
+      font-family: "SF Mono", Menlo, Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    code { font-family: "SF Mono", Menlo, Consolas, monospace; }
+
+    footer {
+      padding: 40px 0 60px;
+      color: var(--fg-dim);
+      font-size: 13px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--fg-dim); }
+    footer a:hover { color: var(--fg); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <span class="brand">⌘ Codetta</span>
+      <span class="spacer"></span>
+      <a href="https://github.com/getcodetta/codetta">GitHub</a>
+      <a href="https://www.npmjs.com/package/codetta">npm</a>
+      <a href="#install">Install</a>
+    </nav>
+
+    <header class="hero">
+      <h1>The lightweight code editor with first-class AI.</h1>
+      <p class="tagline">
+        Bring your own model — Anthropic, OpenAI, Ollama, or Claude Code.
+        ~30&nbsp;MB, no telemetry, multi-window terminals, and a real BYOK AI panel.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://github.com/getcodetta/codetta/releases/latest">Download for Windows</a>
+        <a class="btn btn-secondary" href="https://github.com/getcodetta/codetta">View on GitHub</a>
+      </div>
+    </header>
+
+    <section>
+      <h2>Why Codetta</h2>
+      <div class="features">
+        <div class="feature">
+          <h3>BYOK AI panel</h3>
+          <p>Anthropic, OpenAI, local Ollama, and the Claude Code CLI — switch models mid-conversation.</p>
+        </div>
+        <div class="feature">
+          <h3>Multi-workspace</h3>
+          <p>Open several projects side by side. Each keeps its own files, terminals, layout, and chat history.</p>
+        </div>
+        <div class="feature">
+          <h3>Pop-out terminals</h3>
+          <p>Drag a terminal into its own OS window for the second monitor. Re-dock with one click.</p>
+        </div>
+        <div class="feature">
+          <h3>No telemetry</h3>
+          <p>Zero phone-home. Your code, your keys, your machine.</p>
+        </div>
+        <div class="feature">
+          <h3>~30 MB native</h3>
+          <p>Tauri 2 + Rust backend. Doesn't ship a browser; uses your system WebView2.</p>
+        </div>
+        <div class="feature">
+          <h3>Drag-and-drop splits</h3>
+          <p>Grab any tab, drop on an edge — instant horizontal or vertical split.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="install">
+      <h2>Install</h2>
+      <p style="color: var(--fg-dim); margin-top: 0;">Windows installer:</p>
+      <p>
+        <a class="btn btn-primary" href="https://github.com/getcodetta/codetta/releases/latest">Download latest release</a>
+      </p>
+      <p style="color: var(--fg-dim); margin-top: 32px;">Or build from source:</p>
+<pre><code>git clone https://github.com/getcodetta/codetta.git
+cd codetta
+npm install
+npm run tauri dev</code></pre>
+      <p style="color: var(--fg-dim); font-size: 13px;">
+        Requires Node 18+ and the Rust toolchain. macOS / Linux builds coming soon — the codebase is cross-platform; only the release pipeline is Windows-first today.
+      </p>
+    </section>
+
+    <footer>
+      <p>
+        <a href="https://github.com/getcodetta/codetta">Source</a> ·
+        <a href="https://github.com/getcodetta/codetta/issues">Issues</a> ·
+        <a href="https://github.com/getcodetta/codetta/blob/main/LICENSE">MIT License</a>
+      </p>
+      <p>Built with <a href="https://tauri.app">Tauri</a>. © 2026 Codetta Maintainers.</p>
+    </footer>
+  </div>
+</body>
+</html>
