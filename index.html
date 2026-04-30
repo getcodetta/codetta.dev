@@ -3,60 +3,170 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b0d12" />
   <title>Codetta — A lightweight desktop code editor with AI</title>
-  <meta name="description" content="A lightweight desktop code editor with first-class AI. Bring your own model — Anthropic, OpenAI, Ollama, or Claude Code. Free and open source." />
-  <meta property="og:title" content="Codetta" />
-  <meta property="og:description" content="A lightweight desktop code editor with first-class AI." />
+  <meta name="description" content="A lightweight desktop code editor with first-class AI. Bring your own model — Anthropic, OpenAI, Ollama, or Claude Code. ~30 MB, no telemetry, free and open source." />
+
+  <meta property="og:title" content="Codetta — Lightweight code editor with first-class AI" />
+  <meta property="og:description" content="BYOK AI panel, multi-workspace, pop-out terminals. ~30 MB native. No telemetry. Open source." />
   <meta property="og:url" content="https://codetta.dev" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Codetta" />
+  <meta name="twitter:description" content="Lightweight desktop code editor with first-class AI. BYOK. No telemetry. Open source." />
+
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%8C%98%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://github.com" crossorigin />
+
   <style>
     :root {
-      --bg: #0f1115;
-      --bg-elev: #1a1d24;
-      --border: #2a2f38;
-      --fg: #e6e8eb;
-      --fg-dim: #9aa0a8;
-      --accent: #6ea8ff;
-      --accent-hover: #92bcff;
+      --bg: #0b0d12;
+      --bg-2: #10131a;
+      --bg-elev: #161a23;
+      --bg-elev-2: #1c2230;
+      --border: #232938;
+      --border-strong: #2e3548;
+      --fg: #e9ecf2;
+      --fg-dim: #9aa3b2;
+      --fg-mute: #6b7280;
+      --accent: #7c9eff;
+      --accent-2: #a78bfa;
+      --accent-cyan: #5eead4;
+      --accent-hover: #a8c0ff;
+      --warn: #f59e0b;
+      --shadow: 0 1px 0 rgba(255,255,255,0.04) inset, 0 8px 24px rgba(0,0,0,0.35);
+      --radius: 10px;
+      --radius-lg: 14px;
     }
+
     * { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif;
       background: var(--bg);
       color: var(--fg);
       line-height: 1.55;
       -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
     }
+
+    /* ambient glow */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -20% -10% auto -10%;
+      height: 70vh;
+      background:
+        radial-gradient(40% 60% at 30% 20%, rgba(124,158,255,0.18), transparent 70%),
+        radial-gradient(35% 50% at 75% 10%, rgba(167,139,250,0.14), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
     a { color: var(--accent); text-decoration: none; }
-    a:hover { color: var(--accent-hover); text-decoration: underline; }
-    .container { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+    a:hover { color: var(--accent-hover); }
+
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+    /* ---------- Nav ---------- */
+    .nav-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: saturate(140%) blur(10px);
+      -webkit-backdrop-filter: saturate(140%) blur(10px);
+      background: rgba(11,13,18,0.72);
+      border-bottom: 1px solid transparent;
+      transition: border-color .2s ease;
+    }
+    .nav-wrap.scrolled { border-bottom-color: var(--border); }
     nav {
-      padding: 20px 0;
+      padding: 14px 0;
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 22px;
       font-size: 14px;
     }
-    nav .brand { font-weight: 600; font-size: 16px; }
+    nav .brand {
+      font-weight: 600;
+      font-size: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--fg);
+    }
+    nav .brand .logo {
+      width: 26px;
+      height: 26px;
+      border-radius: 7px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: grid;
+      place-items: center;
+      color: #0a0c10;
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: 0 4px 14px rgba(124,158,255,0.35);
+    }
     nav .spacer { flex: 1; }
-    nav a { color: var(--fg-dim); }
-    nav a:hover { color: var(--fg); text-decoration: none; }
+    nav .nav-links { display: flex; gap: 22px; align-items: center; }
+    nav .nav-links a { color: var(--fg-dim); }
+    nav .nav-links a:hover { color: var(--fg); }
+    nav .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--fg);
+      background: var(--bg-elev);
+      font-size: 13px;
+    }
+    nav .pill:hover { border-color: var(--border-strong); }
+    nav .pill svg { width: 14px; height: 14px; }
+    @media (max-width: 640px) {
+      nav .nav-links a:not(.pill) { display: none; }
+    }
 
-    header.hero { padding: 80px 0 60px; text-align: center; }
+    /* ---------- Hero ---------- */
+    header.hero { padding: 80px 0 40px; text-align: center; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      background: rgba(22,26,35,0.6);
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--fg-dim);
+      margin-bottom: 24px;
+    }
+    .eyebrow .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent-cyan);
+      box-shadow: 0 0 10px var(--accent-cyan);
+    }
     header.hero h1 {
-      font-size: clamp(36px, 6vw, 56px);
-      line-height: 1.1;
+      font-size: clamp(38px, 6.2vw, 64px);
+      line-height: 1.05;
       margin: 0 0 20px;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.025em;
+      font-weight: 700;
+    }
+    header.hero h1 .grad {
+      background: linear-gradient(135deg, var(--accent) 10%, var(--accent-2) 90%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
     header.hero .tagline {
-      font-size: clamp(16px, 2.2vw, 20px);
+      font-size: clamp(16px, 2.1vw, 19px);
       color: var(--fg-dim);
-      max-width: 620px;
-      margin: 0 auto 36px;
+      max-width: 640px;
+      margin: 0 auto 32px;
     }
     .cta-row {
       display: flex;
@@ -65,153 +175,620 @@
       flex-wrap: wrap;
     }
     .btn {
-      display: inline-block;
-      padding: 12px 24px;
-      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: var(--radius);
       font-weight: 500;
       font-size: 15px;
-      transition: background 0.15s, border-color 0.15s;
+      transition: transform .12s ease, background .15s, border-color .15s, box-shadow .15s;
       border: 1px solid transparent;
+      cursor: pointer;
     }
+    .btn svg { width: 16px; height: 16px; }
+    .btn:active { transform: translateY(1px); }
     .btn-primary {
-      background: var(--accent);
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
       color: #0a0c10;
+      box-shadow: 0 8px 24px rgba(124,158,255,0.30);
     }
-    .btn-primary:hover {
-      background: var(--accent-hover);
-      text-decoration: none;
-    }
+    .btn-primary:hover { filter: brightness(1.06); color: #0a0c10; }
     .btn-secondary {
-      background: transparent;
+      background: var(--bg-elev);
       color: var(--fg);
       border-color: var(--border);
     }
-    .btn-secondary:hover {
-      border-color: var(--fg-dim);
-      text-decoration: none;
+    .btn-secondary:hover { border-color: var(--border-strong); background: var(--bg-elev-2); color: var(--fg); }
+
+    .meta-row {
+      margin-top: 22px;
+      display: flex;
+      justify-content: center;
+      gap: 22px;
+      flex-wrap: wrap;
+      color: var(--fg-mute);
+      font-size: 13px;
+    }
+    .meta-row span { display: inline-flex; align-items: center; gap: 6px; }
+    .meta-row svg { width: 14px; height: 14px; opacity: 0.8; }
+
+    /* ---------- Editor preview ---------- */
+    .preview-wrap {
+      margin: 56px auto 0;
+      max-width: 980px;
+      padding: 0 8px;
+    }
+    .preview {
+      border: 1px solid var(--border);
+      background: var(--bg-2);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 1px 0 rgba(255,255,255,0.04) inset;
+      overflow: hidden;
+    }
+    .preview .titlebar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: linear-gradient(180deg, #1a1f2c, #141823);
+      border-bottom: 1px solid var(--border);
+    }
+    .preview .traffic { display: flex; gap: 6px; }
+    .preview .traffic span {
+      width: 11px; height: 11px; border-radius: 50%; display: inline-block;
+    }
+    .traffic .r { background: #ff5f57; }
+    .traffic .y { background: #febc2e; }
+    .traffic .g { background: #28c840; }
+    .preview .title {
+      color: var(--fg-dim);
+      font-size: 12px;
+      margin: 0 auto;
+      letter-spacing: 0.02em;
     }
 
-    section { padding: 56px 0; border-top: 1px solid var(--border); }
-    section h2 {
-      font-size: 24px;
-      margin: 0 0 28px;
-      letter-spacing: -0.01em;
+    .preview .body {
+      display: grid;
+      grid-template-columns: 180px 1fr 280px;
+      min-height: 360px;
     }
+    .preview .sidebar {
+      background: #11151e;
+      border-right: 1px solid var(--border);
+      padding: 12px 8px;
+      font-size: 12.5px;
+      color: var(--fg-dim);
+    }
+    .preview .sidebar .label {
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--fg-mute);
+      font-size: 11px;
+      padding: 6px 8px 8px;
+    }
+    .preview .sidebar .item {
+      padding: 4px 8px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .preview .sidebar .item.active { background: #1d2433; color: var(--fg); }
+    .preview .sidebar .item .ico { width: 12px; height: 12px; opacity: .7; }
+    .preview .sidebar .nest { padding-left: 12px; }
+
+    .preview .editor {
+      background: var(--bg-2);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .preview .tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      background: #131722;
+      font-size: 12.5px;
+    }
+    .preview .tab {
+      padding: 10px 14px;
+      color: var(--fg-dim);
+      border-right: 1px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .preview .tab.active {
+      background: var(--bg-2);
+      color: var(--fg);
+      box-shadow: inset 0 2px 0 var(--accent);
+    }
+    .preview .code {
+      padding: 16px 18px;
+      font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+      font-size: 12.5px;
+      line-height: 1.65;
+      flex: 1;
+      overflow: hidden;
+      counter-reset: ln;
+    }
+    .preview .code .line { display: block; white-space: pre; }
+    .preview .code .line::before {
+      counter-increment: ln;
+      content: counter(ln);
+      display: inline-block;
+      width: 22px;
+      color: var(--fg-mute);
+      margin-right: 14px;
+      text-align: right;
+    }
+    .tk-k { color: #c084fc; }
+    .tk-s { color: #86efac; }
+    .tk-fn { color: #93c5fd; }
+    .tk-c { color: #6b7280; font-style: italic; }
+    .tk-n { color: #fcd34d; }
+    .tk-p { color: #f9a8d4; }
+
+    .preview .ai {
+      background: #10141d;
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .preview .ai-header {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--fg-dim);
+    }
+    .preview .ai-model {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      background: #1c2230;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--fg);
+      font-size: 11px;
+    }
+    .preview .ai-model .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-cyan); }
+    .preview .ai-body { padding: 12px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+    .preview .msg {
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 12.5px;
+      line-height: 1.55;
+    }
+    .preview .msg.user {
+      background: #1b2333;
+      align-self: flex-end;
+      max-width: 95%;
+      color: var(--fg);
+    }
+    .preview .msg.ai {
+      background: #161b27;
+      border: 1px solid var(--border);
+      color: var(--fg-dim);
+    }
+    .preview .msg.ai .accent { color: var(--accent); }
+    .preview .ai-input {
+      border-top: 1px solid var(--border);
+      padding: 10px 12px;
+      color: var(--fg-mute);
+      font-size: 12px;
+      background: #0e121b;
+    }
+    .preview .ai-input::before {
+      content: "> ";
+      color: var(--accent);
+    }
+
+    @media (max-width: 820px) {
+      .preview .body { grid-template-columns: 1fr; }
+      .preview .sidebar { display: none; }
+      .preview .ai { border-left: none; border-top: 1px solid var(--border); }
+    }
+
+    /* ---------- Sections ---------- */
+    section {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+      position: relative;
+    }
+    section h2 {
+      font-size: clamp(24px, 3vw, 32px);
+      margin: 0 0 14px;
+      letter-spacing: -0.015em;
+      font-weight: 700;
+    }
+    section .lede {
+      color: var(--fg-dim);
+      max-width: 620px;
+      margin: 0 0 36px;
+      font-size: 16px;
+    }
+
+    /* ---------- Features ---------- */
     .features {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
     }
+    .feature {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      padding: 22px;
+      border-radius: var(--radius-lg);
+      transition: transform .15s ease, border-color .15s, background .15s;
+    }
+    .feature:hover {
+      border-color: var(--border-strong);
+      background: var(--bg-elev-2);
+      transform: translateY(-2px);
+    }
+    .feature .icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, rgba(124,158,255,0.18), rgba(167,139,250,0.18));
+      display: grid;
+      place-items: center;
+      color: var(--accent);
+      margin-bottom: 14px;
+      border: 1px solid rgba(124,158,255,0.25);
+    }
+    .feature .icon svg { width: 18px; height: 18px; }
     .feature h3 {
       font-size: 15px;
-      margin: 0 0 8px;
+      margin: 0 0 6px;
       color: var(--fg);
+      font-weight: 600;
     }
     .feature p {
       font-size: 14px;
       color: var(--fg-dim);
       margin: 0;
+      line-height: 1.55;
     }
 
-    pre {
+    /* ---------- Stack row ---------- */
+    .stack {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 28px;
+    }
+    .stack-item {
+      padding: 14px 16px;
       background: var(--bg-elev);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 16px 18px;
-      overflow-x: auto;
-      font-family: "SF Mono", Menlo, Consolas, monospace;
+      border-radius: var(--radius);
       font-size: 13px;
-      line-height: 1.6;
     }
-    code { font-family: "SF Mono", Menlo, Consolas, monospace; }
+    .stack-item strong { display: block; color: var(--fg); margin-bottom: 4px; font-size: 14px; }
+    .stack-item span { color: var(--fg-dim); }
 
+    /* ---------- Install ---------- */
+    .install-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 720px) { .install-grid { grid-template-columns: 1fr; } }
+    .install-card {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+    }
+    .install-card h3 {
+      margin: 0 0 6px;
+      font-size: 15px;
+      color: var(--fg);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .install-card h3 svg { width: 16px; height: 16px; color: var(--fg-dim); }
+    .install-card p {
+      color: var(--fg-dim);
+      font-size: 13px;
+      margin: 0 0 14px;
+    }
+    pre {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      overflow-x: auto;
+      font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.65;
+      margin: 0;
+      color: var(--fg);
+    }
+    pre code .c { color: var(--fg-mute); }
+    code { font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace; }
+
+    .note {
+      margin-top: 14px;
+      color: var(--fg-mute);
+      font-size: 12.5px;
+    }
+
+    /* ---------- Footer ---------- */
     footer {
-      padding: 40px 0 60px;
+      padding: 48px 0 60px;
       color: var(--fg-dim);
       font-size: 13px;
       text-align: center;
       border-top: 1px solid var(--border);
     }
+    footer .ftr-links {
+      display: flex; justify-content: center; gap: 18px; flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
     footer a { color: var(--fg-dim); }
     footer a:hover { color: var(--fg); }
+    footer .copy { color: var(--fg-mute); font-size: 12px; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <nav>
-      <span class="brand">⌘ Codetta</span>
-      <span class="spacer"></span>
-      <a href="https://github.com/getcodetta/codetta">GitHub</a>
-      <a href="https://www.npmjs.com/package/codetta">npm</a>
-      <a href="#install">Install</a>
-    </nav>
+  <div class="nav-wrap" id="navWrap">
+    <div class="container">
+      <nav>
+        <span class="brand">
+          <span class="logo" aria-hidden="true">⌘</span>
+          Codetta
+        </span>
+        <span class="spacer"></span>
+        <div class="nav-links">
+          <a href="#features">Features</a>
+          <a href="#install">Install</a>
+          <a href="https://www.npmjs.com/package/codetta">npm</a>
+          <a class="pill" href="https://github.com/getcodetta/codetta" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.8 10.9.6.1.8-.2.8-.6v-2.1c-3.2.7-3.9-1.5-3.9-1.5-.5-1.4-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.5-1.5 7.8-5.8 7.8-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </nav>
+    </div>
+  </div>
 
+  <div class="container">
     <header class="hero">
-      <h1>The lightweight code editor with first-class AI.</h1>
+      <span class="eyebrow"><span class="dot"></span> Open source · MIT · Windows build available</span>
+      <h1>The lightweight code editor with <span class="grad">first-class AI</span>.</h1>
       <p class="tagline">
         Bring your own model — Anthropic, OpenAI, Ollama, or Claude Code.
-        ~30&nbsp;MB, no telemetry, multi-window terminals, and a real BYOK AI panel.
+        ~30&nbsp;MB native, no telemetry, multi-window terminals, and a real BYOK AI panel built into the editor.
       </p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="https://github.com/getcodetta/codetta/releases/latest">Download for Windows</a>
-        <a class="btn btn-secondary" href="https://github.com/getcodetta/codetta">View on GitHub</a>
+        <a class="btn btn-primary" href="https://github.com/getcodetta/codetta/releases/latest">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+          Download for Windows
+        </a>
+        <a class="btn btn-secondary" href="https://github.com/getcodetta/codetta">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.8 10.9.6.1.8-.2.8-.6v-2.1c-3.2.7-3.9-1.5-3.9-1.5-.5-1.4-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.5-1.5 7.8-5.8 7.8-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+          View on GitHub
+        </a>
+      </div>
+      <div class="meta-row">
+        <span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-9-9"/><path d="M21 3l-9 9"/></svg>
+          ~30 MB native
+        </span>
+        <span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1l3 6 6 .9-4.5 4.4 1 6.7L12 16l-5.5 3 1-6.7L3 7.9 9 7z"/></svg>
+          Zero telemetry
+        </span>
+        <span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+          Multi-workspace
+        </span>
+        <span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l6-6-6-6"/><path d="M12 19h8"/></svg>
+          Pop-out terminals
+        </span>
       </div>
     </header>
 
-    <section>
+    <div class="preview-wrap" aria-hidden="true">
+      <div class="preview">
+        <div class="titlebar">
+          <div class="traffic"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+          <div class="title">codetta — ~/projects/site</div>
+        </div>
+        <div class="body">
+          <aside class="sidebar">
+            <div class="label">Workspace</div>
+            <div class="item"><span class="ico">▸</span> src</div>
+            <div class="nest">
+              <div class="item"><span class="ico">▾</span> components</div>
+              <div class="nest">
+                <div class="item active"><span class="ico">·</span> Editor.tsx</div>
+                <div class="item"><span class="ico">·</span> Terminal.tsx</div>
+                <div class="item"><span class="ico">·</span> ChatPanel.tsx</div>
+              </div>
+              <div class="item"><span class="ico">▸</span> hooks</div>
+              <div class="item"><span class="ico">·</span> main.tsx</div>
+            </div>
+            <div class="item"><span class="ico">·</span> package.json</div>
+            <div class="item"><span class="ico">·</span> README.md</div>
+          </aside>
+
+          <section class="editor">
+            <div class="tabs">
+              <div class="tab active">
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                Editor.tsx
+              </div>
+              <div class="tab">ChatPanel.tsx</div>
+              <div class="tab">main.tsx</div>
+            </div>
+            <pre class="code"><span class="line"><span class="tk-c">// drag-and-drop splits, command palette, BYOK chat</span></span><span class="line"><span class="tk-k">import</span> { <span class="tk-fn">Monaco</span> } <span class="tk-k">from</span> <span class="tk-s">"@/editor"</span>;</span><span class="line"><span class="tk-k">import</span> { <span class="tk-fn">useWorkspace</span> } <span class="tk-k">from</span> <span class="tk-s">"@/state"</span>;</span><span class="line"></span><span class="line"><span class="tk-k">export function</span> <span class="tk-fn">Editor</span>() {</span><span class="line">  <span class="tk-k">const</span> ws = <span class="tk-fn">useWorkspace</span>();</span><span class="line">  <span class="tk-k">return</span> (</span><span class="line">    &lt;<span class="tk-p">Monaco</span></span><span class="line">      <span class="tk-n">path</span>={ws.<span class="tk-n">activeFile</span>}</span><span class="line">      <span class="tk-n">onChange</span>={ws.<span class="tk-fn">save</span>}</span><span class="line">    /&gt;</span><span class="line">  );</span><span class="line">}</span></pre>
+          </section>
+
+          <aside class="ai">
+            <div class="ai-header">
+              <span>AI</span>
+              <span class="ai-model"><span class="dot"></span> claude-opus-4</span>
+            </div>
+            <div class="ai-body">
+              <div class="msg user">Refactor Editor.tsx to support split panes.</div>
+              <div class="msg ai">
+                I'll add a <span class="accent">SplitContainer</span> that wraps Monaco and supports drag-to-edge splits. Should I keep tab state per pane?
+              </div>
+              <div class="msg user">Yes, per pane. Apply the change.</div>
+            </div>
+            <div class="ai-input">Ask about your code…</div>
+          </aside>
+        </div>
+      </div>
+    </div>
+
+    <section id="features">
       <h2>Why Codetta</h2>
+      <p class="lede">A small, focused editor that gets out of the way — with the AI tools you actually use, built directly into the surface.</p>
       <div class="features">
         <div class="feature">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 014 4v2h1a3 3 0 013 3v3a4 4 0 01-4 4h-1v1a3 3 0 01-6 0v-1H8a4 4 0 01-4-4v-3a3 3 0 013-3h1V6a4 4 0 014-4z"/></svg>
+          </div>
           <h3>BYOK AI panel</h3>
-          <p>Anthropic, OpenAI, local Ollama, and the Claude Code CLI — switch models mid-conversation.</p>
+          <p>Anthropic, OpenAI, local Ollama, and the Claude Code CLI — switch models mid-conversation without leaving the editor.</p>
         </div>
         <div class="feature">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+          </div>
           <h3>Multi-workspace</h3>
-          <p>Open several projects side by side. Each keeps its own files, terminals, layout, and chat history.</p>
+          <p>Open several projects side by side. Each keeps its own files, terminals, layout, and chat history — fully isolated.</p>
         </div>
         <div class="feature">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+          </div>
           <h3>Pop-out terminals</h3>
-          <p>Drag a terminal into its own OS window for the second monitor. Re-dock with one click.</p>
+          <p>Drag a terminal into its own OS window for the second monitor. Re-dock with one click. xterm.js under the hood.</p>
         </div>
         <div class="feature">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
           <h3>No telemetry</h3>
-          <p>Zero phone-home. Your code, your keys, your machine.</p>
+          <p>Zero phone-home. Your code, your keys, your machine. Settings and history stay on disk in your app data folder.</p>
         </div>
         <div class="feature">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+          </div>
           <h3>~30 MB native</h3>
-          <p>Tauri 2 + Rust backend. Doesn't ship a browser; uses your system WebView2.</p>
+          <p>Tauri 2 + Rust backend. Doesn't ship a browser; uses your system WebView2. Cold starts feel instant.</p>
         </div>
         <div class="feature">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="12" x2="21" y2="12"/></svg>
+          </div>
           <h3>Drag-and-drop splits</h3>
-          <p>Grab any tab, drop on an edge — instant horizontal or vertical split.</p>
+          <p>Grab any tab, drop on an edge — instant horizontal or vertical split. No nested config, no panel taxonomy to learn.</p>
         </div>
+        <div class="feature">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg>
+          </div>
+          <h3>Command palette</h3>
+          <p>One shortcut for files, commands, and settings. Fuzzy-matched, keyboard-first, and stays out of your way.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M6 9v6a3 3 0 003 3h6"/></svg>
+          </div>
+          <h3>Built-in source control</h3>
+          <p>Stage, diff, and commit without leaving the editor. Lean Git surface — the things you do every day, none you don't.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg>
+          </div>
+          <h3>Monaco-powered</h3>
+          <p>The same editor core that drives VS Code — TypeScript, IntelliSense, and language features you already trust.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>What's inside</h2>
+      <p class="lede">A small, intentional stack. Easy to reason about, fast to build from source.</p>
+      <div class="stack">
+        <div class="stack-item"><strong>Tauri 2</strong><span>Rust shell, system WebView</span></div>
+        <div class="stack-item"><strong>React 18</strong><span>UI rendering</span></div>
+        <div class="stack-item"><strong>Monaco</strong><span>Editor core</span></div>
+        <div class="stack-item"><strong>xterm.js</strong><span>Terminal emulator</span></div>
+        <div class="stack-item"><strong>Vite</strong><span>Dev server &amp; bundler</span></div>
+        <div class="stack-item"><strong>MIT</strong><span>Free, open source</span></div>
       </div>
     </section>
 
     <section id="install">
       <h2>Install</h2>
-      <p style="color: var(--fg-dim); margin-top: 0;">Windows installer:</p>
-      <p>
-        <a class="btn btn-primary" href="https://github.com/getcodetta/codetta/releases/latest">Download latest release</a>
-      </p>
-      <p style="color: var(--fg-dim); margin-top: 32px;">Or build from source:</p>
+      <p class="lede">Grab the latest Windows installer, or build from source on any platform with a Rust toolchain.</p>
+      <div class="install-grid">
+        <div class="install-card">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5l8-1v8H3zM13 4l8-1v10h-8zM3 13h8v8l-8-1zM13 13h8v9l-8-1z"/></svg>
+            Windows
+          </h3>
+          <p>One-click installer. Auto-updates via GitHub Releases.</p>
+          <a class="btn btn-primary" href="https://github.com/getcodetta/codetta/releases/latest">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+            Download latest release
+          </a>
+          <div class="note">macOS &amp; Linux builds coming soon — codebase is cross-platform; release pipeline is Windows-first today.</div>
+        </div>
+        <div class="install-card">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Build from source
+          </h3>
+          <p>Requires Node 18+ and the Rust toolchain.</p>
 <pre><code>git clone https://github.com/getcodetta/codetta.git
 cd codetta
 npm install
 npm run tauri dev</code></pre>
-      <p style="color: var(--fg-dim); font-size: 13px;">
-        Requires Node 18+ and the Rust toolchain. macOS / Linux builds coming soon — the codebase is cross-platform; only the release pipeline is Windows-first today.
-      </p>
+          <div class="note">Or grab the CLI: <code>npm i -g codetta</code></div>
+        </div>
+      </div>
     </section>
 
     <footer>
-      <p>
-        <a href="https://github.com/getcodetta/codetta">Source</a> ·
-        <a href="https://github.com/getcodetta/codetta/issues">Issues</a> ·
+      <div class="ftr-links">
+        <a href="https://github.com/getcodetta/codetta">Source</a>
+        <a href="https://github.com/getcodetta/codetta/issues">Issues</a>
+        <a href="https://github.com/getcodetta/codetta/releases">Releases</a>
         <a href="https://github.com/getcodetta/codetta/blob/main/LICENSE">MIT License</a>
-      </p>
-      <p>Built with <a href="https://tauri.app">Tauri</a>. © 2026 Codetta Maintainers.</p>
+        <a href="https://www.npmjs.com/package/codetta">npm</a>
+      </div>
+      <p class="copy">Built with <a href="https://tauri.app">Tauri</a>. © 2026 Codetta Maintainers.</p>
     </footer>
   </div>
+
+  <script>
+    (function () {
+      var nav = document.getElementById('navWrap');
+      var onScroll = function () {
+        if (window.scrollY > 4) nav.classList.add('scrolled');
+        else nav.classList.remove('scrolled');
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+  </script>
 </body>
 </html>
