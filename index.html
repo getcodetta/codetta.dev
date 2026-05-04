@@ -746,6 +746,126 @@
     }
     .version-bar .ver-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-cyan); }
 
+    /* ---------- Live downloads tracker ---------- */
+    .downloads-tracker {
+      margin-top: 24px;
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+    }
+    .dl-tracker-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .dl-tracker-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--fg);
+      letter-spacing: 0.2px;
+    }
+    .dl-tracker-pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #2ecc71;
+      box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.5);
+      animation: dlpulse 2s ease-out infinite;
+    }
+    @keyframes dlpulse {
+      0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.55); }
+      70% { box-shadow: 0 0 0 8px rgba(46, 204, 113, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+    }
+    .dl-tracker-meta {
+      font-size: 11px;
+      color: var(--fg-mute);
+      font-family: var(--mono, ui-monospace, monospace);
+    }
+    .dl-tracker-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+    }
+    .dl-tracker-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .dl-tracker-num {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--fg);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+      transition: color 250ms ease;
+    }
+    .dl-tracker-num.is-loading { color: var(--fg-mute); }
+    .dl-tracker-num.just-updated {
+      color: var(--accent-cyan, #2ecc71);
+    }
+    .dl-tracker-lbl {
+      font-size: 12px;
+      color: var(--fg);
+      font-weight: 500;
+    }
+    .dl-tracker-sub {
+      font-size: 11px;
+      color: var(--fg-mute);
+    }
+    .dl-tracker-sub a {
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-color: var(--border);
+    }
+    .dl-tracker-sub a:hover { text-decoration-color: var(--accent-cyan); }
+
+    .dl-tracker-bar {
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .dl-tracker-bar-row {
+      display: grid;
+      grid-template-columns: 80px 60px 1fr;
+      gap: 12px;
+      align-items: center;
+      font-size: 12px;
+    }
+    .dl-tracker-bar-name { color: var(--fg); font-weight: 500; }
+    .dl-tracker-bar-count {
+      color: var(--fg-mute);
+      font-variant-numeric: tabular-nums;
+      font-family: var(--mono, ui-monospace, monospace);
+      text-align: right;
+    }
+    .dl-tracker-bar-track {
+      height: 6px;
+      background: var(--bg);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .dl-tracker-bar-fill {
+      height: 100%;
+      background: var(--accent-cyan);
+      border-radius: 3px;
+      width: 0;
+      transition: width 600ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .dl-tracker-bar-fill[data-os="mac"] { background: #b87aff; }
+    .dl-tracker-bar-fill[data-os="lin"] { background: #ff9e3d; }
+
     .source-card {
       margin-top: 24px;
       background: var(--bg-elev);
@@ -841,7 +961,7 @@
         ~30&nbsp;MB native, no telemetry, multi-window terminals, and a real BYOK AI panel built into the editor.
       </p>
       <div class="cta-row">
-        <a id="heroDownload" class="btn btn-primary" href="https://github.com/getcodetta/codetta/releases/latest/download/Codetta_0.2.0_x64-setup.exe" data-os="windows">
+        <a id="heroDownload" class="btn btn-primary" href="https://github.com/getcodetta/codetta/releases/latest/download/Codetta_0.3.0_x64-setup.exe" data-os="windows">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
           <span data-download-label>Download for Windows</span>
         </a>
@@ -1115,7 +1235,7 @@ claude login
       <h2>Install</h2>
       <p class="lede">Native builds for Windows, macOS, and Linux. Pick your platform — we'll auto-select it for you.</p>
 
-      <!-- Release version: v0.2.0. Bump filenames + version pill when releasing a new tag.
+      <!-- Release version: v0.3.0. Bump filenames + version pill when releasing a new tag.
            Note: download links go live only after the GitHub draft release for the tag is published. -->
 
       <div class="platforms" id="platforms">
@@ -1137,7 +1257,7 @@ claude login
         <div class="tab-panels">
           <!-- Windows -->
           <div class="tab-panel active" data-os="windows" id="panel-windows" role="tabpanel">
-            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.2.0/Codetta_0.2.0_x64-setup.exe">
+            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.3.0/Codetta_0.3.0_x64-setup.exe">
               <span class="info">
                 <strong>Windows installer (.exe) — recommended</strong>
                 <span>NSIS installer · auto-update · 2.35 MB</span>
@@ -1148,7 +1268,7 @@ claude login
               </span>
             </a>
             <div class="alt-downloads">
-              <a href="https://github.com/getcodetta/codetta/releases/download/v0.2.0/Codetta_0.2.0_x64_en-US.msi">
+              <a href="https://github.com/getcodetta/codetta/releases/download/v0.3.0/Codetta_0.3.0_x64_en-US.msi">
                 Windows MSI <span class="size">3.43 MB</span>
               </a>
             </div>
@@ -1157,7 +1277,7 @@ claude login
 
           <!-- macOS -->
           <div class="tab-panel" data-os="mac" id="panel-mac" role="tabpanel">
-            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.2.0/Codetta_0.2.0_universal.dmg">
+            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.3.0/Codetta_0.3.0_universal.dmg">
               <span class="info">
                 <strong>macOS Universal disk image (.dmg)</strong>
                 <span>Apple Silicon + Intel · 6.82 MB</span>
@@ -1168,7 +1288,7 @@ claude login
               </span>
             </a>
             <div class="alt-downloads">
-              <a href="https://github.com/getcodetta/codetta/releases/download/v0.2.0/Codetta_universal.app.tar.gz">
+              <a href="https://github.com/getcodetta/codetta/releases/download/v0.3.0/Codetta_universal.app.tar.gz">
                 App bundle (.app.tar.gz) <span class="size">6.75 MB</span>
               </a>
             </div>
@@ -1177,7 +1297,7 @@ claude login
 
           <!-- Linux -->
           <div class="tab-panel" data-os="linux" id="panel-linux" role="tabpanel">
-            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.2.0/Codetta_0.2.0_amd64.AppImage">
+            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.3.0/Codetta_0.3.0_amd64.AppImage">
               <span class="info">
                 <strong>Linux AppImage (.AppImage) — universal</strong>
                 <span>Portable, runs on any glibc-based distro · 78.2 MB</span>
@@ -1188,10 +1308,10 @@ claude login
               </span>
             </a>
             <div class="alt-downloads">
-              <a href="https://github.com/getcodetta/codetta/releases/download/v0.2.0/Codetta_0.2.0_amd64.deb">
+              <a href="https://github.com/getcodetta/codetta/releases/download/v0.3.0/Codetta_0.3.0_amd64.deb">
                 Debian / Ubuntu (.deb) <span class="size">4.44 MB</span>
               </a>
-              <a href="https://github.com/getcodetta/codetta/releases/download/v0.2.0/Codetta-0.2.0-1.x86_64.rpm">
+              <a href="https://github.com/getcodetta/codetta/releases/download/v0.3.0/Codetta-0.3.0-1.x86_64.rpm">
                 Fedora / RHEL (.rpm) <span class="size">4.44 MB</span>
               </a>
             </div>
@@ -1201,9 +1321,55 @@ claude login
       </div>
 
       <div class="version-bar">
-        <span class="ver-pill"><span class="dot"></span> v0.2.0 · latest</span>
+        <span class="ver-pill"><span class="dot"></span> v0.3.0 · latest</span>
         <a href="https://github.com/getcodetta/codetta/releases">All releases &amp; changelog</a>
         <a href="https://github.com/getcodetta/codetta/releases/latest">Latest release on GitHub</a>
+      </div>
+
+      <div class="downloads-tracker" id="downloadsTracker" aria-live="polite">
+        <div class="dl-tracker-head">
+          <span class="dl-tracker-title">
+            <span class="dl-tracker-pulse"></span>
+            Live downloads
+          </span>
+          <span class="dl-tracker-meta" id="dlTrackerMeta">Loading…</span>
+        </div>
+        <div class="dl-tracker-grid">
+          <div class="dl-tracker-stat">
+            <span class="dl-tracker-num" id="dlGhTotal">—</span>
+            <span class="dl-tracker-lbl">GitHub installs</span>
+            <span class="dl-tracker-sub" id="dlGhSub">across all releases</span>
+          </div>
+          <div class="dl-tracker-stat">
+            <span class="dl-tracker-num" id="dlNpmWeek">—</span>
+            <span class="dl-tracker-lbl">npm last 7 days</span>
+            <span class="dl-tracker-sub">
+              <a href="https://www.npmjs.com/package/codetta" rel="noopener">codetta on npm</a>
+            </span>
+          </div>
+          <div class="dl-tracker-stat">
+            <span class="dl-tracker-num" id="dlReleases">—</span>
+            <span class="dl-tracker-lbl">releases shipped</span>
+            <span class="dl-tracker-sub" id="dlLatestRel">latest: —</span>
+          </div>
+        </div>
+        <div class="dl-tracker-bar" id="dlTrackerBar" hidden>
+          <div class="dl-tracker-bar-row">
+            <span class="dl-tracker-bar-name">Windows</span>
+            <span class="dl-tracker-bar-count" id="dlWinCount">0</span>
+            <div class="dl-tracker-bar-track"><div class="dl-tracker-bar-fill" data-os="win" id="dlWinFill"></div></div>
+          </div>
+          <div class="dl-tracker-bar-row">
+            <span class="dl-tracker-bar-name">macOS</span>
+            <span class="dl-tracker-bar-count" id="dlMacCount">0</span>
+            <div class="dl-tracker-bar-track"><div class="dl-tracker-bar-fill" data-os="mac" id="dlMacFill"></div></div>
+          </div>
+          <div class="dl-tracker-bar-row">
+            <span class="dl-tracker-bar-name">Linux</span>
+            <span class="dl-tracker-bar-count" id="dlLinCount">0</span>
+            <div class="dl-tracker-bar-track"><div class="dl-tracker-bar-fill" data-os="lin" id="dlLinFill"></div></div>
+          </div>
+        </div>
       </div>
 
       <div class="source-card">
@@ -1255,15 +1421,15 @@ npm run tauri dev</code></pre>
       var DOWNLOADS = {
         windows: {
           label: 'Download for Windows',
-          href: 'https://github.com/getcodetta/codetta/releases/download/v0.2.0/Codetta_0.2.0_x64-setup.exe'
+          href: 'https://github.com/getcodetta/codetta/releases/download/v0.3.0/Codetta_0.3.0_x64-setup.exe'
         },
         mac: {
           label: 'Download for macOS',
-          href: 'https://github.com/getcodetta/codetta/releases/download/v0.2.0/Codetta_0.2.0_universal.dmg'
+          href: 'https://github.com/getcodetta/codetta/releases/download/v0.3.0/Codetta_0.3.0_universal.dmg'
         },
         linux: {
           label: 'Download for Linux',
-          href: 'https://github.com/getcodetta/codetta/releases/download/v0.2.0/Codetta_0.2.0_amd64.AppImage'
+          href: 'https://github.com/getcodetta/codetta/releases/download/v0.3.0/Codetta_0.3.0_amd64.AppImage'
         }
       };
 
@@ -1277,6 +1443,159 @@ npm run tauri dev</code></pre>
         var heroLabel = hero.querySelector('[data-download-label]');
         if (heroLabel) heroLabel.textContent = DOWNLOADS[detected].label;
       }
+
+      // --- live downloads tracker ---
+      // Fetches GitHub releases (per-asset download counts) + npm
+      // weekly downloads. Cached in localStorage for 5 min so repeat
+      // page views don't burn through GitHub's 60-req/hr unauth quota.
+      (function () {
+        var REPO = 'getcodetta/codetta';
+        var NPM_PKG = 'codetta';
+        var CACHE_KEY = 'codetta.dl.tracker.v1';
+        var CACHE_TTL_MS = 5 * 60 * 1000;
+
+        function fmt(n) {
+          if (n == null || isNaN(n)) return '—';
+          if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+          if (n >= 10000) return (n / 1000).toFixed(0) + 'k';
+          if (n >= 1000) return (n / 1000).toFixed(1) + 'k';
+          return String(n);
+        }
+
+        function classifyAsset(name) {
+          var n = (name || '').toLowerCase();
+          if (n.indexOf('.exe') >= 0 || n.indexOf('.msi') >= 0 || n.indexOf('-setup') >= 0 || n.indexOf('windows') >= 0 || n.indexOf('x64_en-us') >= 0) return 'win';
+          if (n.indexOf('.dmg') >= 0 || n.indexOf('.app') >= 0 || n.indexOf('darwin') >= 0 || n.indexOf('mac') >= 0 || n.indexOf('universal') >= 0) return 'mac';
+          if (n.indexOf('.appimage') >= 0 || n.indexOf('.deb') >= 0 || n.indexOf('.rpm') >= 0 || n.indexOf('linux') >= 0 || n.indexOf('amd64') >= 0 || n.indexOf('x86_64') >= 0) return 'lin';
+          return null;
+        }
+
+        function aggregate(releases) {
+          var totals = { all: 0, win: 0, mac: 0, lin: 0 };
+          var releaseCount = 0;
+          var latestTag = null;
+          (releases || []).forEach(function (r) {
+            if (r.draft) return;
+            releaseCount++;
+            if (!latestTag) latestTag = r.tag_name || null;
+            (r.assets || []).forEach(function (a) {
+              var c = a.download_count || 0;
+              totals.all += c;
+              var k = classifyAsset(a.name);
+              if (k && totals[k] !== undefined) totals[k] += c;
+            });
+          });
+          return { totals: totals, releaseCount: releaseCount, latestTag: latestTag };
+        }
+
+        function paint(data) {
+          var t = data.gh.totals;
+          var ghTotal = document.getElementById('dlGhTotal');
+          var ghSub = document.getElementById('dlGhSub');
+          var npmWeek = document.getElementById('dlNpmWeek');
+          var releases = document.getElementById('dlReleases');
+          var latestRel = document.getElementById('dlLatestRel');
+          var meta = document.getElementById('dlTrackerMeta');
+          var bar = document.getElementById('dlTrackerBar');
+
+          if (ghTotal) {
+            ghTotal.textContent = fmt(t.all);
+            ghTotal.classList.remove('is-loading');
+            ghTotal.classList.add('just-updated');
+            setTimeout(function () { ghTotal.classList.remove('just-updated'); }, 1500);
+          }
+          if (ghSub) ghSub.textContent = 'across ' + data.gh.releaseCount + ' release' + (data.gh.releaseCount === 1 ? '' : 's');
+          if (npmWeek) {
+            npmWeek.textContent = fmt(data.npm);
+            npmWeek.classList.remove('is-loading');
+          }
+          if (releases) {
+            releases.textContent = String(data.gh.releaseCount);
+            releases.classList.remove('is-loading');
+          }
+          if (latestRel && data.gh.latestTag) latestRel.textContent = 'latest: ' + data.gh.latestTag;
+
+          if (bar && t.all > 0) {
+            bar.hidden = false;
+            var max = Math.max(t.win, t.mac, t.lin, 1);
+            ['win', 'mac', 'lin'].forEach(function (os) {
+              var fill = document.getElementById('dl' + os.charAt(0).toUpperCase() + os.slice(1) + 'Fill');
+              var count = document.getElementById('dl' + os.charAt(0).toUpperCase() + os.slice(1) + 'Count');
+              if (fill) fill.style.width = ((t[os] / max) * 100) + '%';
+              if (count) count.textContent = fmt(t[os]);
+            });
+          }
+
+          if (meta) {
+            var d = new Date(data.fetchedAt);
+            meta.textContent = 'Updated ' + d.toLocaleTimeString();
+          }
+        }
+
+        function loadCached() {
+          try {
+            var raw = localStorage.getItem(CACHE_KEY);
+            if (!raw) return null;
+            var parsed = JSON.parse(raw);
+            if (!parsed || !parsed.fetchedAt) return null;
+            if (Date.now() - parsed.fetchedAt > CACHE_TTL_MS) return null;
+            return parsed;
+          } catch (_) { return null; }
+        }
+
+        function saveCached(data) {
+          try { localStorage.setItem(CACHE_KEY, JSON.stringify(data)); } catch (_) {}
+        }
+
+        function fail(msg) {
+          var meta = document.getElementById('dlTrackerMeta');
+          if (meta) meta.textContent = msg || 'Couldn\'t fetch counts';
+          ['dlGhTotal', 'dlNpmWeek', 'dlReleases'].forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el && el.textContent === '—') el.textContent = '–';
+          });
+        }
+
+        // Try cache first.
+        var cached = loadCached();
+        if (cached) {
+          paint(cached);
+        }
+
+        // Fetch fresh in background even if cache hit, so the user sees
+        // the latest numbers within ~1s of opening the page.
+        var ghPromise = fetch(
+          'https://api.github.com/repos/' + REPO + '/releases?per_page=100',
+          { headers: { 'Accept': 'application/vnd.github+json' } }
+        ).then(function (r) {
+          if (!r.ok) throw new Error('gh ' + r.status);
+          return r.json();
+        }).then(aggregate).catch(function (e) { console.warn('GH fetch failed', e); return null; });
+
+        var npmPromise = fetch(
+          'https://api.npmjs.org/downloads/point/last-week/' + NPM_PKG
+        ).then(function (r) {
+          if (!r.ok) throw new Error('npm ' + r.status);
+          return r.json();
+        }).then(function (j) { return j && typeof j.downloads === 'number' ? j.downloads : 0; })
+          .catch(function (e) { console.warn('npm fetch failed', e); return null; });
+
+        Promise.all([ghPromise, npmPromise]).then(function (results) {
+          var gh = results[0];
+          var npm = results[1];
+          if (!gh && npm == null) {
+            if (!cached) fail('Couldn\'t fetch counts');
+            return;
+          }
+          var data = {
+            gh: gh || { totals: { all: 0, win: 0, mac: 0, lin: 0 }, releaseCount: 0, latestTag: null },
+            npm: npm == null ? 0 : npm,
+            fetchedAt: Date.now(),
+          };
+          paint(data);
+          saveCached(data);
+        });
+      })();
 
       // --- platform tab switching ---
       var platforms = document.getElementById('platforms');
