@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0d12" />
+  <title>Features — Codetta</title>
+  <meta name="description" content="A deep look at Codetta's features: BYOK AI panel, Claude Code integration, SFTP with auto-push, multi-workspace, MCP servers, and the per-tool permission model." />
+  <link rel="canonical" href="https://codetta.dev/features.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Features — Codetta" />
+  <meta property="og:description" content="BYOK AI panel, Claude Code, SFTP edit-on-save, multi-workspace, MCP, per-tool permissions." />
+  <meta property="og:url" content="https://codetta.dev/features.html" />
+  <meta property="og:image" content="https://codetta.dev/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="512x512" href="/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/style.css" />
+  <!-- See index.html for setup instructions on these two snippets. -->
+  <meta name="google-site-verification" content="YOUR_GSC_TOKEN" />
+  <!-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "YOUR_CF_BEACON_TOKEN"}'></script> -->
+</head>
+<body>
+  <div class="nav-wrap" id="navWrap">
+    <div class="container">
+      <nav>
+        <a class="brand" href="/" aria-label="Codetta home">
+          <img class="logo" src="/favicon.png" alt="" width="28" height="28" />
+          Codetta
+        </a>
+        <span class="spacer"></span>
+        <div class="nav-links">
+          <a class="active" href="/features.html">Features</a>
+          <a href="/changelog.html">Changelog</a>
+          <a href="/docs.html">Docs</a>
+          <a href="/#install">Install</a>
+          <a href="https://www.npmjs.com/package/codetta">npm</a>
+          <a class="pill" href="https://github.com/getcodetta/codetta" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.8 10.9.6.1.8-.2.8-.6v-2.1c-3.2.7-3.9-1.5-3.9-1.5-.5-1.4-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.5-1.5 7.8-5.8 7.8-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <div class="container">
+    <header class="page-hero">
+      <h1>Features</h1>
+      <p>Everything Codetta puts in front of you, in detail. AI panel, Claude Code, SFTP, MCP, multi-workspace — and the small choices that make them feel right.</p>
+    </header>
+
+    <div class="deep-features">
+
+      <!-- 1. BYOK AI panel -->
+      <div class="deep-feature" id="ai">
+        <div class="deep-meta">
+          <span class="deep-tag">AI Panel</span>
+          <h2>Bring your own model</h2>
+          <p>
+            One panel. Anthropic API, OpenAI API, Ollama (local), or Claude Code. Pick per-chat, switch mid-conversation, and pay nobody for the editor itself — your keys, your spend.
+          </p>
+          <ul>
+            <li><strong>Claude Code</strong> uses your existing Claude Pro / Max subscription with no per-token bill.</li>
+            <li><strong>Anthropic + OpenAI</strong> use your API key locally; nothing routes through us.</li>
+            <li><strong>Ollama</strong> runs entirely on your machine — qwen, llama, deepseek, whatever you've pulled.</li>
+            <li><strong>Per-chat tabs</strong> with provider badges (CC / Cl / AI / OL), drag-to-reorder, refresh-resume mid-stream.</li>
+          </ul>
+        </div>
+        <div class="deep-visual">
+<span class="v-line"><span class="v-comment">// AIChatPanel — provider routing</span></span>
+<span class="v-line"><span class="v-key">switch</span> (provider) {</span>
+<span class="v-line">  <span class="v-key">case</span> <span class="v-str">"claude-code"</span>: <span class="v-key">return</span> <span class="v-fn">spawnCli</span>(prompt);</span>
+<span class="v-line">  <span class="v-key">case</span> <span class="v-str">"anthropic"</span>:   <span class="v-key">return</span> <span class="v-fn">apiAnthropic</span>(prompt);</span>
+<span class="v-line">  <span class="v-key">case</span> <span class="v-str">"openai"</span>:      <span class="v-key">return</span> <span class="v-fn">apiOpenAI</span>(prompt);</span>
+<span class="v-line">  <span class="v-key">case</span> <span class="v-str">"ollama"</span>:      <span class="v-key">return</span> <span class="v-fn">localLlm</span>(prompt);</span>
+<span class="v-line">}</span>
+<span class="v-line"></span>
+<span class="v-line"><span class="v-comment">// All four route the same ChatStreamEvent shape;</span></span>
+<span class="v-line"><span class="v-comment">// the panel never knows which one is talking.</span></span>
+        </div>
+      </div>
+
+      <!-- 2. Claude Code integration -->
+      <div class="deep-feature reverse" id="claude">
+        <div class="deep-meta">
+          <span class="deep-tag">Claude Code</span>
+          <h2>The Claude CLI, but with a UI</h2>
+          <p>
+            Codetta wraps the official <code>claude</code> CLI as a first-class provider. Subscribe once on Anthropic.com; spend zero dollars in Codetta. Permission cards, tool-by-tool always-allow rules, refresh-resume mid-stream, and per-chat session pinning so the CLI's context cache stays warm.
+          </p>
+          <ul>
+            <li><strong>Three-tier always-allow</strong> — Allow this session, Always allow this tool, Always allow this filetype.</li>
+            <li><strong>WebFetch + WebSearch gated</strong> through the same overlay so you can grant network access deliberately.</li>
+            <li><strong>Refresh-resume:</strong> reload the page mid-stream, the chat re-attaches and replays buffered events.</li>
+            <li><strong>Per-tool running rows</strong> with code preview — see what Edit / Write / Bash is about to do before the agent commits.</li>
+          </ul>
+        </div>
+        <div class="deep-visual">
+<span class="v-line"><span class="v-comment"># Permission card surfaces in the editor</span></span>
+<span class="v-line"><span class="v-key">PreToolUse</span>: Edit src/store.ts</span>
+<span class="v-line">  └─ <span class="v-fn">old_string:</span> <span class="v-str">"setActiveWorkspace: async ..."</span></span>
+<span class="v-line">  └─ <span class="v-fn">new_string:</span> <span class="v-str">"setActiveWorkspace: async (id) => {"</span></span>
+<span class="v-line"></span>
+<span class="v-line">  [✕ Deny]  [✓ Allow this session]</span>
+<span class="v-line">  [✓✓ Always allow Edit on .ts]</span>
+<span class="v-line">  [✓✓ Always allow Edit]  [✓ Allow once]</span>
+        </div>
+      </div>
+
+      <!-- 3. SFTP -->
+      <div class="deep-feature" id="sftp">
+        <div class="deep-meta">
+          <span class="deep-tag">SFTP · v0.3.2</span>
+          <h2>Edit remote like local</h2>
+          <p>
+            Connect to any SSH server (password or key), browse the remote tree in a sidebar, and edit files in the same Monaco buffer you use for local code. Auto-push on save, recursive directory sync, and a connection pool so browsing doesn't reconnect on every click.
+          </p>
+          <ul>
+            <li><strong>Connection pooling</strong> — one persistent SSH channel per profile; a list-dir click drops from ~1.5s to ~50ms.</li>
+            <li><strong>SSH key auth</strong> — optional private-key path on every profile, falls back to password.</li>
+            <li><strong>Auto-push on save</strong> — opt in per file with a click; tab title shows ↥ for opted-in buffers.</li>
+            <li><strong>Recursive sync</strong> — right-click a folder to upload or download whole trees over a single session.</li>
+            <li><strong>Type-to-confirm delete</strong> — folder deletes require typing the name back. No stray-click disasters.</li>
+          </ul>
+        </div>
+        <div class="deep-visual">
+<span class="v-line"><span class="v-comment">// Save → auto-push, fire-and-forget</span></span>
+<span class="v-line"><span class="v-key">await</span> <span class="v-fn">fs.writeFile</span>(path, content);</span>
+<span class="v-line"><span class="v-key">const</span> link = <span class="v-fn">lookupRemoteLink</span>(wsId, path);</span>
+<span class="v-line"><span class="v-key">if</span> (link?.autoPush) {</span>
+<span class="v-line">  <span class="v-key">const</span> session = <span class="v-fn">getActiveSftp</span>(wsId);</span>
+<span class="v-line">  <span class="v-key">if</span> (session?.profileId === link.profileId) {</span>
+<span class="v-line">    <span class="v-fn">invoke</span>(<span class="v-str">"sftp_write_file"</span>, {</span>
+<span class="v-line">      args: { ...session.conn, path: link.remotePath, content },</span>
+<span class="v-line">    }).<span class="v-fn">then</span>(() => <span class="v-fn">toast</span>(<span class="v-str">"↥ Auto-pushed"</span>));</span>
+<span class="v-line">  }</span>
+<span class="v-line">}</span>
+        </div>
+      </div>
+
+      <!-- 4. Multi-workspace -->
+      <div class="deep-feature reverse" id="workspace">
+        <div class="deep-meta">
+          <span class="deep-tag">Workspaces</span>
+          <h2>Many projects, one process</h2>
+          <p>
+            One running editor instance, every project as a tab in the activity bar. Per-workspace state lives in <code>%AppData%/codetta/workspaces/{id}/state.json</code> with atomic writes, so switching projects is instant and safe.
+          </p>
+          <ul>
+            <li><strong>Pop-out terminals</strong> — drag any terminal into a separate OS window; PTY survives the move.</li>
+            <li><strong>Split panes</strong> — drag tabs to any edge to split horizontally or vertically.</li>
+            <li><strong>AI chat tabs</strong> live in editor panes alongside files; pop the chat into its own pane while you read the diff.</li>
+            <li><strong>Refresh-resume</strong> survives across the whole UI — close the laptop, open it tomorrow, your panes are exactly as you left them.</li>
+          </ul>
+        </div>
+        <div class="deep-visual">
+<span class="v-line"><span class="v-comment">// Atomic per-workspace state writes</span></span>
+<span class="v-line"><span class="v-fn">workspace_state_save</span>(wsId, {</span>
+<span class="v-line">  layout: { editorRoot, bottomRoot, activePaneId, ... },</span>
+<span class="v-line">  files:  { ...openBuffers },</span>
+<span class="v-line">  terminals: { ...activePtys },</span>
+<span class="v-line">  aiChats:   { ...chatTabs },</span>
+<span class="v-line">});</span>
+<span class="v-line"></span>
+<span class="v-line"><span class="v-comment">// Writes to .tmp + atomic rename so a crash mid-save</span></span>
+<span class="v-line"><span class="v-comment">// can't leave a partial file on disk.</span></span>
+        </div>
+      </div>
+
+      <!-- 5. MCP servers -->
+      <div class="deep-feature" id="mcp">
+        <div class="deep-meta">
+          <span class="deep-tag">MCP</span>
+          <h2>Model Context Protocol, built in</h2>
+          <p>
+            Browse, install, and configure MCP servers without leaving the editor. Filesystem, Git, GitHub, Postgres, Puppeteer — pre-configured catalog with placeholder prompts so you can't ship a broken config to <code>~/.claude.json</code>.
+          </p>
+          <ul>
+            <li><strong>One-click install</strong> per server with input validation (path checks, GitHub-token prefixes, postgres URL schemes).</li>
+            <li><strong>Per-scope toggle</strong> — install user-level or per-project, with badges so you can tell at a glance.</li>
+            <li><strong>Editable post-install</strong> — re-run install to update env vars or paths without manually editing JSON.</li>
+          </ul>
+        </div>
+        <div class="deep-visual">
+<span class="v-line"><span class="v-comment">// MCP server browser → Settings</span></span>
+<span class="v-line">📁  filesystem      [↻ User] [+ Project]</span>
+<span class="v-line">⎇   git             [+ User] [↻ Project]</span>
+<span class="v-line">🐙  github          [+ User] [+ Project]  <span class="v-comment">// needs token</span></span>
+<span class="v-line">🐘  postgres        [+ User] [+ Project]  <span class="v-comment">// needs URL</span></span>
+<span class="v-line">🎭  puppeteer       [+ User] [+ Project]</span>
+<span class="v-line">🗄  sqlite          [+ User] [+ Project]</span>
+        </div>
+      </div>
+
+      <!-- 6. Permissions -->
+      <div class="deep-feature reverse" id="permissions">
+        <div class="deep-meta">
+          <span class="deep-tag">Trust</span>
+          <h2>Per-tool, per-prefix, per-extension</h2>
+          <p>
+            Three-tier always-allow lets the agent move fast on the boring stuff while still showing you the card on anything material. Bash gets per-prefix rules so <code>grep</code> + <code>npm</code> auto-allow but <code>rm</code> still asks.
+          </p>
+          <ul>
+            <li><strong>Allow this session</strong> — in-memory only, resets on app restart.</li>
+            <li><strong>Always allow &lt;tool&gt;</strong> — persisted; manage in Settings.</li>
+            <li><strong>Always allow Bash &lt;prefix&gt;</strong> — persisted per first-token (<code>grep</code>, <code>npm</code>, <code>git diff</code>).</li>
+            <li><strong>Always allow &lt;tool&gt; on .ext</strong> — persisted per filetype (Edit on .ts, Read on .json).</li>
+          </ul>
+        </div>
+        <div class="deep-visual">
+<span class="v-line"><span class="v-comment">// localStorage allowlist (Settings can edit)</span></span>
+<span class="v-line">[</span>
+<span class="v-line">  <span class="v-str">"Read"</span>,                       <span class="v-comment">// blanket tool</span></span>
+<span class="v-line">  <span class="v-str">"Bash:grep"</span>, <span class="v-str">"Bash:npm"</span>,    <span class="v-comment">// prefix gates</span></span>
+<span class="v-line">  <span class="v-str">"Ext:.ts:Edit"</span>,              <span class="v-comment">// per-filetype</span></span>
+<span class="v-line">  <span class="v-str">"Ext:.json:Read"</span></span>
+<span class="v-line">]</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="ftr-links">
+      <a href="https://github.com/getcodetta/codetta">Source</a>
+      <a href="https://github.com/getcodetta/codetta/issues">Issues</a>
+      <a href="/changelog.html">Changelog</a>
+      <a href="/docs.html">Docs</a>
+      <a href="https://github.com/getcodetta/codetta/blob/main/LICENSE">License (FSL-1.1)</a>
+    </div>
+    <p class="copy">Built with <a href="https://tauri.app">Tauri</a>. © 2026 Codetta Maintainers.</p>
+  </footer>
+
+  <script>
+    (function () {
+      var nav = document.getElementById('navWrap');
+      var onScroll = function () {
+        if (window.scrollY > 4) nav.classList.add('scrolled');
+        else nav.classList.remove('scrolled');
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+  </script>
+</body>
+</html>

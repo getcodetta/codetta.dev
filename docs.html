@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0d12" />
+  <title>Docs — Codetta</title>
+  <meta name="description" content="Get started with Codetta: install, set up your AI provider, and configure SFTP for editing remote files." />
+  <link rel="canonical" href="https://codetta.dev/docs.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Docs — Codetta" />
+  <meta property="og:description" content="Install, AI providers, SFTP, MCP — everything you need to get going." />
+  <meta property="og:url" content="https://codetta.dev/docs.html" />
+  <meta property="og:image" content="https://codetta.dev/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="512x512" href="/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/style.css" />
+  <!-- See index.html for setup instructions on these two snippets. -->
+  <meta name="google-site-verification" content="YOUR_GSC_TOKEN" />
+  <!-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "YOUR_CF_BEACON_TOKEN"}'></script> -->
+</head>
+<body>
+  <div class="nav-wrap" id="navWrap">
+    <div class="container">
+      <nav>
+        <a class="brand" href="/" aria-label="Codetta home">
+          <img class="logo" src="/favicon.png" alt="" width="28" height="28" />
+          Codetta
+        </a>
+        <span class="spacer"></span>
+        <div class="nav-links">
+          <a href="/features.html">Features</a>
+          <a href="/changelog.html">Changelog</a>
+          <a class="active" href="/docs.html">Docs</a>
+          <a href="/#install">Install</a>
+          <a href="https://www.npmjs.com/package/codetta">npm</a>
+          <a class="pill" href="https://github.com/getcodetta/codetta" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.8 10.9.6.1.8-.2.8-.6v-2.1c-3.2.7-3.9-1.5-3.9-1.5-.5-1.4-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.5-1.5 7.8-5.8 7.8-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <div class="container">
+    <header class="page-hero">
+      <h1>Docs</h1>
+      <p>Get from zero to editing remote files with AI assistance in about 5 minutes.</p>
+    </header>
+
+    <div class="docs-layout">
+      <aside class="docs-toc">
+        <div class="docs-toc-title">Contents</div>
+        <a href="#install">1. Install</a>
+        <a href="#first-launch">2. First launch</a>
+        <a href="#claude-code">3. Claude Code</a>
+        <a href="#api-keys">4. API keys</a>
+        <a href="#ollama">5. Local models (Ollama)</a>
+        <a href="#sftp">6. SFTP setup</a>
+        <a href="#mcp">7. MCP servers</a>
+        <a href="#shortcuts">8. Shortcuts</a>
+        <a href="#troubleshooting">9. Troubleshooting</a>
+      </aside>
+
+      <main class="docs-content">
+
+        <section id="install">
+          <h2>1. Install</h2>
+          <p>Codetta ships native installers for Windows, macOS, and Linux. Pick from the <a href="/#install">Install section</a> on the homepage, or hit a direct download:</p>
+          <ul>
+            <li><strong>Windows:</strong> <code>Codetta_0.3.2_x64-setup.exe</code> (NSIS, recommended) or <code>.msi</code></li>
+            <li><strong>macOS:</strong> <code>Codetta_0.3.2_universal.dmg</code> (Apple Silicon + Intel, unsigned — first launch needs Privacy &amp; Security → Open Anyway)</li>
+            <li><strong>Linux:</strong> <code>.AppImage</code> (universal), <code>.deb</code>, or <code>.rpm</code></li>
+          </ul>
+          <p>Or build from source:</p>
+<pre><code>git clone https://github.com/getcodetta/codetta.git
+cd codetta
+npm install
+npm run tauri dev</code></pre>
+          <p>Requires Node 18+ and the Rust toolchain. <code>npm i -g codetta</code> installs a CLI shim that prints a download pointer (the editor itself doesn't run from npm — it's a desktop app).</p>
+        </section>
+
+        <section id="first-launch">
+          <h2>2. First launch</h2>
+          <p>Open Codetta and you'll see an empty workspace picker. Click <strong>+ Open folder</strong> in the activity bar (left edge) and pick any project folder. Codetta loads the file tree, opens an empty editor pane, and spawns a default terminal in the bottom dock.</p>
+          <p>Your workspace state — open tabs, splits, terminals, AI chats — saves to <code>%AppData%/codetta/workspaces/{id}/state.json</code> on Windows (<code>~/Library/Application Support/codetta/...</code> on macOS, <code>~/.config/codetta/...</code> on Linux). Restart-safe; close the laptop and reopen tomorrow, your panes are exactly where you left them.</p>
+          <div class="docs-callout">
+            <strong>Multi-workspace:</strong> open more than one folder; they appear stacked in the activity bar. Click any to switch instantly. Each workspace gets its own AI chats, terminals, and SFTP connections.
+          </div>
+        </section>
+
+        <section id="claude-code">
+          <h2>3. Claude Code (recommended)</h2>
+          <p>If you have a Claude Pro or Max subscription, Claude Code is the cheapest way to use Codetta — your subscription covers usage, no per-token bills.</p>
+          <h3>Install the CLI</h3>
+<pre><code>npm install -g @anthropic-ai/claude-code
+claude /login</code></pre>
+          <p>Follow the OAuth flow. Once <code>claude --version</code> works in your terminal, Codetta auto-detects it on the next AI panel refresh.</p>
+          <h3>Use it in Codetta</h3>
+          <ol>
+            <li>Open the AI panel (☁ icon's neighbour, or <code>Ctrl+Shift+A</code>).</li>
+            <li>Click the model dropdown → pick <strong>claude-code: default</strong>.</li>
+            <li>Type a question. The CLI runs in a subprocess; you see its tool calls (Read / Edit / Bash) live in the panel.</li>
+          </ol>
+          <h3>Permission overlay</h3>
+          <p>Every Edit / Write / Bash / WebFetch / WebSearch tool call surfaces a permission card with three always-allow tiers:</p>
+          <ul>
+            <li><strong>Allow this session</strong> — in-memory only, resets on restart.</li>
+            <li><strong>Always allow &lt;tool&gt;</strong> — persisted; manage in Settings.</li>
+            <li><strong>Always allow Bash &lt;prefix&gt;</strong> — for Bash, gates by first-token (<code>grep</code>, <code>npm</code>, <code>git</code>).</li>
+          </ul>
+          <div class="docs-callout">
+            Bash is intentionally never blanket-allowed. You always opt in per-prefix. <code>rm</code> still surfaces every time unless you explicitly add <code>Bash:rm</code> to the allowlist.
+          </div>
+        </section>
+
+        <section id="api-keys">
+          <h2>4. API keys (Anthropic / OpenAI)</h2>
+          <p>If you'd rather pay per-token than subscribe, drop in an Anthropic or OpenAI key:</p>
+          <ol>
+            <li>Settings → <strong>AI Providers (Bring Your Own Key)</strong></li>
+            <li>Paste the key. It's stored in <code>localStorage</code> on this machine and sent directly from the app to the provider — never routed through us.</li>
+            <li>Pick a model from the dropdown in the AI panel.</li>
+          </ol>
+          <p>For OpenAI, get a key at <a href="https://platform.openai.com/api-keys">platform.openai.com/api-keys</a>. For Anthropic, <a href="https://console.anthropic.com/settings/keys">console.anthropic.com/settings/keys</a>.</p>
+        </section>
+
+        <section id="ollama">
+          <h2>5. Local models (Ollama)</h2>
+          <p>For fully-offline AI, install <a href="https://ollama.com">Ollama</a> and pull a model:</p>
+<pre><code>ollama pull qwen2.5-coder:7b
+# or larger
+ollama pull deepseek-coder-v2:16b</code></pre>
+          <p>Codetta auto-detects Ollama on <code>localhost:11434</code> and lists every model you've pulled. Pick one from the model dropdown. No key needed; no network.</p>
+          <div class="docs-callout">
+            Ollama models cold-start slowly (20-60s for 32B+ models). Codetta pre-warms the selected model on connect, so the first chat doesn't pay that cost.
+          </div>
+        </section>
+
+        <section id="sftp">
+          <h2>6. SFTP setup</h2>
+          <p>New in v0.3.2: edit remote files in the same Monaco buffer as local code, with auto-push on save and recursive directory sync.</p>
+          <h3>Add a connection</h3>
+          <ol>
+            <li>Click the <strong>☁</strong> icon in the activity bar to open the Remote panel.</li>
+            <li>Click <strong>+ Add connection</strong>.</li>
+            <li>Fill in host, port (default 22), username, password.</li>
+            <li>Optional: <strong>Default folder</strong> (e.g. <code>/var/www/site</code>) so Connect lands you in the right place.</li>
+            <li>Optional: <strong>Private key path</strong> (e.g. <code>C:/Users/me/.ssh/id_ed25519</code>) — key auth is tried first, password is fallback. For encrypted keys, the password doubles as the passphrase.</li>
+            <li>Click <strong>Test connection</strong> to verify, then <strong>Save &amp; connect</strong>.</li>
+          </ol>
+          <h3>Edit remote files</h3>
+          <p>Click any file in the remote tree. Codetta downloads it to <code>.codetta-remote-cache/</code> in your workspace and opens it in the editor. Edit, save with <code>Ctrl+S</code>.</p>
+          <p>To enable auto-push on every save: click the <strong>☆</strong> button in the panel header (becomes ★) — or right-click the file in the local tree → <em>Enable auto-push on save</em>. The file's tab title shows a small <strong>↥</strong> glyph to remind you.</p>
+          <h3>Bulk operations</h3>
+          <ul>
+            <li><strong>Push all dirty</strong> (⇈ in panel header): saves + pushes every linked dirty buffer in this workspace.</li>
+            <li><strong>Upload folder (recursive):</strong> right-click a remote folder → Upload local folder here, OR right-click a local folder → Upload to remote. Skips <code>.git</code>, <code>node_modules</code>, <code>dist</code>, etc.</li>
+            <li><strong>Download folder (recursive):</strong> right-click any remote folder → Download recursively to…</li>
+          </ul>
+          <div class="docs-callout">
+            <strong>Connection pooling:</strong> Codetta keeps one persistent SSH channel per profile. The first call pays connect + auth (~1s); every subsequent list/read/write reuses the channel (~50ms).
+          </div>
+        </section>
+
+        <section id="mcp">
+          <h2>7. MCP servers</h2>
+          <p>Settings → <strong>Claude Code — MCP servers</strong> opens a catalog of pre-configured Model Context Protocol servers (filesystem, git, github, postgres, puppeteer, sqlite). Click <em>+ User</em> or <em>+ Project</em> to install — Codetta prompts for any required values (paths, tokens, URLs) and writes a valid config to <code>~/.claude.json</code> or <code>./.mcp.json</code>.</p>
+          <p>Manual JSON editing is supported — just don't break the schema. Codetta reads <code>~/.claude.json</code> on every refresh.</p>
+        </section>
+
+        <section id="shortcuts">
+          <h2>8. Keyboard shortcuts</h2>
+          <ul>
+            <li><code>Ctrl/Cmd + S</code> — save active file</li>
+            <li><code>Ctrl/Cmd + Shift + S</code> — save all dirty files</li>
+            <li><code>Ctrl/Cmd + W</code> — close active tab</li>
+            <li><code>Ctrl/Cmd + Shift + P</code> — command palette</li>
+            <li><code>Ctrl/Cmd + P</code> — quick file open</li>
+            <li><code>Ctrl/Cmd + B</code> — toggle sidebar</li>
+            <li><code>Ctrl + ` </code> — toggle bottom panel</li>
+            <li><code>Ctrl/Cmd + ,</code> — settings</li>
+          </ul>
+        </section>
+
+        <section id="troubleshooting">
+          <h2>9. Troubleshooting</h2>
+          <h3>"claude CLI not found"</h3>
+          <p>Codetta looks for <code>claude</code> on PATH. If <code>claude --version</code> works in a fresh terminal but Codetta can't find it, restart the editor — it may have launched before the install completed. On Windows, the npm-installed Claude Code is <code>claude.cmd</code>; Codetta handles this but only after the first detection succeeds.</p>
+          <h3>SFTP connect hangs / times out</h3>
+          <p>The Rust SSH stack has a 30-second inactivity timeout. If the server doesn't respond in that window, the call errors out. Check firewall, host/port, and that the user actually exists on the remote. Try the same credentials with <code>ssh user@host</code> from a terminal first.</p>
+          <h3>"File is not valid UTF-8" gone — but file looks garbled</h3>
+          <p>v0.3.1 added GBK / Shift-JIS / Big5 / Windows-125x decoding via chardetng. If a file opens with mojibake, it likely has an unusual encoding chardetng misclassified. Open an issue with a sample file and we'll widen the detector.</p>
+          <h3>Terminal disappears when I hide + show the bottom panel</h3>
+          <p>Fixed in v0.3.1. If you're on an older build, upgrade.</p>
+          <h3>Anything else</h3>
+          <p>Open an issue: <a href="https://github.com/getcodetta/codetta/issues">github.com/getcodetta/codetta/issues</a>. Include your OS, Codetta version (Settings → bottom of the modal), and what you saw vs. what you expected.</p>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <footer>
+    <div class="ftr-links">
+      <a href="https://github.com/getcodetta/codetta">Source</a>
+      <a href="https://github.com/getcodetta/codetta/issues">Issues</a>
+      <a href="/features.html">Features</a>
+      <a href="/changelog.html">Changelog</a>
+      <a href="https://github.com/getcodetta/codetta/blob/main/LICENSE">License (FSL-1.1)</a>
+    </div>
+    <p class="copy">Built with <a href="https://tauri.app">Tauri</a>. © 2026 Codetta Maintainers.</p>
+  </footer>
+
+  <script>
+    (function () {
+      var nav = document.getElementById('navWrap');
+      var onScroll = function () {
+        if (window.scrollY > 4) nav.classList.add('scrolled');
+        else nav.classList.remove('scrolled');
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+  </script>
+</body>
+</html>

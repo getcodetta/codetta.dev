@@ -1,15 +1,15 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0b0d12" />
-  <title>Codetta — A lightweight desktop code editor with AI</title>
-  <meta name="description" content="A lightweight desktop code editor with first-class AI. Bring your own model — Anthropic, OpenAI, Ollama, or Claude Code. ~30 MB, no telemetry, free and open source." />
+  <title>Codetta â€” A lightweight desktop code editor with AI</title>
+  <meta name="description" content="A lightweight desktop code editor with first-class AI. Bring your own model â€” Anthropic, OpenAI, Ollama, or Claude Code. ~30 MB, no telemetry, free and open source." />
 
   <!-- Open Graph (Facebook, LinkedIn, Slack, Discord, etc.) -->
-  <meta property="og:title" content="Codetta — Lightweight code editor with first-class AI" />
-  <meta property="og:description" content="BYOK AI panel — Anthropic, OpenAI, Ollama, or Claude Code (use your existing Pro/Max subscription). Multi-workspace, pop-out terminals. ~30 MB native. No telemetry. Open source." />
+  <meta property="og:title" content="Codetta â€” Lightweight code editor with first-class AI" />
+  <meta property="og:description" content="BYOK AI panel â€” Anthropic, OpenAI, Ollama, or Claude Code (use your existing Pro/Max subscription). Multi-workspace, pop-out terminals. ~30 MB native. No telemetry. Open source." />
   <meta property="og:url" content="https://codetta.dev" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Codetta" />
@@ -18,917 +18,42 @@
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Codetta — the lightweight code editor with first-class AI" />
+  <meta property="og:image:alt" content="Codetta â€” the lightweight code editor with first-class AI" />
 
   <!-- Twitter / X large card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Codetta" />
-  <meta name="twitter:description" content="Lightweight desktop code editor with first-class AI. BYOK — Anthropic, OpenAI, Ollama, or Claude Code. No telemetry. Open source." />
+  <meta name="twitter:description" content="Lightweight desktop code editor with first-class AI. BYOK â€” Anthropic, OpenAI, Ollama, or Claude Code. No telemetry. Open source." />
   <meta name="twitter:image" content="https://codetta.dev/og-image.png" />
-  <meta name="twitter:image:alt" content="Codetta — the lightweight code editor with first-class AI" />
+  <meta name="twitter:image:alt" content="Codetta â€” the lightweight code editor with first-class AI" />
 
-  <!-- Favicon — app icon -->
+  <!-- Favicon â€” app icon -->
   <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" sizes="512x512" href="/apple-touch-icon.png" />
   <link rel="preconnect" href="https://github.com" crossorigin />
+  <link rel="stylesheet" href="/style.css" />
 
-  <style>
-    :root {
-      --bg: #0b0d12;
-      --bg-2: #10131a;
-      --bg-elev: #161a23;
-      --bg-elev-2: #1c2230;
-      --border: #232938;
-      --border-strong: #2e3548;
-      --fg: #e9ecf2;
-      --fg-dim: #9aa3b2;
-      --fg-mute: #6b7280;
-      --accent: #7c9eff;
-      --accent-2: #a78bfa;
-      --accent-cyan: #5eead4;
-      --accent-hover: #a8c0ff;
-      --warn: #f59e0b;
-      --shadow: 0 1px 0 rgba(255,255,255,0.04) inset, 0 8px 24px rgba(0,0,0,0.35);
-      --radius: 10px;
-      --radius-lg: 14px;
-    }
+  <!--
+    ╔═ Analytics ══════════════════════════════════════════════════
+    To wire up Google Search Console:
+      1. Go to https://search.google.com/search-console
+      2. Add property `https://codetta.dev`, pick "HTML tag" verification
+      3. Replace YOUR_GSC_TOKEN below with the content="…" value Google gives you
+      4. Re-deploy and click Verify in GSC
+  -->
+  <meta name="google-site-verification" content="YOUR_GSC_TOKEN" />
 
-    * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--fg);
-      line-height: 1.55;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-      overflow-x: hidden;
-    }
+  <!--
+    Cloudflare Web Analytics (privacy-respecting, no cookies, free):
+      1. Cloudflare Dashboard → Analytics → Web Analytics → Add a site
+      2. Pick "Manual install"
+      3. Replace YOUR_CF_BEACON_TOKEN below with the JSON token Cloudflare shows
+      4. Uncomment the script tag and re-deploy
+  -->
+  <!-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "YOUR_CF_BEACON_TOKEN"}'></script> -->
 
-    /* ambient glow */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: -20% -10% auto -10%;
-      height: 70vh;
-      background:
-        radial-gradient(40% 60% at 30% 20%, rgba(124,158,255,0.18), transparent 70%),
-        radial-gradient(35% 50% at 75% 10%, rgba(167,139,250,0.14), transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { color: var(--accent-hover); }
-
-    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
-
-    /* ---------- Nav ---------- */
-    .nav-wrap {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: saturate(140%) blur(10px);
-      -webkit-backdrop-filter: saturate(140%) blur(10px);
-      background: rgba(11,13,18,0.72);
-      border-bottom: 1px solid transparent;
-      transition: border-color .2s ease;
-    }
-    .nav-wrap.scrolled { border-bottom-color: var(--border); }
-    nav {
-      padding: 14px 0;
-      display: flex;
-      align-items: center;
-      gap: 22px;
-      font-size: 14px;
-    }
-    nav .brand {
-      font-weight: 600;
-      font-size: 16px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--fg);
-      text-decoration: none;
-    }
-    nav .brand:hover { color: var(--fg); }
-    nav .brand .logo {
-      width: 28px;
-      height: 28px;
-      display: block;
-      border-radius: 6px;
-    }
-    nav .spacer { flex: 1; }
-    nav .nav-links { display: flex; gap: 22px; align-items: center; }
-    nav .nav-links a { color: var(--fg-dim); }
-    nav .nav-links a:hover { color: var(--fg); }
-    nav .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 12px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      color: var(--fg);
-      background: var(--bg-elev);
-      font-size: 13px;
-    }
-    nav .pill:hover { border-color: var(--border-strong); }
-    nav .pill svg { width: 14px; height: 14px; }
-    @media (max-width: 640px) {
-      nav .nav-links a:not(.pill) { display: none; }
-    }
-
-    /* ---------- Hero ---------- */
-    header.hero { padding: 80px 0 40px; text-align: center; }
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 12px;
-      border: 1px solid var(--border);
-      background: rgba(22,26,35,0.6);
-      border-radius: 999px;
-      font-size: 12px;
-      color: var(--fg-dim);
-      margin-bottom: 24px;
-    }
-    .eyebrow .dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--accent-cyan);
-      box-shadow: 0 0 10px var(--accent-cyan);
-    }
-    header.hero h1 {
-      font-size: clamp(38px, 6.2vw, 64px);
-      line-height: 1.05;
-      margin: 0 0 20px;
-      letter-spacing: -0.025em;
-      font-weight: 700;
-    }
-    header.hero h1 .grad {
-      background: linear-gradient(135deg, var(--accent) 10%, var(--accent-2) 90%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    header.hero .tagline {
-      font-size: clamp(16px, 2.1vw, 19px);
-      color: var(--fg-dim);
-      max-width: 640px;
-      margin: 0 auto 32px;
-    }
-    .cta-row {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 22px;
-      border-radius: var(--radius);
-      font-weight: 500;
-      font-size: 15px;
-      transition: transform .12s ease, background .15s, border-color .15s, box-shadow .15s;
-      border: 1px solid transparent;
-      cursor: pointer;
-    }
-    .btn svg { width: 16px; height: 16px; }
-    .btn:active { transform: translateY(1px); }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #0a0c10;
-      box-shadow: 0 8px 24px rgba(124,158,255,0.30);
-    }
-    .btn-primary:hover { filter: brightness(1.06); color: #0a0c10; }
-    .btn-secondary {
-      background: var(--bg-elev);
-      color: var(--fg);
-      border-color: var(--border);
-    }
-    .btn-secondary:hover { border-color: var(--border-strong); background: var(--bg-elev-2); color: var(--fg); }
-
-    .meta-row {
-      margin-top: 22px;
-      display: flex;
-      justify-content: center;
-      gap: 22px;
-      flex-wrap: wrap;
-      color: var(--fg-mute);
-      font-size: 13px;
-    }
-    .meta-row span { display: inline-flex; align-items: center; gap: 6px; }
-    .meta-row svg { width: 14px; height: 14px; opacity: 0.8; }
-
-    /* ---------- Editor preview ---------- */
-    .preview-wrap {
-      margin: 56px auto 0;
-      max-width: 980px;
-      padding: 0 8px;
-    }
-    .preview {
-      border: 1px solid var(--border);
-      background: var(--bg-2);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 1px 0 rgba(255,255,255,0.04) inset;
-      overflow: hidden;
-    }
-    .preview .titlebar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-      background: linear-gradient(180deg, #1a1f2c, #141823);
-      border-bottom: 1px solid var(--border);
-    }
-    .preview .traffic { display: flex; gap: 6px; }
-    .preview .traffic span {
-      width: 11px; height: 11px; border-radius: 50%; display: inline-block;
-    }
-    .traffic .r { background: #ff5f57; }
-    .traffic .y { background: #febc2e; }
-    .traffic .g { background: #28c840; }
-    .preview .title {
-      color: var(--fg-dim);
-      font-size: 12px;
-      margin: 0 auto;
-      letter-spacing: 0.02em;
-    }
-
-    .preview .body {
-      display: grid;
-      grid-template-columns: 180px 1fr 280px;
-      min-height: 360px;
-    }
-    .preview .sidebar {
-      background: #11151e;
-      border-right: 1px solid var(--border);
-      padding: 12px 8px;
-      font-size: 12.5px;
-      color: var(--fg-dim);
-    }
-    .preview .sidebar .label {
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      color: var(--fg-mute);
-      font-size: 11px;
-      padding: 6px 8px 8px;
-    }
-    .preview .sidebar .item {
-      padding: 4px 8px;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .preview .sidebar .item.active { background: #1d2433; color: var(--fg); }
-    .preview .sidebar .item .ico { width: 12px; height: 12px; opacity: .7; }
-    .preview .sidebar .nest { padding-left: 12px; }
-
-    .preview .editor {
-      background: var(--bg-2);
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-    }
-    .preview .tabs {
-      display: flex;
-      border-bottom: 1px solid var(--border);
-      background: #131722;
-      font-size: 12.5px;
-    }
-    .preview .tab {
-      padding: 10px 14px;
-      color: var(--fg-dim);
-      border-right: 1px solid var(--border);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .preview .tab.active {
-      background: var(--bg-2);
-      color: var(--fg);
-      box-shadow: inset 0 2px 0 var(--accent);
-    }
-    .preview .code {
-      padding: 16px 18px;
-      font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
-      font-size: 12.5px;
-      line-height: 1.65;
-      flex: 1;
-      overflow: hidden;
-      counter-reset: ln;
-    }
-    .preview .code .line { display: block; white-space: pre; }
-    .preview .code .line::before {
-      counter-increment: ln;
-      content: counter(ln);
-      display: inline-block;
-      width: 22px;
-      color: var(--fg-mute);
-      margin-right: 14px;
-      text-align: right;
-    }
-    .tk-k { color: #c084fc; }
-    .tk-s { color: #86efac; }
-    .tk-fn { color: #93c5fd; }
-    .tk-c { color: #6b7280; font-style: italic; }
-    .tk-n { color: #fcd34d; }
-    .tk-p { color: #f9a8d4; }
-
-    .preview .ai {
-      background: #10141d;
-      border-left: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-    }
-    .preview .ai-header {
-      padding: 10px 14px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 12px;
-      color: var(--fg-dim);
-    }
-    .preview .ai-model {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 3px 8px;
-      background: #1c2230;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      color: var(--fg);
-      font-size: 11px;
-    }
-    .preview .ai-model .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-cyan); }
-    .preview .ai-body { padding: 12px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
-    .preview .msg {
-      padding: 10px 12px;
-      border-radius: 10px;
-      font-size: 12.5px;
-      line-height: 1.55;
-    }
-    .preview .msg.user {
-      background: #1b2333;
-      align-self: flex-end;
-      max-width: 95%;
-      color: var(--fg);
-    }
-    .preview .msg.ai {
-      background: #161b27;
-      border: 1px solid var(--border);
-      color: var(--fg-dim);
-    }
-    .preview .msg.ai .accent { color: var(--accent); }
-    .preview .ai-input {
-      border-top: 1px solid var(--border);
-      padding: 10px 12px;
-      color: var(--fg-mute);
-      font-size: 12px;
-      background: #0e121b;
-    }
-    .preview .ai-input::before {
-      content: "> ";
-      color: var(--accent);
-    }
-
-    @media (max-width: 820px) {
-      .preview .body { grid-template-columns: 1fr; }
-      .preview .sidebar { display: none; }
-      .preview .ai { border-left: none; border-top: 1px solid var(--border); }
-    }
-
-    /* ---------- Sections ---------- */
-    section {
-      padding: 80px 0;
-      border-top: 1px solid var(--border);
-      position: relative;
-    }
-    section h2 {
-      font-size: clamp(24px, 3vw, 32px);
-      margin: 0 0 14px;
-      letter-spacing: -0.015em;
-      font-weight: 700;
-    }
-    section .lede {
-      color: var(--fg-dim);
-      max-width: 620px;
-      margin: 0 0 36px;
-      font-size: 16px;
-    }
-
-    /* ---------- Features ---------- */
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
-    }
-    .feature {
-      background: var(--bg-elev);
-      border: 1px solid var(--border);
-      padding: 22px;
-      border-radius: var(--radius-lg);
-      transition: transform .15s ease, border-color .15s, background .15s;
-    }
-    .feature:hover {
-      border-color: var(--border-strong);
-      background: var(--bg-elev-2);
-      transform: translateY(-2px);
-    }
-    .feature .icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 9px;
-      background: linear-gradient(135deg, rgba(124,158,255,0.18), rgba(167,139,250,0.18));
-      display: grid;
-      place-items: center;
-      color: var(--accent);
-      margin-bottom: 14px;
-      border: 1px solid rgba(124,158,255,0.25);
-    }
-    .feature .icon svg { width: 18px; height: 18px; }
-    .feature h3 {
-      font-size: 15px;
-      margin: 0 0 6px;
-      color: var(--fg);
-      font-weight: 600;
-    }
-    .feature p {
-      font-size: 14px;
-      color: var(--fg-dim);
-      margin: 0;
-      line-height: 1.55;
-    }
-
-    /* ---------- Subscription callout ---------- */
-    .sub-callout {
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 28px;
-      align-items: center;
-      padding: 32px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      background:
-        radial-gradient(80% 120% at 0% 0%, rgba(124,158,255,0.10), transparent 60%),
-        radial-gradient(80% 120% at 100% 100%, rgba(167,139,250,0.10), transparent 60%),
-        var(--bg-elev);
-      box-shadow: var(--shadow);
-    }
-    .sub-callout .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(94,234,212,0.10);
-      border: 1px solid rgba(94,234,212,0.35);
-      color: var(--accent-cyan);
-      font-size: 12px;
-      font-weight: 500;
-      margin-bottom: 14px;
-    }
-    .sub-callout h3 {
-      margin: 0 0 10px;
-      font-size: clamp(20px, 2.4vw, 26px);
-      letter-spacing: -0.01em;
-      font-weight: 700;
-    }
-    .sub-callout p {
-      color: var(--fg-dim);
-      margin: 0 0 16px;
-      font-size: 15px;
-      line-height: 1.6;
-    }
-    .sub-callout ul {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 18px;
-      display: grid;
-      gap: 8px;
-    }
-    .sub-callout ul li {
-      color: var(--fg-dim);
-      font-size: 14px;
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-    }
-    .sub-callout ul li svg {
-      width: 16px; height: 16px;
-      color: var(--accent-cyan);
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-    .sub-callout ul li strong { color: var(--fg); font-weight: 600; }
-    .sub-callout pre {
-      margin: 0;
-      font-size: 12.5px;
-    }
-    .sub-callout .pre-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--fg-mute);
-      margin-bottom: 8px;
-    }
-    @media (max-width: 760px) {
-      .sub-callout { grid-template-columns: 1fr; padding: 24px; }
-    }
-
-    /* ---------- Memory stat tiles ---------- */
-    .stat-tiles {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-    .stat-tile {
-      background: var(--bg-2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px 14px;
-      text-align: center;
-    }
-    .stat-tile .num {
-      display: block;
-      font-size: clamp(22px, 3vw, 28px);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      line-height: 1.1;
-      margin-bottom: 4px;
-    }
-    .stat-tile .lbl {
-      font-size: 12px;
-      color: var(--fg-dim);
-      letter-spacing: 0.01em;
-    }
-    .compare-bar {
-      margin-top: 14px;
-      padding: 12px 14px;
-      background: var(--bg-2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      font-size: 12.5px;
-      color: var(--fg-dim);
-      line-height: 1.55;
-    }
-    .compare-bar strong { color: var(--fg); }
-    .compare-bar .vs {
-      display: inline-block;
-      padding: 1px 7px;
-      border-radius: 4px;
-      background: rgba(245,158,11,0.12);
-      color: var(--warn);
-      font-size: 11px;
-      font-weight: 600;
-      margin: 0 4px;
-      letter-spacing: 0.04em;
-    }
-
-    /* ---------- Stack row ---------- */
-    .stack {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
-      margin-top: 28px;
-    }
-    .stack-item {
-      padding: 14px 16px;
-      background: var(--bg-elev);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      font-size: 13px;
-    }
-    .stack-item strong { display: block; color: var(--fg); margin-bottom: 4px; font-size: 14px; }
-    .stack-item span { color: var(--fg-dim); }
-
-    /* ---------- Install ---------- */
-    .platforms {
-      background: var(--bg-elev);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-    }
-    .tab-bar {
-      display: flex;
-      border-bottom: 1px solid var(--border);
-      background: #131722;
-    }
-    .tab-btn {
-      flex: 1;
-      padding: 14px 16px;
-      background: transparent;
-      border: 0;
-      border-right: 1px solid var(--border);
-      color: var(--fg-dim);
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-family: inherit;
-      transition: background .15s, color .15s;
-    }
-    .tab-btn:last-child { border-right: 0; }
-    .tab-btn:hover { color: var(--fg); background: rgba(255,255,255,0.02); }
-    .tab-btn.active {
-      color: var(--fg);
-      background: var(--bg-elev);
-      box-shadow: inset 0 -2px 0 var(--accent);
-    }
-    .tab-btn svg { width: 16px; height: 16px; }
-    .tab-panels { padding: 24px; }
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; animation: fadeIn .18s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; transform: none; } }
-
-    .download-primary {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 18px 20px;
-      background: var(--bg-2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      margin-bottom: 18px;
-    }
-    .download-primary .info strong {
-      display: block;
-      color: var(--fg);
-      font-size: 15px;
-      margin-bottom: 4px;
-    }
-    .download-primary .info span {
-      color: var(--fg-dim);
-      font-size: 13px;
-    }
-    .download-primary .info code {
-      color: var(--fg-dim);
-      font-size: 12px;
-      background: rgba(255,255,255,0.03);
-      padding: 1px 6px;
-      border-radius: 4px;
-      border: 1px solid var(--border);
-    }
-    .alt-downloads {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-    .alt-downloads a {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 14px;
-      background: var(--bg-2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      color: var(--fg);
-      font-size: 13px;
-      transition: border-color .15s, background .15s;
-    }
-    .alt-downloads a:hover {
-      border-color: var(--border-strong);
-      background: var(--bg-elev-2);
-      color: var(--fg);
-    }
-    .alt-downloads a .size {
-      color: var(--fg-mute);
-      font-size: 12px;
-    }
-    .platform-note {
-      color: var(--fg-mute);
-      font-size: 12.5px;
-      margin: 0;
-    }
-    .platform-note code {
-      background: rgba(255,255,255,0.03);
-      padding: 1px 6px;
-      border-radius: 4px;
-      border: 1px solid var(--border);
-      font-size: 12px;
-    }
-    .version-bar {
-      margin-top: 18px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px 18px;
-      align-items: center;
-      color: var(--fg-mute);
-      font-size: 13px;
-    }
-    .version-bar .ver-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 3px 10px;
-      background: var(--bg-elev);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      color: var(--fg);
-      font-size: 12px;
-      font-weight: 500;
-    }
-    .version-bar .ver-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-cyan); }
-
-    /* ---------- Live downloads tracker ---------- */
-    .downloads-tracker {
-      margin-top: 24px;
-      background: var(--bg-elev);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 22px;
-    }
-    .dl-tracker-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .dl-tracker-title {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--fg);
-      letter-spacing: 0.2px;
-    }
-    .dl-tracker-pulse {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #2ecc71;
-      box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.5);
-      animation: dlpulse 2s ease-out infinite;
-    }
-    @keyframes dlpulse {
-      0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.55); }
-      70% { box-shadow: 0 0 0 8px rgba(46, 204, 113, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
-    }
-    .dl-tracker-meta {
-      font-size: 11px;
-      color: var(--fg-mute);
-      font-family: var(--mono, ui-monospace, monospace);
-    }
-    .dl-tracker-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 16px;
-    }
-    .dl-tracker-stat {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .dl-tracker-num {
-      font-size: 32px;
-      font-weight: 700;
-      color: var(--fg);
-      line-height: 1;
-      letter-spacing: -0.02em;
-      font-variant-numeric: tabular-nums;
-      transition: color 250ms ease;
-    }
-    .dl-tracker-num.is-loading { color: var(--fg-mute); }
-    .dl-tracker-num.just-updated {
-      color: var(--accent-cyan, #2ecc71);
-    }
-    .dl-tracker-lbl {
-      font-size: 12px;
-      color: var(--fg);
-      font-weight: 500;
-    }
-    .dl-tracker-sub {
-      font-size: 11px;
-      color: var(--fg-mute);
-    }
-    .dl-tracker-sub a {
-      color: inherit;
-      text-decoration: underline;
-      text-decoration-color: var(--border);
-    }
-    .dl-tracker-sub a:hover { text-decoration-color: var(--accent-cyan); }
-
-    .dl-tracker-bar {
-      margin-top: 20px;
-      padding-top: 18px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .dl-tracker-bar-row {
-      display: grid;
-      grid-template-columns: 80px 60px 1fr;
-      gap: 12px;
-      align-items: center;
-      font-size: 12px;
-    }
-    .dl-tracker-bar-name { color: var(--fg); font-weight: 500; }
-    .dl-tracker-bar-count {
-      color: var(--fg-mute);
-      font-variant-numeric: tabular-nums;
-      font-family: var(--mono, ui-monospace, monospace);
-      text-align: right;
-    }
-    .dl-tracker-bar-track {
-      height: 6px;
-      background: var(--bg);
-      border-radius: 3px;
-      overflow: hidden;
-    }
-    .dl-tracker-bar-fill {
-      height: 100%;
-      background: var(--accent-cyan);
-      border-radius: 3px;
-      width: 0;
-      transition: width 600ms cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .dl-tracker-bar-fill[data-os="mac"] { background: #b87aff; }
-    .dl-tracker-bar-fill[data-os="lin"] { background: #ff9e3d; }
-
-    .source-card {
-      margin-top: 24px;
-      background: var(--bg-elev);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 22px;
-    }
-    .source-card h3 {
-      margin: 0 0 6px;
-      font-size: 15px;
-      color: var(--fg);
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .source-card h3 svg { width: 16px; height: 16px; color: var(--fg-dim); }
-    .source-card p {
-      color: var(--fg-dim);
-      font-size: 13px;
-      margin: 0 0 14px;
-    }
-    @media (max-width: 560px) {
-      .tab-btn { padding: 12px 8px; font-size: 13px; }
-      .download-primary { flex-direction: column; align-items: stretch; text-align: left; }
-    }
-    pre {
-      background: var(--bg-2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 14px 16px;
-      overflow-x: auto;
-      font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
-      font-size: 13px;
-      line-height: 1.65;
-      margin: 0;
-      color: var(--fg);
-    }
-    pre code .c { color: var(--fg-mute); }
-    code { font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace; }
-
-    .note {
-      margin-top: 14px;
-      color: var(--fg-mute);
-      font-size: 12.5px;
-    }
-
-    /* ---------- Footer ---------- */
-    footer {
-      padding: 48px 0 60px;
-      color: var(--fg-dim);
-      font-size: 13px;
-      text-align: center;
-      border-top: 1px solid var(--border);
-    }
-    footer .ftr-links {
-      display: flex; justify-content: center; gap: 18px; flex-wrap: wrap;
-      margin-bottom: 10px;
-    }
-    footer a { color: var(--fg-dim); }
-    footer a:hover { color: var(--fg); }
-    footer .copy { color: var(--fg-mute); font-size: 12px; }
-  </style>
+  <!-- All styles live in /style.css -->
 </head>
 <body>
   <div class="nav-wrap" id="navWrap">
@@ -940,7 +65,9 @@
         </a>
         <span class="spacer"></span>
         <div class="nav-links">
-          <a href="#features">Features</a>
+          <a href="/features.html">Features</a>
+          <a href="/changelog.html">Changelog</a>
+          <a href="/docs.html">Docs</a>
           <a href="#install">Install</a>
           <a href="https://www.npmjs.com/package/codetta">npm</a>
           <a class="pill" href="https://github.com/getcodetta/codetta" rel="noopener">
@@ -954,14 +81,21 @@
 
   <div class="container">
     <header class="hero">
-      <span class="eyebrow"><span class="dot"></span> Source available · FSL-1.1-ALv2 · Windows build available</span>
+      <a href="/changelog.html" class="release-banner" title="See full changelog">
+        <span class="release-banner-tag">v0.3.2</span>
+        <span class="release-banner-text">
+          SFTP with connection pooling, SSH key auth, auto-push on save, and recursive directory sync
+        </span>
+        <span class="release-banner-arrow">â†’</span>
+      </a>
+      <span class="eyebrow"><span class="dot"></span> Source available Â· FSL-1.1-ALv2 Â· Win + Mac + Linux installers</span>
       <h1>The lightweight code editor with <span class="grad">first-class AI</span>.</h1>
       <p class="tagline">
-        Bring your own model — Anthropic, OpenAI, Ollama, or sign in with Claude Code to use your <a href="#claude-subscription">existing Claude subscription</a>.
+        Bring your own model â€” Anthropic, OpenAI, Ollama, or sign in with Claude Code to use your <a href="#claude-subscription">existing Claude subscription</a>.
         ~30&nbsp;MB native, no telemetry, multi-window terminals, and a real BYOK AI panel built into the editor.
       </p>
       <div class="cta-row">
-        <a id="heroDownload" class="btn btn-primary" href="https://github.com/getcodetta/codetta/releases/latest/download/Codetta_0.3.0_x64-setup.exe" data-os="windows">
+        <a id="heroDownload" class="btn btn-primary" href="https://github.com/getcodetta/codetta/releases/latest/download/Codetta_0.3.2_x64-setup.exe" data-os="windows">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
           <span data-download-label>Download for Windows</span>
         </a>
@@ -997,24 +131,24 @@
       <div class="preview">
         <div class="titlebar">
           <div class="traffic"><span class="r"></span><span class="y"></span><span class="g"></span></div>
-          <div class="title">codetta — ~/projects/site</div>
+          <div class="title">codetta â€” ~/projects/site</div>
         </div>
         <div class="body">
           <aside class="sidebar">
             <div class="label">Workspace</div>
-            <div class="item"><span class="ico">▸</span> src</div>
+            <div class="item"><span class="ico">â–¸</span> src</div>
             <div class="nest">
-              <div class="item"><span class="ico">▾</span> components</div>
+              <div class="item"><span class="ico">â–¾</span> components</div>
               <div class="nest">
-                <div class="item active"><span class="ico">·</span> Editor.tsx</div>
-                <div class="item"><span class="ico">·</span> Terminal.tsx</div>
-                <div class="item"><span class="ico">·</span> ChatPanel.tsx</div>
+                <div class="item active"><span class="ico">Â·</span> Editor.tsx</div>
+                <div class="item"><span class="ico">Â·</span> Terminal.tsx</div>
+                <div class="item"><span class="ico">Â·</span> ChatPanel.tsx</div>
               </div>
-              <div class="item"><span class="ico">▸</span> hooks</div>
-              <div class="item"><span class="ico">·</span> main.tsx</div>
+              <div class="item"><span class="ico">â–¸</span> hooks</div>
+              <div class="item"><span class="ico">Â·</span> main.tsx</div>
             </div>
-            <div class="item"><span class="ico">·</span> package.json</div>
-            <div class="item"><span class="ico">·</span> README.md</div>
+            <div class="item"><span class="ico">Â·</span> package.json</div>
+            <div class="item"><span class="ico">Â·</span> README.md</div>
           </aside>
 
           <section class="editor">
@@ -1032,7 +166,7 @@
           <aside class="ai">
             <div class="ai-header">
               <span>AI</span>
-              <span class="ai-model"><span class="dot"></span> Claude Code · subscription</span>
+              <span class="ai-model"><span class="dot"></span> Claude Code Â· subscription</span>
             </div>
             <div class="ai-body">
               <div class="msg user">Refactor Editor.tsx to support split panes.</div>
@@ -1041,29 +175,69 @@
               </div>
               <div class="msg user">Yes, per pane. Apply the change.</div>
             </div>
-            <div class="ai-input">Ask about your code…</div>
+            <div class="ai-input">Ask about your codeâ€¦</div>
           </aside>
         </div>
       </div>
     </div>
 
+    <section id="whats-new">
+      <div class="whats-new-head">
+        <h2>What's new in v0.3.2</h2>
+        <a class="whats-new-link" href="/changelog.html">Full changelog â†’</a>
+      </div>
+      <p class="lede">Codetta v0.3.2 is a major SFTP-focused release. Edit remote files like local ones â€” auto-push on save, key auth, recursive sync.</p>
+      <div class="whats-new-grid">
+        <div class="wn-card">
+          <div class="wn-icon" data-c="cyan">âš¡</div>
+          <div class="wn-title">SFTP connection pooling</div>
+          <div class="wn-text">One persistent SSH channel per profile. Browsing a remote tree dropped from ~1-2s per click to ~50ms.</div>
+        </div>
+        <div class="wn-card">
+          <div class="wn-icon" data-c="purple">ðŸ”‘</div>
+          <div class="wn-title">SSH private-key auth</div>
+          <div class="wn-text">Optional key-path field on every connection. Encrypted keys use the password as passphrase. Falls back to password auth.</div>
+        </div>
+        <div class="wn-card">
+          <div class="wn-icon" data-c="orange">â†¥</div>
+          <div class="wn-title">Auto-push on save</div>
+          <div class="wn-text">Save a remote-linked file â†’ it pushes to the server in the background. Tab title shows â†¥ glyph for opted-in files.</div>
+        </div>
+        <div class="wn-card">
+          <div class="wn-icon" data-c="green">ðŸ“‚</div>
+          <div class="wn-title">Recursive directory sync</div>
+          <div class="wn-text">Right-click any folder â†’ upload or download whole trees over a single session. Skips node_modules / .git / dist by default.</div>
+        </div>
+        <div class="wn-card">
+          <div class="wn-icon" data-c="cyan">ðŸ§­</div>
+          <div class="wn-title">Breadcrumb navigation</div>
+          <div class="wn-text">Click any segment of the remote path to drill up. ðŸ  jumps back to your default folder.</div>
+        </div>
+        <div class="wn-card">
+          <div class="wn-icon" data-c="red">ðŸ›¡</div>
+          <div class="wn-title">Type-to-confirm delete</div>
+          <div class="wn-text">Folder deletes require typing the name back. Stops a stray right-click from wiping out a server directory.</div>
+        </div>
+      </div>
+    </section>
+
     <section id="features">
       <h2>Why Codetta</h2>
-      <p class="lede">A small, focused editor that gets out of the way — with the AI tools you actually use, built directly into the surface.</p>
+      <p class="lede">A small, focused editor that gets out of the way â€” with the AI tools you actually use, built directly into the surface.</p>
       <div class="features">
         <div class="feature">
           <div class="icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 014 4v2h1a3 3 0 013 3v3a4 4 0 01-4 4h-1v1a3 3 0 01-6 0v-1H8a4 4 0 01-4-4v-3a3 3 0 013-3h1V6a4 4 0 014-4z"/></svg>
           </div>
           <h3>BYOK AI panel</h3>
-          <p>Anthropic API, OpenAI, local Ollama — or sign in with the Claude Code CLI to use your <strong>existing Claude subscription</strong> with no extra API key.</p>
+          <p>Anthropic API, OpenAI, local Ollama â€” or sign in with the Claude Code CLI to use your <strong>existing Claude subscription</strong> with no extra API key.</p>
         </div>
         <div class="feature">
           <div class="icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
           </div>
           <h3>Multi-workspace, single window</h3>
-          <p>Open every project in <strong>one app, one process</strong>. Switch projects like switching tabs — each keeps its own files, terminals, layout, and chat history. No second window, no second Electron, no doubled RAM.</p>
+          <p>Open every project in <strong>one app, one process</strong>. Switch projects like switching tabs â€” each keeps its own files, terminals, layout, and chat history. No second window, no second Electron, no doubled RAM.</p>
         </div>
         <div class="feature">
           <div class="icon">
@@ -1091,7 +265,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="12" x2="21" y2="12"/></svg>
           </div>
           <h3>Drag-and-drop splits</h3>
-          <p>Grab any tab, drop on an edge — instant horizontal or vertical split. No nested config, no panel taxonomy to learn.</p>
+          <p>Grab any tab, drop on an edge â€” instant horizontal or vertical split. No nested config, no panel taxonomy to learn.</p>
         </div>
         <div class="feature">
           <div class="icon">
@@ -1105,14 +279,14 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M6 9v6a3 3 0 003 3h6"/></svg>
           </div>
           <h3>Built-in source control</h3>
-          <p>Stage, diff, and commit without leaving the editor. Lean Git surface — the things you do every day, none you don't.</p>
+          <p>Stage, diff, and commit without leaving the editor. Lean Git surface â€” the things you do every day, none you don't.</p>
         </div>
         <div class="feature">
           <div class="icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg>
           </div>
           <h3>Monaco-powered</h3>
-          <p>The same editor core that drives VS Code — TypeScript, IntelliSense, and language features you already trust.</p>
+          <p>The same editor core that drives VS Code â€” TypeScript, IntelliSense, and language features you already trust.</p>
         </div>
       </div>
     </section>
@@ -1126,24 +300,24 @@
           </span>
           <h3>Use your Claude Pro or Max subscription</h3>
           <p>
-            Already paying for Claude? Skip the API bill. Sign in once with the Claude Code CLI and Codetta routes its AI panel through your existing subscription — same models, same quotas, no per-token charges.
+            Already paying for Claude? Skip the API bill. Sign in once with the Claude Code CLI and Codetta routes its AI panel through your existing subscription â€” same models, same quotas, no per-token charges.
           </p>
           <ul>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span><strong>Zero extra cost</strong> if you already have Claude Pro or Max — no Anthropic API key needed.</span>
+              <span><strong>Zero extra cost</strong> if you already have Claude Pro or Max â€” no Anthropic API key needed.</span>
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span><strong>Full model access</strong> — Opus, Sonnet, Haiku — driven by your subscription's plan limits, not a metered API balance.</span>
+              <span><strong>Full model access</strong> â€” Opus, Sonnet, Haiku â€” driven by your subscription's plan limits, not a metered API balance.</span>
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span><strong>One sign-in, everywhere</strong> — the same auth Claude Code uses in your terminal works inside Codetta.</span>
+              <span><strong>One sign-in, everywhere</strong> â€” the same auth Claude Code uses in your terminal works inside Codetta.</span>
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span><strong>Switch any time</strong> — drop in an Anthropic, OpenAI, or local Ollama key from the same model picker.</span>
+              <span><strong>Switch any time</strong> â€” drop in an Anthropic, OpenAI, or local Ollama key from the same model picker.</span>
             </li>
           </ul>
         </div>
@@ -1157,8 +331,8 @@ claude login
 
 <span class="c"># 3. In Codetta, pick "Claude Code"</span>
 <span class="c">#    in the AI panel's model picker.</span>
-<span class="c">#    That's it — no API key.</span></code></pre>
-          <div class="note">Don't have a subscription? Codetta still works with an Anthropic, OpenAI, or local Ollama key — pick whichever fits your workflow.</div>
+<span class="c">#    That's it â€” no API key.</span></code></pre>
+          <div class="note">Don't have a subscription? Codetta still works with an Anthropic, OpenAI, or local Ollama key â€” pick whichever fits your workflow.</div>
         </div>
       </div>
     </section>
@@ -1170,26 +344,26 @@ claude login
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
             Built for memory
           </span>
-          <h3>One app, many projects — a fraction of the RAM</h3>
+          <h3>One app, many projects â€” a fraction of the RAM</h3>
           <p>
-            Most editors spawn a whole new window — a whole new process — for each project. Codetta keeps every workspace inside the same window. One Tauri process. One memory footprint. Switch projects with a hotkey, not a relaunch.
+            Most editors spawn a whole new window â€” a whole new process â€” for each project. Codetta keeps every workspace inside the same window. One Tauri process. One memory footprint. Switch projects with a hotkey, not a relaunch.
           </p>
           <ul>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span><strong>Workspaces are tabs, not windows</strong> — open as many as you like, switch instantly, no app duplication.</span>
+              <span><strong>Workspaces are tabs, not windows</strong> â€” open as many as you like, switch instantly, no app duplication.</span>
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span><strong>Persistent per-workspace state</strong> — files, terminals, layout, and chat history are remembered for each project, keyed by absolute path.</span>
+              <span><strong>Persistent per-workspace state</strong> â€” files, terminals, layout, and chat history are remembered for each project, keyed by absolute path.</span>
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span><strong>Tauri 2 + system WebView</strong> — no bundled Chromium, so opening a second project doesn't double the resident memory.</span>
+              <span><strong>Tauri 2 + system WebView</strong> â€” no bundled Chromium, so opening a second project doesn't double the resident memory.</span>
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span><strong>Pop a terminal out</strong> when you actually want a second window — re-dock with one click.</span>
+              <span><strong>Pop a terminal out</strong> when you actually want a second window â€” re-dock with one click.</span>
             </li>
           </ul>
         </div>
@@ -1200,7 +374,7 @@ claude login
               <span class="lbl">Process</span>
             </div>
             <div class="stat-tile">
-              <span class="num">∞</span>
+              <span class="num">âˆž</span>
               <span class="lbl">Workspaces</span>
             </div>
             <div class="stat-tile">
@@ -1209,10 +383,10 @@ claude login
             </div>
           </div>
           <div class="compare-bar">
-            Open <strong>5 projects</strong> in Codetta — still one process, one window, one footprint.
+            Open <strong>5 projects</strong> in Codetta â€” still one process, one window, one footprint.
             <br>
             <span class="vs">vs</span>
-            Open 5 projects in a typical Electron editor — five windows, five processes, gigabytes of RAM.
+            Open 5 projects in a typical Electron editor â€” five windows, five processes, gigabytes of RAM.
           </div>
         </div>
       </div>
@@ -1233,9 +407,9 @@ claude login
 
     <section id="install">
       <h2>Install</h2>
-      <p class="lede">Native builds for Windows, macOS, and Linux. Pick your platform — we'll auto-select it for you.</p>
+      <p class="lede">Native builds for Windows, macOS, and Linux. Pick your platform â€” we'll auto-select it for you.</p>
 
-      <!-- Release version: v0.3.0. Bump filenames + version pill when releasing a new tag.
+      <!-- Release version: v0.3.2. Bump filenames + version pill when releasing a new tag.
            Note: download links go live only after the GitHub draft release for the tag is published. -->
 
       <div class="platforms" id="platforms">
@@ -1257,10 +431,10 @@ claude login
         <div class="tab-panels">
           <!-- Windows -->
           <div class="tab-panel active" data-os="windows" id="panel-windows" role="tabpanel">
-            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.3.0/Codetta_0.3.0_x64-setup.exe">
+            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.3.2/Codetta_0.3.2_x64-setup.exe">
               <span class="info">
-                <strong>Windows installer (.exe) — recommended</strong>
-                <span>NSIS installer · auto-update · 2.35 MB</span>
+                <strong>Windows installer (.exe) â€” recommended</strong>
+                <span>NSIS installer Â· auto-update Â· 2.35 MB</span>
               </span>
               <span class="btn btn-primary">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
@@ -1268,7 +442,7 @@ claude login
               </span>
             </a>
             <div class="alt-downloads">
-              <a href="https://github.com/getcodetta/codetta/releases/download/v0.3.0/Codetta_0.3.0_x64_en-US.msi">
+              <a href="https://github.com/getcodetta/codetta/releases/download/v0.3.2/Codetta_0.3.2_x64_en-US.msi">
                 Windows MSI <span class="size">3.43 MB</span>
               </a>
             </div>
@@ -1277,10 +451,10 @@ claude login
 
           <!-- macOS -->
           <div class="tab-panel" data-os="mac" id="panel-mac" role="tabpanel">
-            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.3.0/Codetta_0.3.0_universal.dmg">
+            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.3.2/Codetta_0.3.2_universal.dmg">
               <span class="info">
                 <strong>macOS Universal disk image (.dmg)</strong>
-                <span>Apple Silicon + Intel · 6.82 MB</span>
+                <span>Apple Silicon + Intel Â· 6.82 MB</span>
               </span>
               <span class="btn btn-primary">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
@@ -1288,19 +462,19 @@ claude login
               </span>
             </a>
             <div class="alt-downloads">
-              <a href="https://github.com/getcodetta/codetta/releases/download/v0.3.0/Codetta_universal.app.tar.gz">
+              <a href="https://github.com/getcodetta/codetta/releases/download/v0.3.2/Codetta_universal.app.tar.gz">
                 App bundle (.app.tar.gz) <span class="size">6.75 MB</span>
               </a>
             </div>
-            <p class="platform-note">Unsigned build — first launch needs <code>System Settings → Privacy &amp; Security → Open Anyway</code>.</p>
+            <p class="platform-note">Unsigned build â€” first launch needs <code>System Settings â†’ Privacy &amp; Security â†’ Open Anyway</code>.</p>
           </div>
 
           <!-- Linux -->
           <div class="tab-panel" data-os="linux" id="panel-linux" role="tabpanel">
-            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.3.0/Codetta_0.3.0_amd64.AppImage">
+            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.3.2/Codetta_0.3.2_amd64.AppImage">
               <span class="info">
-                <strong>Linux AppImage (.AppImage) — universal</strong>
-                <span>Portable, runs on any glibc-based distro · 78.2 MB</span>
+                <strong>Linux AppImage (.AppImage) â€” universal</strong>
+                <span>Portable, runs on any glibc-based distro Â· 78.2 MB</span>
               </span>
               <span class="btn btn-primary">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
@@ -1308,10 +482,10 @@ claude login
               </span>
             </a>
             <div class="alt-downloads">
-              <a href="https://github.com/getcodetta/codetta/releases/download/v0.3.0/Codetta_0.3.0_amd64.deb">
+              <a href="https://github.com/getcodetta/codetta/releases/download/v0.3.2/Codetta_0.3.2_amd64.deb">
                 Debian / Ubuntu (.deb) <span class="size">4.44 MB</span>
               </a>
-              <a href="https://github.com/getcodetta/codetta/releases/download/v0.3.0/Codetta-0.3.0-1.x86_64.rpm">
+              <a href="https://github.com/getcodetta/codetta/releases/download/v0.3.2/Codetta-0.3.2-1.x86_64.rpm">
                 Fedora / RHEL (.rpm) <span class="size">4.44 MB</span>
               </a>
             </div>
@@ -1321,7 +495,7 @@ claude login
       </div>
 
       <div class="version-bar">
-        <span class="ver-pill"><span class="dot"></span> v0.3.0 · latest</span>
+        <span class="ver-pill"><span class="dot"></span> v0.3.2 Â· latest</span>
         <a href="https://github.com/getcodetta/codetta/releases">All releases &amp; changelog</a>
         <a href="https://github.com/getcodetta/codetta/releases/latest">Latest release on GitHub</a>
       </div>
@@ -1332,25 +506,25 @@ claude login
             <span class="dl-tracker-pulse"></span>
             Live downloads
           </span>
-          <span class="dl-tracker-meta" id="dlTrackerMeta">Loading…</span>
+          <span class="dl-tracker-meta" id="dlTrackerMeta">Loadingâ€¦</span>
         </div>
         <div class="dl-tracker-grid">
           <div class="dl-tracker-stat">
-            <span class="dl-tracker-num" id="dlGhTotal">—</span>
+            <span class="dl-tracker-num" id="dlGhTotal">â€”</span>
             <span class="dl-tracker-lbl">GitHub installs</span>
             <span class="dl-tracker-sub" id="dlGhSub">across all releases</span>
           </div>
           <div class="dl-tracker-stat">
-            <span class="dl-tracker-num" id="dlNpmWeek">—</span>
+            <span class="dl-tracker-num" id="dlNpmWeek">â€”</span>
             <span class="dl-tracker-lbl">npm last 7 days</span>
             <span class="dl-tracker-sub">
               <a href="https://www.npmjs.com/package/codetta" rel="noopener">codetta on npm</a>
             </span>
           </div>
           <div class="dl-tracker-stat">
-            <span class="dl-tracker-num" id="dlReleases">—</span>
+            <span class="dl-tracker-num" id="dlReleases">â€”</span>
             <span class="dl-tracker-lbl">releases shipped</span>
-            <span class="dl-tracker-sub" id="dlLatestRel">latest: —</span>
+            <span class="dl-tracker-sub" id="dlLatestRel">latest: â€”</span>
           </div>
         </div>
         <div class="dl-tracker-bar" id="dlTrackerBar" hidden>
@@ -1394,7 +568,7 @@ npm run tauri dev</code></pre>
         <a href="https://github.com/getcodetta/codetta/blob/main/LICENSE">License (FSL-1.1)</a>
         <a href="https://www.npmjs.com/package/codetta">npm</a>
       </div>
-      <p class="copy">Built with <a href="https://tauri.app">Tauri</a>. © 2026 Codetta Maintainers.</p>
+      <p class="copy">Built with <a href="https://tauri.app">Tauri</a>. Â© 2026 Codetta Maintainers.</p>
     </footer>
   </div>
 
@@ -1421,15 +595,15 @@ npm run tauri dev</code></pre>
       var DOWNLOADS = {
         windows: {
           label: 'Download for Windows',
-          href: 'https://github.com/getcodetta/codetta/releases/download/v0.3.0/Codetta_0.3.0_x64-setup.exe'
+          href: 'https://github.com/getcodetta/codetta/releases/download/v0.3.2/Codetta_0.3.2_x64-setup.exe'
         },
         mac: {
           label: 'Download for macOS',
-          href: 'https://github.com/getcodetta/codetta/releases/download/v0.3.0/Codetta_0.3.0_universal.dmg'
+          href: 'https://github.com/getcodetta/codetta/releases/download/v0.3.2/Codetta_0.3.2_universal.dmg'
         },
         linux: {
           label: 'Download for Linux',
-          href: 'https://github.com/getcodetta/codetta/releases/download/v0.3.0/Codetta_0.3.0_amd64.AppImage'
+          href: 'https://github.com/getcodetta/codetta/releases/download/v0.3.2/Codetta_0.3.2_amd64.AppImage'
         }
       };
 
@@ -1455,7 +629,7 @@ npm run tauri dev</code></pre>
         var CACHE_TTL_MS = 5 * 60 * 1000;
 
         function fmt(n) {
-          if (n == null || isNaN(n)) return '—';
+          if (n == null || isNaN(n)) return 'â€”';
           if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
           if (n >= 10000) return (n / 1000).toFixed(0) + 'k';
           if (n >= 1000) return (n / 1000).toFixed(1) + 'k';
@@ -1552,7 +726,7 @@ npm run tauri dev</code></pre>
           if (meta) meta.textContent = msg || 'Couldn\'t fetch counts';
           ['dlGhTotal', 'dlNpmWeek', 'dlReleases'].forEach(function (id) {
             var el = document.getElementById(id);
-            if (el && el.textContent === '—') el.textContent = '–';
+            if (el && el.textContent === 'â€”') el.textContent = 'â€“';
           });
         }
 

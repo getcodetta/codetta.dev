@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0d12" />
+  <title>Changelog — Codetta</title>
+  <meta name="description" content="Every Codetta release with notes, dates, and platform installers — pulled live from the GitHub releases API." />
+  <link rel="canonical" href="https://codetta.dev/changelog.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Changelog — Codetta" />
+  <meta property="og:description" content="Every release with notes and installers, live from GitHub." />
+  <meta property="og:url" content="https://codetta.dev/changelog.html" />
+  <meta property="og:image" content="https://codetta.dev/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="512x512" href="/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/style.css" />
+  <!-- See index.html for setup instructions on these two snippets. -->
+  <meta name="google-site-verification" content="YOUR_GSC_TOKEN" />
+  <!-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "YOUR_CF_BEACON_TOKEN"}'></script> -->
+</head>
+<body>
+  <div class="nav-wrap" id="navWrap">
+    <div class="container">
+      <nav>
+        <a class="brand" href="/" aria-label="Codetta home">
+          <img class="logo" src="/favicon.png" alt="" width="28" height="28" />
+          Codetta
+        </a>
+        <span class="spacer"></span>
+        <div class="nav-links">
+          <a href="/features.html">Features</a>
+          <a class="active" href="/changelog.html">Changelog</a>
+          <a href="/docs.html">Docs</a>
+          <a href="/#install">Install</a>
+          <a href="https://www.npmjs.com/package/codetta">npm</a>
+          <a class="pill" href="https://github.com/getcodetta/codetta" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.8 10.9.6.1.8-.2.8-.6v-2.1c-3.2.7-3.9-1.5-3.9-1.5-.5-1.4-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.5-1.5 7.8-5.8 7.8-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <div class="container">
+    <header class="page-hero">
+      <h1>Changelog</h1>
+      <p>Every release with notes, ship date, and platform installers — pulled live from the GitHub releases API.</p>
+    </header>
+
+    <div class="changelog-list" id="changelog">
+      <div class="cl-loading">
+        <span>Loading releases…</span>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="ftr-links">
+      <a href="https://github.com/getcodetta/codetta">Source</a>
+      <a href="https://github.com/getcodetta/codetta/issues">Issues</a>
+      <a href="/features.html">Features</a>
+      <a href="/docs.html">Docs</a>
+      <a href="https://github.com/getcodetta/codetta/blob/main/LICENSE">License (FSL-1.1)</a>
+    </div>
+    <p class="copy">Built with <a href="https://tauri.app">Tauri</a>. © 2026 Codetta Maintainers.</p>
+  </footer>
+
+  <script>
+    (function () {
+      var nav = document.getElementById('navWrap');
+      var onScroll = function () {
+        if (window.scrollY > 4) nav.classList.add('scrolled');
+        else nav.classList.remove('scrolled');
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+
+    // ---- Changelog renderer ----
+    // Fetches releases from the GitHub API, marks the latest one,
+    // renders body markdown to HTML (small subset: headings,
+    // bullets, paragraphs, inline code, code blocks, links) and
+    // attaches per-asset download links. Cached for 5 min in
+    // localStorage to be polite to GitHub's 60-req/hr unauth limit.
+    (function () {
+      var REPO = 'getcodetta/codetta';
+      var CACHE_KEY = 'codetta.changelog.v1';
+      var CACHE_TTL = 5 * 60 * 1000;
+      var container = document.getElementById('changelog');
+
+      function fmt(n) {
+        if (n == null || isNaN(n)) return '';
+        if (n >= 1000) return (n / 1000).toFixed(1) + 'k';
+        return String(n);
+      }
+      function fmtDate(iso) {
+        try {
+          var d = new Date(iso);
+          return d.toLocaleDateString(undefined, {
+            year: 'numeric', month: 'short', day: 'numeric',
+          });
+        } catch (_) { return iso; }
+      }
+      function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, function (c) {
+          return ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[c];
+        });
+      }
+
+      // Tiny markdown subset — enough for release notes that follow
+      // the conventional bullets/headings/code style. We avoid
+      // pulling in a real markdown library to keep the page <50 KB.
+      function renderMd(md) {
+        if (!md) return '<p><em>No notes for this release.</em></p>';
+        var lines = md.split(/\r?\n/);
+        var out = [];
+        var inCode = false;
+        var codeBuf = [];
+        var inList = false;
+
+        function flushList() {
+          if (inList) { out.push('</ul>'); inList = false; }
+        }
+        function inlineFmt(s) {
+          // escape, then re-introduce: code, bold, links
+          s = escapeHtml(s);
+          s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+          s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+          s = s.replace(
+            /\[([^\]]+)\]\(([^)]+)\)/g,
+            '<a href="$2" rel="noopener">$1</a>'
+          );
+          return s;
+        }
+
+        for (var i = 0; i < lines.length; i++) {
+          var line = lines[i];
+          if (/^```/.test(line)) {
+            if (inCode) {
+              flushList();
+              out.push('<pre><code>' + escapeHtml(codeBuf.join('\n')) + '</code></pre>');
+              codeBuf = []; inCode = false;
+            } else { inCode = true; }
+            continue;
+          }
+          if (inCode) { codeBuf.push(line); continue; }
+          if (/^\s*$/.test(line)) { flushList(); continue; }
+          var h = line.match(/^(#{1,6})\s+(.+)$/);
+          if (h) {
+            flushList();
+            var lvl = Math.min(h[1].length + 2, 6); // h1 in md → h3 here
+            out.push('<h' + lvl + '>' + inlineFmt(h[2]) + '</h' + lvl + '>');
+            continue;
+          }
+          var li = line.match(/^\s*[-*+]\s+(.+)$/);
+          if (li) {
+            if (!inList) { out.push('<ul>'); inList = true; }
+            out.push('<li>' + inlineFmt(li[1]) + '</li>');
+            continue;
+          }
+          flushList();
+          out.push('<p>' + inlineFmt(line.trim()) + '</p>');
+        }
+        flushList();
+        if (inCode) { // unterminated fence
+          out.push('<pre><code>' + escapeHtml(codeBuf.join('\n')) + '</code></pre>');
+        }
+        return out.join('');
+      }
+
+      function platformIcon(name) {
+        var n = (name || '').toLowerCase();
+        if (n.indexOf('.exe') >= 0 || n.indexOf('.msi') >= 0) return '⊞';
+        if (n.indexOf('.dmg') >= 0 || n.indexOf('.app') >= 0) return '⌘';
+        if (n.indexOf('.appimage') >= 0 || n.indexOf('.deb') >= 0 || n.indexOf('.rpm') >= 0) return '🐧';
+        return '📦';
+      }
+
+      function render(releases) {
+        if (!releases || releases.length === 0) {
+          container.innerHTML = '<div class="cl-error">No releases found.</div>';
+          return;
+        }
+        // GitHub doesn't return drafts to unauth callers; everything
+        // here is published. The first one is the latest by date.
+        var html = releases.map(function (r, idx) {
+          var assets = (r.assets || []).filter(function (a) {
+            // Hide signature + source archive artifacts; users
+            // really only want the installers.
+            var n = a.name.toLowerCase();
+            return !/\.sig$|\.zip\.sig$|\.nsis\.zip$|\.msi\.zip$/.test(n);
+          });
+          return (
+            '<div class="cl-entry ' + (idx === 0 ? 'cl-latest' : '') + '" id="' + escapeHtml(r.tag_name) + '">' +
+              '<div class="cl-entry-head">' +
+                '<h2 class="cl-entry-version">' + escapeHtml(r.tag_name) + '</h2>' +
+                '<span class="cl-entry-date">' + escapeHtml(fmtDate(r.published_at)) + '</span>' +
+              '</div>' +
+              (r.name && r.name !== r.tag_name && r.name !== 'Codetta ' + r.tag_name
+                ? '<p class="cl-entry-title">' + escapeHtml(r.name) + '</p>' : '') +
+              '<div class="cl-entry-body">' + renderMd(r.body || '') + '</div>' +
+              (assets.length > 0
+                ? '<div class="cl-entry-assets">' +
+                    assets.map(function (a) {
+                      return (
+                        '<a href="' + escapeHtml(a.browser_download_url) + '" rel="noopener" title="' +
+                        escapeHtml(a.name) + (a.download_count ? ' · ' + a.download_count + ' downloads' : '') +
+                        '"><span>' + platformIcon(a.name) + '</span> ' +
+                        escapeHtml(a.name) +
+                        (a.download_count ? ' <span style="color:var(--fg-mute)">· ' + fmt(a.download_count) + '</span>' : '') +
+                        '</a>'
+                      );
+                    }).join('') +
+                  '</div>'
+                : '') +
+            '</div>'
+          );
+        }).join('');
+        container.innerHTML = html;
+      }
+
+      function loadCached() {
+        try {
+          var raw = localStorage.getItem(CACHE_KEY);
+          if (!raw) return null;
+          var parsed = JSON.parse(raw);
+          if (Date.now() - parsed.fetchedAt > CACHE_TTL) return null;
+          return parsed.releases;
+        } catch (_) { return null; }
+      }
+      function saveCached(releases) {
+        try {
+          localStorage.setItem(CACHE_KEY, JSON.stringify({
+            releases: releases, fetchedAt: Date.now(),
+          }));
+        } catch (_) {}
+      }
+
+      var cached = loadCached();
+      if (cached) render(cached);
+
+      fetch('https://api.github.com/repos/' + REPO + '/releases?per_page=30', {
+        headers: { 'Accept': 'application/vnd.github+json' },
+      })
+        .then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.json();
+        })
+        .then(function (releases) {
+          render(releases);
+          saveCached(releases);
+        })
+        .catch(function (e) {
+          if (!cached) {
+            container.innerHTML =
+              '<div class="cl-error">' +
+              'Couldn\'t fetch releases: ' + escapeHtml(e.message) +
+              '<br /><br />' +
+              '<a href="https://github.com/' + REPO + '/releases" rel="noopener">View on GitHub →</a>' +
+              '</div>';
+          }
+        });
+    })();
+  </script>
+</body>
+</html>
