@@ -4,12 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0b0d12" />
-  <title>Codetta â€” A lightweight desktop code editor with AI</title>
-  <meta name="description" content="A lightweight desktop code editor with first-class AI. Bring your own model â€” Anthropic, OpenAI, Ollama, or Claude Code. ~30 MB, no telemetry, free and open source." />
+  <title>Codetta — A lightweight desktop code editor with AI</title>
+  <meta name="description" content="A lightweight desktop code editor with first-class AI. Bring your own model — Anthropic, OpenAI, Ollama, or Claude Code. ~30 MB, no telemetry, free and open source." />
 
   <!-- Open Graph (Facebook, LinkedIn, Slack, Discord, etc.) -->
-  <meta property="og:title" content="Codetta â€” Lightweight code editor with first-class AI" />
-  <meta property="og:description" content="BYOK AI panel â€” Anthropic, OpenAI, Ollama, or Claude Code (use your existing Pro/Max subscription). Multi-workspace, pop-out terminals. ~30 MB native. No telemetry. Open source." />
+  <meta property="og:title" content="Codetta — Lightweight code editor with first-class AI" />
+  <meta property="og:description" content="BYOK AI panel — Anthropic, OpenAI, Ollama, or Claude Code (use your existing Pro/Max subscription). Multi-workspace, pop-out terminals. ~30 MB native. No telemetry. Open source." />
   <meta property="og:url" content="https://codetta.dev" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Codetta" />
@@ -18,40 +18,30 @@
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Codetta â€” the lightweight code editor with first-class AI" />
+  <meta property="og:image:alt" content="Codetta — the lightweight code editor with first-class AI" />
 
   <!-- Twitter / X large card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Codetta" />
-  <meta name="twitter:description" content="Lightweight desktop code editor with first-class AI. BYOK â€” Anthropic, OpenAI, Ollama, or Claude Code. No telemetry. Open source." />
+  <meta name="twitter:description" content="Lightweight desktop code editor with first-class AI. BYOK — Anthropic, OpenAI, Ollama, or Claude Code. No telemetry. Open source." />
   <meta name="twitter:image" content="https://codetta.dev/og-image.png" />
-  <meta name="twitter:image:alt" content="Codetta â€” the lightweight code editor with first-class AI" />
+  <meta name="twitter:image:alt" content="Codetta — the lightweight code editor with first-class AI" />
 
-  <!-- Favicon â€” app icon -->
+  <!-- Favicon — app icon -->
   <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" sizes="512x512" href="/apple-touch-icon.png" />
   <link rel="preconnect" href="https://github.com" crossorigin />
   <link rel="stylesheet" href="/style.css" />
 
-  <!--
-    ╔═ Analytics ══════════════════════════════════════════════════
-    To wire up Google Search Console:
-      1. Go to https://search.google.com/search-console
-      2. Add property `https://codetta.dev`, pick "HTML tag" verification
-      3. Replace YOUR_GSC_TOKEN below with the content="…" value Google gives you
-      4. Re-deploy and click Verify in GSC
-  -->
-  <meta name="google-site-verification" content="YOUR_GSC_TOKEN" />
-
-  <!--
-    Cloudflare Web Analytics (privacy-respecting, no cookies, free):
-      1. Cloudflare Dashboard → Analytics → Web Analytics → Add a site
-      2. Pick "Manual install"
-      3. Replace YOUR_CF_BEACON_TOKEN below with the JSON token Cloudflare shows
-      4. Uncomment the script tag and re-deploy
-  -->
-  <!-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "YOUR_CF_BEACON_TOKEN"}'></script> -->
+  <!-- Google tag (gtag.js) - GSC verification handled via Cloudflare DNS -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SSVKE7H2V"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-7SSVKE7H2V');
+  </script>
 
   <!-- All styles live in /style.css -->
 </head>
@@ -86,12 +76,12 @@
         <span class="release-banner-text">
           SFTP with connection pooling, SSH key auth, auto-push on save, and recursive directory sync
         </span>
-        <span class="release-banner-arrow">â†’</span>
+        <span class="release-banner-arrow">→</span>
       </a>
-      <span class="eyebrow"><span class="dot"></span> Source available Â· FSL-1.1-ALv2 Â· Win + Mac + Linux installers</span>
+      <span class="eyebrow"><span class="dot"></span> Source available · FSL-1.1-ALv2 · Win + Mac + Linux installers</span>
       <h1>The lightweight code editor with <span class="grad">first-class AI</span>.</h1>
       <p class="tagline">
-        Bring your own model â€” Anthropic, OpenAI, Ollama, or sign in with Claude Code to use your <a href="#claude-subscription">existing Claude subscription</a>.
+        Bring your own model — Anthropic, OpenAI, Ollama, or sign in with Claude Code to use your <a href="#claude-subscription">existing Claude subscription</a>.
         ~30&nbsp;MB native, no telemetry, multi-window terminals, and a real BYOK AI panel built into the editor.
       </p>
       <div class="cta-row">
@@ -131,24 +121,24 @@
       <div class="preview">
         <div class="titlebar">
           <div class="traffic"><span class="r"></span><span class="y"></span><span class="g"></span></div>
-          <div class="title">codetta â€” ~/projects/site</div>
+          <div class="title">codetta — ~/projects/site</div>
         </div>
         <div class="body">
           <aside class="sidebar">
             <div class="label">Workspace</div>
-            <div class="item"><span class="ico">â–¸</span> src</div>
+            <div class="item"><span class="ico">▸</span> src</div>
             <div class="nest">
-              <div class="item"><span class="ico">â–¾</span> components</div>
+              <div class="item"><span class="ico">▾</span> components</div>
               <div class="nest">
-                <div class="item active"><span class="ico">Â·</span> Editor.tsx</div>
-                <div class="item"><span class="ico">Â·</span> Terminal.tsx</div>
-                <div class="item"><span class="ico">Â·</span> ChatPanel.tsx</div>
+                <div class="item active"><span class="ico">·</span> Editor.tsx</div>
+                <div class="item"><span class="ico">·</span> Terminal.tsx</div>
+                <div class="item"><span class="ico">·</span> ChatPanel.tsx</div>
               </div>
-              <div class="item"><span class="ico">â–¸</span> hooks</div>
-              <div class="item"><span class="ico">Â·</span> main.tsx</div>
+              <div class="item"><span class="ico">▸</span> hooks</div>
+              <div class="item"><span class="ico">·</span> main.tsx</div>
             </div>
-            <div class="item"><span class="ico">Â·</span> package.json</div>
-            <div class="item"><span class="ico">Â·</span> README.md</div>
+            <div class="item"><span class="ico">·</span> package.json</div>
+            <div class="item"><span class="ico">·</span> README.md</div>
           </aside>
 
           <section class="editor">
@@ -166,7 +156,7 @@
           <aside class="ai">
             <div class="ai-header">
               <span>AI</span>
-              <span class="ai-model"><span class="dot"></span> Claude Code Â· subscription</span>
+              <span class="ai-model"><span class="dot"></span> Claude Code · subscription</span>
             </div>
             <div class="ai-body">
               <div class="msg user">Refactor Editor.tsx to support split panes.</div>
@@ -175,7 +165,7 @@
               </div>
               <div class="msg user">Yes, per pane. Apply the change.</div>
             </div>
-            <div class="ai-input">Ask about your codeâ€¦</div>
+            <div class="ai-input">Ask about your code…</div>
           </aside>
         </div>
       </div>
@@ -184,37 +174,37 @@
     <section id="whats-new">
       <div class="whats-new-head">
         <h2>What's new in v0.3.2</h2>
-        <a class="whats-new-link" href="/changelog.html">Full changelog â†’</a>
+        <a class="whats-new-link" href="/changelog.html">Full changelog →</a>
       </div>
-      <p class="lede">Codetta v0.3.2 is a major SFTP-focused release. Edit remote files like local ones â€” auto-push on save, key auth, recursive sync.</p>
+      <p class="lede">Codetta v0.3.2 is a major SFTP-focused release. Edit remote files like local ones — auto-push on save, key auth, recursive sync.</p>
       <div class="whats-new-grid">
         <div class="wn-card">
-          <div class="wn-icon" data-c="cyan">âš¡</div>
+          <div class="wn-icon" data-c="cyan">⚡</div>
           <div class="wn-title">SFTP connection pooling</div>
           <div class="wn-text">One persistent SSH channel per profile. Browsing a remote tree dropped from ~1-2s per click to ~50ms.</div>
         </div>
         <div class="wn-card">
-          <div class="wn-icon" data-c="purple">ðŸ”‘</div>
+          <div class="wn-icon" data-c="purple">🔑</div>
           <div class="wn-title">SSH private-key auth</div>
           <div class="wn-text">Optional key-path field on every connection. Encrypted keys use the password as passphrase. Falls back to password auth.</div>
         </div>
         <div class="wn-card">
-          <div class="wn-icon" data-c="orange">â†¥</div>
+          <div class="wn-icon" data-c="orange">↥</div>
           <div class="wn-title">Auto-push on save</div>
-          <div class="wn-text">Save a remote-linked file â†’ it pushes to the server in the background. Tab title shows â†¥ glyph for opted-in files.</div>
+          <div class="wn-text">Save a remote-linked file → it pushes to the server in the background. Tab title shows ↥ glyph for opted-in files.</div>
         </div>
         <div class="wn-card">
-          <div class="wn-icon" data-c="green">ðŸ“‚</div>
+          <div class="wn-icon" data-c="green">📂</div>
           <div class="wn-title">Recursive directory sync</div>
-          <div class="wn-text">Right-click any folder â†’ upload or download whole trees over a single session. Skips node_modules / .git / dist by default.</div>
+          <div class="wn-text">Right-click any folder → upload or download whole trees over a single session. Skips node_modules / .git / dist by default.</div>
         </div>
         <div class="wn-card">
-          <div class="wn-icon" data-c="cyan">ðŸ§­</div>
+          <div class="wn-icon" data-c="cyan">🧭</div>
           <div class="wn-title">Breadcrumb navigation</div>
-          <div class="wn-text">Click any segment of the remote path to drill up. ðŸ  jumps back to your default folder.</div>
+          <div class="wn-text">Click any segment of the remote path to drill up. �?� jumps back to your default folder.</div>
         </div>
         <div class="wn-card">
-          <div class="wn-icon" data-c="red">ðŸ›¡</div>
+          <div class="wn-icon" data-c="red">🛡</div>
           <div class="wn-title">Type-to-confirm delete</div>
           <div class="wn-text">Folder deletes require typing the name back. Stops a stray right-click from wiping out a server directory.</div>
         </div>
@@ -223,21 +213,21 @@
 
     <section id="features">
       <h2>Why Codetta</h2>
-      <p class="lede">A small, focused editor that gets out of the way â€” with the AI tools you actually use, built directly into the surface.</p>
+      <p class="lede">A small, focused editor that gets out of the way — with the AI tools you actually use, built directly into the surface.</p>
       <div class="features">
         <div class="feature">
           <div class="icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 014 4v2h1a3 3 0 013 3v3a4 4 0 01-4 4h-1v1a3 3 0 01-6 0v-1H8a4 4 0 01-4-4v-3a3 3 0 013-3h1V6a4 4 0 014-4z"/></svg>
           </div>
           <h3>BYOK AI panel</h3>
-          <p>Anthropic API, OpenAI, local Ollama â€” or sign in with the Claude Code CLI to use your <strong>existing Claude subscription</strong> with no extra API key.</p>
+          <p>Anthropic API, OpenAI, local Ollama — or sign in with the Claude Code CLI to use your <strong>existing Claude subscription</strong> with no extra API key.</p>
         </div>
         <div class="feature">
           <div class="icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
           </div>
           <h3>Multi-workspace, single window</h3>
-          <p>Open every project in <strong>one app, one process</strong>. Switch projects like switching tabs â€” each keeps its own files, terminals, layout, and chat history. No second window, no second Electron, no doubled RAM.</p>
+          <p>Open every project in <strong>one app, one process</strong>. Switch projects like switching tabs — each keeps its own files, terminals, layout, and chat history. No second window, no second Electron, no doubled RAM.</p>
         </div>
         <div class="feature">
           <div class="icon">
@@ -265,7 +255,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="12" x2="21" y2="12"/></svg>
           </div>
           <h3>Drag-and-drop splits</h3>
-          <p>Grab any tab, drop on an edge â€” instant horizontal or vertical split. No nested config, no panel taxonomy to learn.</p>
+          <p>Grab any tab, drop on an edge — instant horizontal or vertical split. No nested config, no panel taxonomy to learn.</p>
         </div>
         <div class="feature">
           <div class="icon">
@@ -279,14 +269,14 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M6 9v6a3 3 0 003 3h6"/></svg>
           </div>
           <h3>Built-in source control</h3>
-          <p>Stage, diff, and commit without leaving the editor. Lean Git surface â€” the things you do every day, none you don't.</p>
+          <p>Stage, diff, and commit without leaving the editor. Lean Git surface — the things you do every day, none you don't.</p>
         </div>
         <div class="feature">
           <div class="icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg>
           </div>
           <h3>Monaco-powered</h3>
-          <p>The same editor core that drives VS Code â€” TypeScript, IntelliSense, and language features you already trust.</p>
+          <p>The same editor core that drives VS Code — TypeScript, IntelliSense, and language features you already trust.</p>
         </div>
       </div>
     </section>
@@ -300,24 +290,24 @@
           </span>
           <h3>Use your Claude Pro or Max subscription</h3>
           <p>
-            Already paying for Claude? Skip the API bill. Sign in once with the Claude Code CLI and Codetta routes its AI panel through your existing subscription â€” same models, same quotas, no per-token charges.
+            Already paying for Claude? Skip the API bill. Sign in once with the Claude Code CLI and Codetta routes its AI panel through your existing subscription — same models, same quotas, no per-token charges.
           </p>
           <ul>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span><strong>Zero extra cost</strong> if you already have Claude Pro or Max â€” no Anthropic API key needed.</span>
+              <span><strong>Zero extra cost</strong> if you already have Claude Pro or Max — no Anthropic API key needed.</span>
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span><strong>Full model access</strong> â€” Opus, Sonnet, Haiku â€” driven by your subscription's plan limits, not a metered API balance.</span>
+              <span><strong>Full model access</strong> — Opus, Sonnet, Haiku — driven by your subscription's plan limits, not a metered API balance.</span>
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span><strong>One sign-in, everywhere</strong> â€” the same auth Claude Code uses in your terminal works inside Codetta.</span>
+              <span><strong>One sign-in, everywhere</strong> — the same auth Claude Code uses in your terminal works inside Codetta.</span>
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span><strong>Switch any time</strong> â€” drop in an Anthropic, OpenAI, or local Ollama key from the same model picker.</span>
+              <span><strong>Switch any time</strong> — drop in an Anthropic, OpenAI, or local Ollama key from the same model picker.</span>
             </li>
           </ul>
         </div>
@@ -331,8 +321,8 @@ claude login
 
 <span class="c"># 3. In Codetta, pick "Claude Code"</span>
 <span class="c">#    in the AI panel's model picker.</span>
-<span class="c">#    That's it â€” no API key.</span></code></pre>
-          <div class="note">Don't have a subscription? Codetta still works with an Anthropic, OpenAI, or local Ollama key â€” pick whichever fits your workflow.</div>
+<span class="c">#    That's it — no API key.</span></code></pre>
+          <div class="note">Don't have a subscription? Codetta still works with an Anthropic, OpenAI, or local Ollama key — pick whichever fits your workflow.</div>
         </div>
       </div>
     </section>
@@ -344,26 +334,26 @@ claude login
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
             Built for memory
           </span>
-          <h3>One app, many projects â€” a fraction of the RAM</h3>
+          <h3>One app, many projects — a fraction of the RAM</h3>
           <p>
-            Most editors spawn a whole new window â€” a whole new process â€” for each project. Codetta keeps every workspace inside the same window. One Tauri process. One memory footprint. Switch projects with a hotkey, not a relaunch.
+            Most editors spawn a whole new window — a whole new process — for each project. Codetta keeps every workspace inside the same window. One Tauri process. One memory footprint. Switch projects with a hotkey, not a relaunch.
           </p>
           <ul>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span><strong>Workspaces are tabs, not windows</strong> â€” open as many as you like, switch instantly, no app duplication.</span>
+              <span><strong>Workspaces are tabs, not windows</strong> — open as many as you like, switch instantly, no app duplication.</span>
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span><strong>Persistent per-workspace state</strong> â€” files, terminals, layout, and chat history are remembered for each project, keyed by absolute path.</span>
+              <span><strong>Persistent per-workspace state</strong> — files, terminals, layout, and chat history are remembered for each project, keyed by absolute path.</span>
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span><strong>Tauri 2 + system WebView</strong> â€” no bundled Chromium, so opening a second project doesn't double the resident memory.</span>
+              <span><strong>Tauri 2 + system WebView</strong> — no bundled Chromium, so opening a second project doesn't double the resident memory.</span>
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span><strong>Pop a terminal out</strong> when you actually want a second window â€” re-dock with one click.</span>
+              <span><strong>Pop a terminal out</strong> when you actually want a second window — re-dock with one click.</span>
             </li>
           </ul>
         </div>
@@ -374,7 +364,7 @@ claude login
               <span class="lbl">Process</span>
             </div>
             <div class="stat-tile">
-              <span class="num">âˆž</span>
+              <span class="num">∞</span>
               <span class="lbl">Workspaces</span>
             </div>
             <div class="stat-tile">
@@ -383,10 +373,10 @@ claude login
             </div>
           </div>
           <div class="compare-bar">
-            Open <strong>5 projects</strong> in Codetta â€” still one process, one window, one footprint.
+            Open <strong>5 projects</strong> in Codetta — still one process, one window, one footprint.
             <br>
             <span class="vs">vs</span>
-            Open 5 projects in a typical Electron editor â€” five windows, five processes, gigabytes of RAM.
+            Open 5 projects in a typical Electron editor — five windows, five processes, gigabytes of RAM.
           </div>
         </div>
       </div>
@@ -407,7 +397,7 @@ claude login
 
     <section id="install">
       <h2>Install</h2>
-      <p class="lede">Native builds for Windows, macOS, and Linux. Pick your platform â€” we'll auto-select it for you.</p>
+      <p class="lede">Native builds for Windows, macOS, and Linux. Pick your platform — we'll auto-select it for you.</p>
 
       <!-- Release version: v0.3.2. Bump filenames + version pill when releasing a new tag.
            Note: download links go live only after the GitHub draft release for the tag is published. -->
@@ -433,8 +423,8 @@ claude login
           <div class="tab-panel active" data-os="windows" id="panel-windows" role="tabpanel">
             <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.3.2/Codetta_0.3.2_x64-setup.exe">
               <span class="info">
-                <strong>Windows installer (.exe) â€” recommended</strong>
-                <span>NSIS installer Â· auto-update Â· 2.35 MB</span>
+                <strong>Windows installer (.exe) — recommended</strong>
+                <span>NSIS installer · auto-update · 2.35 MB</span>
               </span>
               <span class="btn btn-primary">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
@@ -454,7 +444,7 @@ claude login
             <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.3.2/Codetta_0.3.2_universal.dmg">
               <span class="info">
                 <strong>macOS Universal disk image (.dmg)</strong>
-                <span>Apple Silicon + Intel Â· 6.82 MB</span>
+                <span>Apple Silicon + Intel · 6.82 MB</span>
               </span>
               <span class="btn btn-primary">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
@@ -466,15 +456,15 @@ claude login
                 App bundle (.app.tar.gz) <span class="size">6.75 MB</span>
               </a>
             </div>
-            <p class="platform-note">Unsigned build â€” first launch needs <code>System Settings â†’ Privacy &amp; Security â†’ Open Anyway</code>.</p>
+            <p class="platform-note">Unsigned build — first launch needs <code>System Settings → Privacy &amp; Security → Open Anyway</code>.</p>
           </div>
 
           <!-- Linux -->
           <div class="tab-panel" data-os="linux" id="panel-linux" role="tabpanel">
             <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.3.2/Codetta_0.3.2_amd64.AppImage">
               <span class="info">
-                <strong>Linux AppImage (.AppImage) â€” universal</strong>
-                <span>Portable, runs on any glibc-based distro Â· 78.2 MB</span>
+                <strong>Linux AppImage (.AppImage) — universal</strong>
+                <span>Portable, runs on any glibc-based distro · 78.2 MB</span>
               </span>
               <span class="btn btn-primary">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
@@ -495,7 +485,7 @@ claude login
       </div>
 
       <div class="version-bar">
-        <span class="ver-pill"><span class="dot"></span> v0.3.2 Â· latest</span>
+        <span class="ver-pill"><span class="dot"></span> v0.3.2 · latest</span>
         <a href="https://github.com/getcodetta/codetta/releases">All releases &amp; changelog</a>
         <a href="https://github.com/getcodetta/codetta/releases/latest">Latest release on GitHub</a>
       </div>
@@ -506,25 +496,25 @@ claude login
             <span class="dl-tracker-pulse"></span>
             Live downloads
           </span>
-          <span class="dl-tracker-meta" id="dlTrackerMeta">Loadingâ€¦</span>
+          <span class="dl-tracker-meta" id="dlTrackerMeta">Loading…</span>
         </div>
         <div class="dl-tracker-grid">
           <div class="dl-tracker-stat">
-            <span class="dl-tracker-num" id="dlGhTotal">â€”</span>
+            <span class="dl-tracker-num" id="dlGhTotal">—</span>
             <span class="dl-tracker-lbl">GitHub installs</span>
             <span class="dl-tracker-sub" id="dlGhSub">across all releases</span>
           </div>
           <div class="dl-tracker-stat">
-            <span class="dl-tracker-num" id="dlNpmWeek">â€”</span>
+            <span class="dl-tracker-num" id="dlNpmWeek">—</span>
             <span class="dl-tracker-lbl">npm last 7 days</span>
             <span class="dl-tracker-sub">
               <a href="https://www.npmjs.com/package/codetta" rel="noopener">codetta on npm</a>
             </span>
           </div>
           <div class="dl-tracker-stat">
-            <span class="dl-tracker-num" id="dlReleases">â€”</span>
+            <span class="dl-tracker-num" id="dlReleases">—</span>
             <span class="dl-tracker-lbl">releases shipped</span>
-            <span class="dl-tracker-sub" id="dlLatestRel">latest: â€”</span>
+            <span class="dl-tracker-sub" id="dlLatestRel">latest: —</span>
           </div>
         </div>
         <div class="dl-tracker-bar" id="dlTrackerBar" hidden>
@@ -568,7 +558,7 @@ npm run tauri dev</code></pre>
         <a href="https://github.com/getcodetta/codetta/blob/main/LICENSE">License (FSL-1.1)</a>
         <a href="https://www.npmjs.com/package/codetta">npm</a>
       </div>
-      <p class="copy">Built with <a href="https://tauri.app">Tauri</a>. Â© 2026 Codetta Maintainers.</p>
+      <p class="copy">Built with <a href="https://tauri.app">Tauri</a>. © 2026 Codetta Maintainers.</p>
     </footer>
   </div>
 
@@ -629,7 +619,7 @@ npm run tauri dev</code></pre>
         var CACHE_TTL_MS = 5 * 60 * 1000;
 
         function fmt(n) {
-          if (n == null || isNaN(n)) return 'â€”';
+          if (n == null || isNaN(n)) return '—';
           if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
           if (n >= 10000) return (n / 1000).toFixed(0) + 'k';
           if (n >= 1000) return (n / 1000).toFixed(1) + 'k';
@@ -726,7 +716,7 @@ npm run tauri dev</code></pre>
           if (meta) meta.textContent = msg || 'Couldn\'t fetch counts';
           ['dlGhTotal', 'dlNpmWeek', 'dlReleases'].forEach(function (id) {
             var el = document.getElementById(id);
-            if (el && el.textContent === 'â€”') el.textContent = 'â€“';
+            if (el && el.textContent === '—') el.textContent = '–';
           });
         }
 
