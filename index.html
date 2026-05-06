@@ -117,58 +117,20 @@
       </div>
     </header>
 
-    <div class="preview-wrap" aria-hidden="true">
-      <div class="preview">
-        <div class="titlebar">
-          <div class="traffic"><span class="r"></span><span class="y"></span><span class="g"></span></div>
-          <div class="title">codetta — ~/projects/site</div>
-        </div>
-        <div class="body">
-          <aside class="sidebar">
-            <div class="label">Workspace</div>
-            <div class="item"><span class="ico">▸</span> src</div>
-            <div class="nest">
-              <div class="item"><span class="ico">▾</span> components</div>
-              <div class="nest">
-                <div class="item active"><span class="ico">·</span> Editor.tsx</div>
-                <div class="item"><span class="ico">·</span> Terminal.tsx</div>
-                <div class="item"><span class="ico">·</span> ChatPanel.tsx</div>
-              </div>
-              <div class="item"><span class="ico">▸</span> hooks</div>
-              <div class="item"><span class="ico">·</span> main.tsx</div>
-            </div>
-            <div class="item"><span class="ico">·</span> package.json</div>
-            <div class="item"><span class="ico">·</span> README.md</div>
-          </aside>
-
-          <section class="editor">
-            <div class="tabs">
-              <div class="tab active">
-                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
-                Editor.tsx
-              </div>
-              <div class="tab">ChatPanel.tsx</div>
-              <div class="tab">main.tsx</div>
-            </div>
-            <pre class="code"><span class="line"><span class="tk-c">// drag-and-drop splits, command palette, BYOK chat</span></span><span class="line"><span class="tk-k">import</span> { <span class="tk-fn">Monaco</span> } <span class="tk-k">from</span> <span class="tk-s">"@/editor"</span>;</span><span class="line"><span class="tk-k">import</span> { <span class="tk-fn">useWorkspace</span> } <span class="tk-k">from</span> <span class="tk-s">"@/state"</span>;</span><span class="line"></span><span class="line"><span class="tk-k">export function</span> <span class="tk-fn">Editor</span>() {</span><span class="line">  <span class="tk-k">const</span> ws = <span class="tk-fn">useWorkspace</span>();</span><span class="line">  <span class="tk-k">return</span> (</span><span class="line">    &lt;<span class="tk-p">Monaco</span></span><span class="line">      <span class="tk-n">path</span>={ws.<span class="tk-n">activeFile</span>}</span><span class="line">      <span class="tk-n">onChange</span>={ws.<span class="tk-fn">save</span>}</span><span class="line">    /&gt;</span><span class="line">  );</span><span class="line">}</span></pre>
-          </section>
-
-          <aside class="ai">
-            <div class="ai-header">
-              <span>AI</span>
-              <span class="ai-model"><span class="dot"></span> Claude Code · subscription</span>
-            </div>
-            <div class="ai-body">
-              <div class="msg user">Refactor Editor.tsx to support split panes.</div>
-              <div class="msg ai">
-                I'll add a <span class="accent">SplitContainer</span> that wraps Monaco and supports drag-to-edge splits. Should I keep tab state per pane?
-              </div>
-              <div class="msg user">Yes, per pane. Apply the change.</div>
-            </div>
-            <div class="ai-input">Ask about your code…</div>
-          </aside>
-        </div>
-      </div>
+    <div class="hero-shot">
+      <a href="/screenshots/codetta_workspace.png" target="_blank" rel="noopener" class="hero-shot-frame">
+        <img
+          src="/screenshots/codetta_workspace.png"
+          alt="Codetta editor showing the file explorer, an active AI chat conversation in the editor pane (Claude Code asking what the project does, with live tool-call rows), and the AI chats rail on the right"
+          loading="eager"
+          decoding="async"
+          width="1920"
+          height="1040"
+        />
+      </a>
+      <p class="hero-shot-caption">
+        Codetta editing a real project — file tree on the left, an in-progress Claude Code conversation in the center, and the AI chats rail on the right.
+      </p>
     </div>
 
     <section id="whats-new">

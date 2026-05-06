@@ -90,6 +90,17 @@ npm run tauri dev</code></pre>
 
         <section id="first-launch">
           <h2>2. First launch</h2>
+          <div class="docs-shot">
+            <a href="/screenshots/codetta_splash.png" target="_blank" rel="noopener">
+              <img
+                src="/screenshots/codetta_splash.png"
+                alt="Codetta startup splash with the brand monogram, wordmark, version, and a slim progress bar"
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+            <span class="docs-shot-caption">Startup splash — visible for ~700ms while the workspace state hydrates.</span>
+          </div>
           <p>Open Codetta and you'll see an empty workspace picker. Click <strong>+ Open folder</strong> in the activity bar (left edge) and pick any project folder. Codetta loads the file tree, opens an empty editor pane, and spawns a default terminal in the bottom dock.</p>
           <p>Your workspace state — open tabs, splits, terminals, AI chats — saves to <code>%AppData%/codetta/workspaces/{id}/state.json</code> on Windows (<code>~/Library/Application Support/codetta/...</code> on macOS, <code>~/.config/codetta/...</code> on Linux). Restart-safe; close the laptop and reopen tomorrow, your panes are exactly where you left them.</p>
           <div class="docs-callout">

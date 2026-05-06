@@ -73,17 +73,15 @@
             <li><strong>Per-chat tabs</strong> with provider badges (CC / Cl / AI / OL), drag-to-reorder, refresh-resume mid-stream.</li>
           </ul>
         </div>
-        <div class="deep-visual">
-<span class="v-line"><span class="v-comment">// AIChatPanel — provider routing</span></span>
-<span class="v-line"><span class="v-key">switch</span> (provider) {</span>
-<span class="v-line">  <span class="v-key">case</span> <span class="v-str">"claude-code"</span>: <span class="v-key">return</span> <span class="v-fn">spawnCli</span>(prompt);</span>
-<span class="v-line">  <span class="v-key">case</span> <span class="v-str">"anthropic"</span>:   <span class="v-key">return</span> <span class="v-fn">apiAnthropic</span>(prompt);</span>
-<span class="v-line">  <span class="v-key">case</span> <span class="v-str">"openai"</span>:      <span class="v-key">return</span> <span class="v-fn">apiOpenAI</span>(prompt);</span>
-<span class="v-line">  <span class="v-key">case</span> <span class="v-str">"ollama"</span>:      <span class="v-key">return</span> <span class="v-fn">localLlm</span>(prompt);</span>
-<span class="v-line">}</span>
-<span class="v-line"></span>
-<span class="v-line"><span class="v-comment">// All four route the same ChatStreamEvent shape;</span></span>
-<span class="v-line"><span class="v-comment">// the panel never knows which one is talking.</span></span>
+        <div class="deep-visual deep-visual-img">
+          <a href="/screenshots/codetta_models_list.png" target="_blank" rel="noopener">
+            <img
+              src="/screenshots/codetta_models_list.png"
+              alt="Codetta's model browser modal showing All providers / Local (Ollama) / Reasoning / General-purpose / Coder tabs, with installed Ollama models (qwen3, gpt-oss, deepseek-r1, codellama) and an Install button per model"
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
         </div>
       </div>
 
@@ -160,17 +158,15 @@
             <li><strong>Refresh-resume</strong> survives across the whole UI — close the laptop, open it tomorrow, your panes are exactly as you left them.</li>
           </ul>
         </div>
-        <div class="deep-visual">
-<span class="v-line"><span class="v-comment">// Atomic per-workspace state writes</span></span>
-<span class="v-line"><span class="v-fn">workspace_state_save</span>(wsId, {</span>
-<span class="v-line">  layout: { editorRoot, bottomRoot, activePaneId, ... },</span>
-<span class="v-line">  files:  { ...openBuffers },</span>
-<span class="v-line">  terminals: { ...activePtys },</span>
-<span class="v-line">  aiChats:   { ...chatTabs },</span>
-<span class="v-line">});</span>
-<span class="v-line"></span>
-<span class="v-line"><span class="v-comment">// Writes to .tmp + atomic rename so a crash mid-save</span></span>
-<span class="v-line"><span class="v-comment">// can't leave a partial file on disk.</span></span>
+        <div class="deep-visual deep-visual-img">
+          <a href="/screenshots/codetta_md_preview.png" target="_blank" rel="noopener">
+            <img
+              src="/screenshots/codetta_md_preview.png"
+              alt="Codetta showing a Markdown source file in the left editor pane and its live rendered preview in the right pane — drag-to-split layout in action"
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
         </div>
       </div>
 
