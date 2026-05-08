@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -72,9 +72,9 @@
   <div class="container">
     <header class="hero">
       <a href="/changelog.html" class="release-banner" title="See full changelog">
-        <span class="release-banner-tag">v0.3.2</span>
+        <span class="release-banner-tag">v0.4.0</span>
         <span class="release-banner-text">
-          SFTP with connection pooling, SSH key auth, auto-push on save, and recursive directory sync
+          60+ features: line bookmarks, F1 shortcut reference, footprint controls, AI templates, chord shortcuts, diagnostics panel, and more
         </span>
         <span class="release-banner-arrow">→</span>
       </a>
@@ -85,7 +85,7 @@
         ~30&nbsp;MB native, no telemetry, multi-window terminals, and a real BYOK AI panel built into the editor.
       </p>
       <div class="cta-row">
-        <a id="heroDownload" class="btn btn-primary" href="https://github.com/getcodetta/codetta/releases/latest/download/Codetta_0.3.2_x64-setup.exe" data-os="windows">
+        <a id="heroDownload" class="btn btn-primary" href="https://github.com/getcodetta/codetta/releases/latest/download/Codetta_0.4.0_x64-setup.exe" data-os="windows">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
           <span data-download-label>Download for Windows</span>
         </a>
@@ -160,40 +160,40 @@
 
     <section id="whats-new">
       <div class="whats-new-head">
-        <h2>What's new in v0.3.2</h2>
+        <h2>What's new in v0.4.0</h2>
         <a class="whats-new-link" href="/changelog.html">Full changelog →</a>
       </div>
-      <p class="lede">Codetta v0.3.2 is a major SFTP-focused release. Edit remote files like local ones — auto-push on save, key auth, recursive sync.</p>
+      <p class="lede">Codetta v0.4.0 is a 60+ feature batch focused on power-user fluency: navigation shortcuts, AI prompt templates, footprint controls, and a Problems panel. Six picks below.</p>
       <div class="whats-new-grid">
         <div class="wn-card" data-reveal>
-          <div class="wn-icon" data-c="cyan">⚡</div>
-          <div class="wn-title">SFTP connection pooling</div>
-          <div class="wn-text">One persistent SSH channel per profile. Browsing a remote tree dropped from ~1-2s per click to ~50ms.</div>
+          <div class="wn-icon" data-c="cyan">⌘</div>
+          <div class="wn-title">F1 shortcut reference + chord support</div>
+          <div class="wn-text">Press F1 for a categorised cheatsheet of every command. Two-step chord shortcuts (Ctrl+K Ctrl+0 fold all, Ctrl+K S save without formatting) now actually fire.</div>
         </div>
         <div class="wn-card" data-reveal>
-          <div class="wn-icon" data-c="purple">🔑</div>
-          <div class="wn-title">SSH private-key auth</div>
-          <div class="wn-text">Optional key-path field on every connection. Encrypted keys use the password as passphrase. Falls back to password auth.</div>
+          <div class="wn-icon" data-c="purple">🤖</div>
+          <div class="wn-title">Right-click "Ask AI to…"</div>
+          <div class="wn-text">Five quick actions in the editor context menu — explain, refactor, find bugs, write tests, add docs. Cmd/Ctrl+I for explain. Selection auto-wrapped in a fenced code block tagged with language + filename.</div>
         </div>
         <div class="wn-card" data-reveal>
-          <div class="wn-icon" data-c="orange">↥</div>
-          <div class="wn-title">Auto-push on save</div>
-          <div class="wn-text">Save a remote-linked file → it pushes to the server in the background. Tab title shows ↥ glyph for opted-in files.</div>
+          <div class="wn-icon" data-c="orange">📦</div>
+          <div class="wn-title">Workspace footprint controls</div>
+          <div class="wn-text">Status-bar chip shows open buffers + terminals; click for a detail modal. Optional idle-buffer unload + auto-close-idle-terminals keep long-running sessions lean.</div>
         </div>
         <div class="wn-card" data-reveal>
-          <div class="wn-icon" data-c="green">📂</div>
-          <div class="wn-title">Recursive directory sync</div>
-          <div class="wn-text">Right-click any folder → upload or download whole trees over a single session. Skips node_modules / .git / dist by default.</div>
+          <div class="wn-icon" data-c="green">🔖</div>
+          <div class="wn-title">Line bookmarks + outline TOC</div>
+          <div class="wn-text">Ctrl+F2 toggles a line bookmark, F2 / Shift+F2 cycle. Markdown headings show in the outline panel and the Go-to-Symbol palette, with click-to-jump from the rendered preview.</div>
         </div>
         <div class="wn-card" data-reveal>
-          <div class="wn-icon" data-c="cyan">🧭</div>
-          <div class="wn-title">Breadcrumb navigation</div>
-          <div class="wn-text">Click any segment of the remote path to drill up. �?� jumps back to your default folder.</div>
+          <div class="wn-icon" data-c="cyan">⚙</div>
+          <div class="wn-title">Smart task panel</div>
+          <div class="wn-text">Cargo (build / run / test / clippy / fmt + per-binary entries) and Makefile targets sit alongside package.json scripts. Tauri projects auto-detect src-tauri/Cargo.toml.</div>
         </div>
         <div class="wn-card" data-reveal>
-          <div class="wn-icon" data-c="red">🛡</div>
-          <div class="wn-title">Type-to-confirm delete</div>
-          <div class="wn-text">Folder deletes require typing the name back. Stops a stray right-click from wiping out a server directory.</div>
+          <div class="wn-icon" data-c="red">🩺</div>
+          <div class="wn-title">Diagnostics panel</div>
+          <div class="wn-text">Every Monaco marker across every open file in one sidebar list. Click to jump to the offending line — TypeScript / JavaScript work out of the box.</div>
         </div>
       </div>
     </section>
@@ -386,7 +386,7 @@ claude login
       <h2>Install</h2>
       <p class="lede">Native builds for Windows, macOS, and Linux. Pick your platform — we'll auto-select it for you.</p>
 
-      <!-- Release version: v0.3.2. Bump filenames + version pill when releasing a new tag.
+      <!-- Release version: v0.4.0. Bump filenames + version pill when releasing a new tag.
            Note: download links go live only after the GitHub draft release for the tag is published. -->
 
       <div class="platforms" id="platforms">
@@ -408,7 +408,7 @@ claude login
         <div class="tab-panels">
           <!-- Windows -->
           <div class="tab-panel active" data-os="windows" id="panel-windows" role="tabpanel">
-            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.3.2/Codetta_0.3.2_x64-setup.exe">
+            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.4.0/Codetta_0.4.0_x64-setup.exe">
               <span class="info">
                 <strong>Windows installer (.exe) — recommended</strong>
                 <span>NSIS installer · auto-update · 2.35 MB</span>
@@ -419,7 +419,7 @@ claude login
               </span>
             </a>
             <div class="alt-downloads">
-              <a href="https://github.com/getcodetta/codetta/releases/download/v0.3.2/Codetta_0.3.2_x64_en-US.msi">
+              <a href="https://github.com/getcodetta/codetta/releases/download/v0.4.0/Codetta_0.4.0_x64_en-US.msi">
                 Windows MSI <span class="size">3.43 MB</span>
               </a>
             </div>
@@ -428,7 +428,7 @@ claude login
 
           <!-- macOS -->
           <div class="tab-panel" data-os="mac" id="panel-mac" role="tabpanel">
-            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.3.2/Codetta_0.3.2_universal.dmg">
+            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.4.0/Codetta_0.4.0_universal.dmg">
               <span class="info">
                 <strong>macOS Universal disk image (.dmg)</strong>
                 <span>Apple Silicon + Intel · 6.82 MB</span>
@@ -439,7 +439,7 @@ claude login
               </span>
             </a>
             <div class="alt-downloads">
-              <a href="https://github.com/getcodetta/codetta/releases/download/v0.3.2/Codetta_universal.app.tar.gz">
+              <a href="https://github.com/getcodetta/codetta/releases/download/v0.4.0/Codetta_universal.app.tar.gz">
                 App bundle (.app.tar.gz) <span class="size">6.75 MB</span>
               </a>
             </div>
@@ -448,7 +448,7 @@ claude login
 
           <!-- Linux -->
           <div class="tab-panel" data-os="linux" id="panel-linux" role="tabpanel">
-            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.3.2/Codetta_0.3.2_amd64.AppImage">
+            <a class="download-primary" href="https://github.com/getcodetta/codetta/releases/download/v0.4.0/Codetta_0.4.0_amd64.AppImage">
               <span class="info">
                 <strong>Linux AppImage (.AppImage) — universal</strong>
                 <span>Portable, runs on any glibc-based distro · 78.2 MB</span>
@@ -459,10 +459,10 @@ claude login
               </span>
             </a>
             <div class="alt-downloads">
-              <a href="https://github.com/getcodetta/codetta/releases/download/v0.3.2/Codetta_0.3.2_amd64.deb">
+              <a href="https://github.com/getcodetta/codetta/releases/download/v0.4.0/Codetta_0.4.0_amd64.deb">
                 Debian / Ubuntu (.deb) <span class="size">4.44 MB</span>
               </a>
-              <a href="https://github.com/getcodetta/codetta/releases/download/v0.3.2/Codetta-0.3.2-1.x86_64.rpm">
+              <a href="https://github.com/getcodetta/codetta/releases/download/v0.4.0/Codetta-0.4.0-1.x86_64.rpm">
                 Fedora / RHEL (.rpm) <span class="size">4.44 MB</span>
               </a>
             </div>
@@ -472,7 +472,7 @@ claude login
       </div>
 
       <div class="version-bar">
-        <span class="ver-pill"><span class="dot"></span> v0.3.2 · latest</span>
+        <span class="ver-pill"><span class="dot"></span> v0.4.0 · latest</span>
         <a href="https://github.com/getcodetta/codetta/releases">All releases &amp; changelog</a>
         <a href="https://github.com/getcodetta/codetta/releases/latest">Latest release on GitHub</a>
       </div>
@@ -636,15 +636,15 @@ npm run tauri dev</code></pre>
       var DOWNLOADS = {
         windows: {
           label: 'Download for Windows',
-          href: 'https://github.com/getcodetta/codetta/releases/download/v0.3.2/Codetta_0.3.2_x64-setup.exe'
+          href: 'https://github.com/getcodetta/codetta/releases/download/v0.4.0/Codetta_0.4.0_x64-setup.exe'
         },
         mac: {
           label: 'Download for macOS',
-          href: 'https://github.com/getcodetta/codetta/releases/download/v0.3.2/Codetta_0.3.2_universal.dmg'
+          href: 'https://github.com/getcodetta/codetta/releases/download/v0.4.0/Codetta_0.4.0_universal.dmg'
         },
         linux: {
           label: 'Download for Linux',
-          href: 'https://github.com/getcodetta/codetta/releases/download/v0.3.2/Codetta_0.3.2_amd64.AppImage'
+          href: 'https://github.com/getcodetta/codetta/releases/download/v0.4.0/Codetta_0.4.0_amd64.AppImage'
         }
       };
 
