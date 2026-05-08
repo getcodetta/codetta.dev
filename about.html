@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b0d12" />
+  <title>About — Codetta</title>
+  <meta name="description" content="Codetta is built and maintained by Bishal Shrestha — solo developer, founder of OneBookPlus, head of SEO operations at Supple Digital. Why Codetta exists and who's behind it." />
+
+  <meta property="og:title" content="About Codetta — built by Bishal Shrestha" />
+  <meta property="og:description" content="Codetta is built and maintained by Bishal Shrestha — a small open-source editor with first-class AI." />
+  <meta property="og:url" content="https://codetta.dev/about.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Codetta" />
+  <meta property="og:image" content="https://codetta.dev/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="About Codetta" />
+  <meta name="twitter:description" content="Built and maintained by Bishal Shrestha." />
+  <meta name="twitter:image" content="https://codetta.dev/og-image.png" />
+
+  <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="512x512" href="/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/style.css" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SSVKE7H2V"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-7SSVKE7H2V');
+  </script>
+
+  <style>
+    /* Page-local styling kept here so it doesn't touch global style.css.
+       Mirrors the .feature card vocabulary already used on the home page. */
+    .about-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 28px;
+      padding: 56px 0 32px;
+    }
+    @media (min-width: 720px) {
+      .about-hero { grid-template-columns: 220px minmax(0, 1fr); align-items: start; }
+    }
+    .about-photo {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1a1d24, #2a2f3a);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+      font-weight: 600;
+      color: var(--fg-dim);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .about-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .about-meta h1 { margin: 0 0 6px; font-size: 36px; line-height: 1.15; }
+    .about-meta .role { color: var(--fg-dim); font-size: 16px; margin: 0 0 14px; }
+    .about-meta .blurb { font-size: 16px; line-height: 1.6; max-width: 56ch; }
+    .about-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .about-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--fg);
+      text-decoration: none;
+      font-size: 13px;
+      transition: border-color 120ms ease, color 120ms ease;
+    }
+    .about-links a:hover { border-color: var(--accent); color: var(--accent); }
+    .about-links svg { width: 14px; height: 14px; }
+
+    .about-section { padding: 32px 0; border-top: 1px solid var(--border); }
+    .about-section h2 { font-size: 22px; margin: 0 0 14px; }
+    .about-section p { font-size: 15px; line-height: 1.65; color: var(--fg); max-width: 64ch; }
+    .about-section p + p { margin-top: 12px; }
+
+    .other-projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .op-card {
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--bg-alt, rgba(255, 255, 255, 0.02));
+      transition: border-color 120ms ease, transform 120ms ease;
+    }
+    .op-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+    .op-card a { color: inherit; text-decoration: none; }
+    .op-card .op-name { font-weight: 600; font-size: 15px; margin: 0 0 6px; }
+    .op-card .op-desc { font-size: 13px; color: var(--fg-dim); line-height: 1.5; }
+    .op-card .op-host { font-size: 11px; color: var(--fg-muted); margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <div class="nav-wrap" id="navWrap">
+    <div class="container">
+      <nav>
+        <a class="brand" href="/" aria-label="Codetta home">
+          <img class="logo" src="/favicon.png" alt="" width="28" height="28" />
+          Codetta
+        </a>
+        <span class="spacer"></span>
+        <div class="nav-links">
+          <a href="/features.html">Features</a>
+          <a href="/changelog.html">Changelog</a>
+          <a href="/docs.html">Docs</a>
+          <a href="/about.html" aria-current="page">About</a>
+          <a href="https://www.npmjs.com/package/codetta">npm</a>
+          <a class="pill" href="https://github.com/getcodetta/codetta" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.8 10.9.6.1.8-.2.8-.6v-2.1c-3.2.7-3.9-1.5-3.9-1.5-.5-1.4-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.5-1.5 7.8-5.8 7.8-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <section class="about-hero">
+      <div class="about-photo">
+        <!-- Drop a 360x360 head-shot at /about-bishal.jpg to replace the initial. -->
+        <img src="/about-bishal.jpg" alt="Bishal Shrestha" onerror="this.style.display='none'; this.parentNode.textContent='B';" />
+      </div>
+      <div class="about-meta">
+        <h1>Bishal Shrestha</h1>
+        <p class="role">Founder &amp; CEO, <a href="https://onebookplus.com.au" rel="noopener">OneBookPlus</a> · Head of SEO Operations, <a href="https://supple.com.au" rel="noopener">Supple Digital</a> · Solo developer behind Codetta</p>
+        <p class="blurb">I build SEO operations, AI tools, and developer products. Codetta is the editor I wanted for my own work — small, native, with the AI panel built into the surface instead of bolted on as an extension.</p>
+        <div class="about-links">
+          <a href="https://bishal.com.au" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+            bishal.com.au
+          </a>
+          <a href="https://www.linkedin.com/in/bishal-shrestha/" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1-.02 5 2.5 2.5 0 0 1 .02-5zM3 9h4v12H3V9zm7 0h3.8v1.7h.06c.53-1 1.84-2.06 3.79-2.06 4.05 0 4.8 2.66 4.8 6.13V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.07 1.4-2.07 2.86V21h-4V9z"/></svg>
+            LinkedIn
+          </a>
+          <a href="https://twitter.com/bishal_revenger" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2H21l-6.52 7.45L22 22h-6.78l-4.71-6.18L4.99 22H2.23l6.97-7.96L2 2h6.92l4.27 5.65L18.24 2zm-2.38 18h1.5L7.16 4H5.6l10.27 16z"/></svg>
+            @bishal_revenger
+          </a>
+          <a href="https://github.com/getcodetta" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.8 10.9.6.1.8-.2.8-.6v-2.1c-3.2.7-3.9-1.5-3.9-1.5-.5-1.4-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.5-1.5 7.8-5.8 7.8-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+            GitHub
+          </a>
+          <a href="mailto:hello@bishal.au">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>
+            hello@bishal.au
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-section">
+      <h2>Why Codetta exists</h2>
+      <p>I spend most of my day in code: SEO ops automation, internal tools, and the apps behind <a href="https://onebookplus.com.au" rel="noopener">OneBookPlus</a>. Every editor I tried either ate 4 GB of RAM before I'd opened a file, or was lightweight but treated AI as a third-party plugin tacked on years later.</p>
+      <p>Codetta is the middle ground. Tauri instead of Electron — the editor process is ~30 MB, not 400 MB, and the OS draws the window. The AI panel is in the editor itself with bring-your-own-key for Anthropic, OpenAI, Ollama, and a CLI bridge for Claude Code subscriptions. No telemetry, no cloud sync, no account.</p>
+      <p>It started as a tool for me; it's open source because the version I needed didn't exist anywhere I could buy it.</p>
+    </section>
+
+    <section class="about-section">
+      <h2>Other things I make</h2>
+      <div class="other-projects">
+        <div class="op-card">
+          <a href="https://onebookplus.com.au" rel="noopener">
+            <div class="op-name">OneBookPlus</div>
+            <div class="op-desc">All-in-one business platform for Australian SMBs — invoicing, CRM, bookings, accounting in one place.</div>
+            <div class="op-host">onebookplus.com.au</div>
+          </a>
+        </div>
+        <div class="op-card">
+          <a href="https://supple.com.au" rel="noopener">
+            <div class="op-name">Supple Digital</div>
+            <div class="op-desc">Australian SEO &amp; digital marketing agency. I run the SEO operations side — process, automation, and analytics tooling.</div>
+            <div class="op-host">supple.com.au</div>
+          </a>
+        </div>
+        <div class="op-card">
+          <a href="https://bishal.com.au" rel="noopener">
+            <div class="op-name">Search Insights Academy</div>
+            <div class="op-desc">Educational platform and AI-driven podcast on SEO — the lessons from a decade of digital, distilled.</div>
+            <div class="op-host">via bishal.com.au</div>
+          </a>
+        </div>
+        <div class="op-card">
+          <a href="https://bishal.com.au" rel="noopener">
+            <div class="op-name">SEO Toolbox</div>
+            <div class="op-desc">A curated collection of essential SEO tools and resources I lean on day-to-day.</div>
+            <div class="op-host">via bishal.com.au</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-section">
+      <h2>Contact</h2>
+      <p>Bug reports and feature requests are best on the <a href="https://github.com/getcodetta/codetta/issues" rel="noopener">GitHub issue tracker</a> — they get triaged faster than email and the conversation is searchable for the next person hitting the same thing.</p>
+      <p>For consulting, partnerships, or anything that doesn't fit a GitHub issue: <a href="mailto:hello@bishal.au">hello@bishal.au</a>. I'm available for select consulting and advisory work; the rest of bishal.com.au has more on what that looks like.</p>
+    </section>
+
+    <footer>
+      <div class="ftr-links">
+        <a href="https://github.com/getcodetta/codetta">Source</a>
+        <a href="https://github.com/getcodetta/codetta/issues">Issues</a>
+        <a href="https://github.com/getcodetta/codetta/releases">Releases</a>
+        <a href="https://github.com/getcodetta/codetta/blob/main/LICENSE">License (FSL-1.1)</a>
+        <a href="https://www.npmjs.com/package/codetta">npm</a>
+      </div>
+      <p class="copy">Built with <a href="https://tauri.app">Tauri</a> by <a href="/about.html">Bishal Shrestha</a>. © 2026 Codetta Maintainers.</p>
+    </footer>
+  </div>
+</body>
+</html>
