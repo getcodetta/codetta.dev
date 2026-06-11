@@ -199,6 +199,59 @@
       </div>
     </section>
 
+    <section id="agent-mode">
+      <h2>A guided tour of <span class="grad">Agent Mode</span></h2>
+      <p class="lede">One keypress (<kbd>Ctrl+Shift+A</kbd>) flips the editor into an agent-centric workspace: your sessions on the left, a conversation-first chat in the middle, your changes on the right.</p>
+
+      <div class="hero-window agent-tour-window">
+        <div class="hero-window-chrome">
+          <span class="hero-window-lights"><span class="r"></span><span class="y"></span><span class="g"></span></span>
+          <span class="hero-window-title">codetta — Agent Mode</span>
+          <span class="hero-window-spacer"></span>
+        </div>
+        <div class="hero-shot-img-wrap" id="agentShot">
+          <img
+            src="/screenshots/codetta_agent_overview.png"
+            alt="Codetta Agent Mode — a workspace rail, a sessions list with a Tasks section, a conversation-first chat with action chips, and a Changes / Files panel"
+            loading="lazy"
+            decoding="async"
+          />
+          <button class="hero-hotspot" data-spot="1" style="--x:1.6%; --y:12%;" aria-label="Workspace rail"><span>1</span></button>
+          <button class="hero-hotspot" data-spot="2" style="--x:9%; --y:11%;" aria-label="Sessions"><span>2</span></button>
+          <button class="hero-hotspot" data-spot="3" style="--x:45%; --y:30%;" aria-label="Conversation-first chat"><span>3</span></button>
+          <button class="hero-hotspot" data-spot="4" style="--x:9%; --y:80%;" aria-label="Customizations"><span>4</span></button>
+          <button class="hero-hotspot" data-spot="5" style="--x:91%; --y:13%;" aria-label="Changes"><span>5</span></button>
+          <a class="hero-shot-expand" href="/screenshots/codetta_agent_overview.png" target="_blank" rel="noopener" title="Open full-resolution">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <ol class="hero-legend">
+        <li data-spot="1"><span class="num">1</span><div><strong>Workspace rail</strong><span>Your open workspaces as initials — click to switch; the agent panel follows</span></div></li>
+        <li data-spot="2"><span class="num">2</span><div><strong>Sessions</strong><span>Every chat for this workspace, with a provider badge. Start, switch, or close — state persists</span></div></li>
+        <li data-spot="3"><span class="num">3</span><div><strong>Conversation-first chat</strong><span>Tool calls collapse to chips — quiet "read 16 files", loud "edited run.ts". Click to expand a diff</span></div></li>
+        <li data-spot="4"><span class="num">4</span><div><strong>Customizations</strong><span>Instructions, Skills, Plugins, MCP servers, tool access, providers, and privacy — one click each</span></div></li>
+        <li data-spot="5"><span class="num">5</span><div><strong>Changes</strong><span>Review what changed and browse the tree without leaving the conversation</span></div></li>
+      </ol>
+
+      <div class="agent-steps">
+        <figure class="agent-step">
+          <img src="/screenshots/codetta_agent_chat.png" alt="The conversation-first chat: action chips grouped by type and a Changes review card" loading="lazy" decoding="async" />
+          <figcaption><strong>Watch it work</strong>Exploration stays quiet; edits stand out. File changes roll into a Changes card you can review or revert.</figcaption>
+        </figure>
+        <figure class="agent-step">
+          <img src="/screenshots/codetta_agent_plan.png" alt="The plan-review card: the agent's plan rendered as markdown, with Approve and Keep planning" loading="lazy" decoding="async" />
+          <figcaption><strong>Approve the plan</strong>In plan mode, the agent presents a full plan. Read it, then Approve &amp; start — or keep refining. No surprise edits.</figcaption>
+        </figure>
+        <figure class="agent-step">
+          <img src="/screenshots/codetta_customizations.png" alt="The Agent Customizations modal with tabs for Instructions, Skills, Plugins, MCP, Tool Access, Providers, and Privacy" loading="lazy" decoding="async" />
+          <figcaption><strong>Make it yours</strong>One panel for Instructions, Skills, Plugins, MCP servers, tool access, providers, and privacy — install plugins from any GitHub marketplace.</figcaption>
+        </figure>
+      </div>
+    </section>
+
     <section id="features">
       <h2>Why Codetta</h2>
       <p class="lede">A small, focused editor that gets out of the way — with the AI tools you actually use, built directly into the surface.</p>

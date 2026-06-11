@@ -476,6 +476,46 @@ header.hero .tagline {
   height: auto;
 }
 
+/* Agent Mode walkthrough */
+.agent-tour-window {
+  max-width: 1120px;
+  margin: 8px auto 0;
+}
+.agent-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-top: 38px;
+}
+.agent-step {
+  margin: 0;
+}
+.agent-step img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-elev);
+}
+.agent-step figcaption {
+  margin-top: 12px;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--fg-dim);
+}
+.agent-step figcaption strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--fg);
+  font-size: 1rem;
+}
+@media (max-width: 860px) {
+  .agent-steps {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Inline screenshot in docs (small, inline, captioned). */
 .docs-shot {
   margin: 18px 0;
