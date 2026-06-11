@@ -6,11 +6,11 @@
   <meta name="theme-color" content="#0b0d12" />
   <title>Features — Codetta</title>
   <meta name="description" content="A deep look at Codetta's features: BYOK AI panel, Claude Code integration, SFTP with auto-push, multi-workspace, MCP servers, and the per-tool permission model." />
-  <link rel="canonical" href="https://codetta.dev/features.html" />
+  <link rel="canonical" href="https://codetta.dev/features" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Features — Codetta" />
   <meta property="og:description" content="BYOK AI panel, Claude Code, SFTP edit-on-save, multi-workspace, MCP, per-tool permissions." />
-  <meta property="og:url" content="https://codetta.dev/features.html" />
+  <meta property="og:url" content="https://codetta.dev/features" />
   <meta property="og:image" content="https://codetta.dev/og-image.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
@@ -36,11 +36,11 @@
         </a>
         <span class="spacer"></span>
         <div class="nav-links">
-          <a class="active" href="/features.html">Features</a>
-          <a href="/changelog.html">Changelog</a>
-          <a href="/docs.html">Docs</a>
+          <a class="active" href="/features">Features</a>
+          <a href="/changelog">Changelog</a>
+          <a href="/docs">Docs</a>
           <a href="/#install">Install</a>
-          <a href="/about.html">About</a>
+          <a href="/about">About</a>
           <a href="https://www.npmjs.com/package/codetta">npm</a>
           <a class="pill" href="https://github.com/getcodetta/codetta" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.8 10.9.6.1.8-.2.8-.6v-2.1c-3.2.7-3.9-1.5-3.9-1.5-.5-1.4-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.5-1.5 7.8-5.8 7.8-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
@@ -58,6 +58,35 @@
     </header>
 
     <div class="deep-features">
+
+      <!-- 0. Agent Mode -->
+      <div class="deep-feature reverse" id="agent">
+        <div class="deep-meta">
+          <span class="deep-tag">Agent Mode · v0.5.0</span>
+          <h2>An editor that becomes an agent</h2>
+          <p>
+            Flip the whole window into a dedicated agent workspace — a slim workspace rail, a sessions list, and a conversation-first chat as the main surface. Toggle with the title-bar Agent button or <code>Ctrl+Shift+A</code>; your sessions, changes, and tasks come with you.
+          </p>
+          <ul>
+            <li><strong>Conversation-first chat</strong> — tool calls collapse to glanceable chips: a quiet "read 16 files", a loud "edited run.ts ×3". Click any chip to expand the diff or output.</li>
+            <li><strong>Changes &amp; tasks at a glance</strong> — edits roll into a Changes review card; the agent's to-do list lives in a sidebar section, not buried in the transcript.</li>
+            <li><strong>Plugins &amp; customizations</strong> — install Claude Code plugins from any GitHub marketplace; manage Instructions, Skills, MCP, tool access, providers, and privacy in one tabbed panel.</li>
+            <li><strong>Plan-mode approval</strong> — review the agent's plan in full, then Approve &amp; start, or keep refining.</li>
+          </ul>
+        </div>
+        <div class="deep-visual">
+<span class="v-line"><span class="v-comment"># The agent's actions, as glanceable chips</span></span>
+<span class="v-line"><span class="v-key">You</span>: refactor the enrollment sweep</span>
+<span class="v-line"></span>
+<span class="v-line">Now hook into <span class="v-str">contacts/actions.ts</span>:</span>
+<span class="v-line">  [🔍 read 6 files]  [✦ edited actions.ts ×3]</span>
+<span class="v-line">Let me typecheck:</span>
+<span class="v-line">  [➜ ran tsc → clean]</span>
+<span class="v-line"></span>
+<span class="v-line">  ┌ Changes · 4 files · +120 −38 ──[Review]┐</span>
+<span class="v-line">  └─────────────────────────────────────────┘</span>
+        </div>
+      </div>
 
       <!-- 1. BYOK AI panel -->
       <div class="deep-feature" id="ai">
@@ -229,11 +258,11 @@
     <div class="ftr-links">
       <a href="https://github.com/getcodetta/codetta">Source</a>
       <a href="https://github.com/getcodetta/codetta/issues">Issues</a>
-      <a href="/changelog.html">Changelog</a>
-      <a href="/docs.html">Docs</a>
+      <a href="/changelog">Changelog</a>
+      <a href="/docs">Docs</a>
       <a href="https://github.com/getcodetta/codetta/blob/main/LICENSE">License (FSL-1.1)</a>
     </div>
-    <p class="copy">Built with <a href="https://tauri.app">Tauri</a> by <a href="/about.html">Bishal Shrestha</a>. © 2026 Codetta Maintainers.</p>
+    <p class="copy">Built with <a href="https://tauri.app">Tauri</a> by <a href="/about">Bishal Shrestha</a>. © 2026 Codetta Maintainers.</p>
   </footer>
 
   <script>

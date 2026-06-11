@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0b0d12" />
   <title>Codetta — A lightweight desktop code editor with AI</title>
-  <meta name="description" content="A lightweight desktop code editor with first-class AI. Bring your own model — Anthropic, OpenAI, Ollama, or Claude Code. ~30 MB, no telemetry, free and open source." />
+  <meta name="description" content="A lightweight desktop code editor with first-class AI and a dedicated Agent Mode. Bring your own model — Anthropic, OpenAI, Ollama, or Claude Code. Plugins, MCP, ~30 MB, no telemetry, free and open source." />
 
   <!-- Open Graph (Facebook, LinkedIn, Slack, Discord, etc.) -->
   <meta property="og:title" content="Codetta — Lightweight code editor with first-class AI" />
-  <meta property="og:description" content="BYOK AI panel — Anthropic, OpenAI, Ollama, or Claude Code (use your existing Pro/Max subscription). Multi-workspace, pop-out terminals. ~30 MB native. No telemetry. Open source." />
+  <meta property="og:description" content="Now with Agent Mode — a dedicated agent workspace, plugins, and a conversation-first chat. BYOK AI — Anthropic, OpenAI, Ollama, or Claude Code (use your existing Pro/Max subscription). ~30 MB native. No telemetry. Open source." />
   <meta property="og:url" content="https://codetta.dev" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Codetta" />
@@ -55,11 +55,11 @@
         </a>
         <span class="spacer"></span>
         <div class="nav-links">
-          <a href="/features.html">Features</a>
-          <a href="/changelog.html">Changelog</a>
-          <a href="/docs.html">Docs</a>
+          <a href="/features">Features</a>
+          <a href="/changelog">Changelog</a>
+          <a href="/docs">Docs</a>
           <a href="#install">Install</a>
-          <a href="/about.html">About</a>
+          <a href="/about">About</a>
           <a href="https://www.npmjs.com/package/codetta">npm</a>
           <a class="pill" href="https://github.com/getcodetta/codetta" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.8 10.9.6.1.8-.2.8-.6v-2.1c-3.2.7-3.9-1.5-3.9-1.5-.5-1.4-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.5-1.5 7.8-5.8 7.8-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
@@ -72,10 +72,10 @@
 
   <div class="container">
     <header class="hero">
-      <a href="/changelog.html" class="release-banner" title="See full changelog">
-        <span class="release-banner-tag">v0.4.0</span>
+      <a href="/changelog" class="release-banner" title="See full changelog">
+        <span class="release-banner-tag">v0.5.0</span>
         <span class="release-banner-text">
-          60+ features: line bookmarks, F1 shortcut reference, footprint controls, AI templates, chord shortcuts, diagnostics panel, and more
+          New: Agent Mode, a plugin system, a conversation-first chat, richer MCP, and plan-mode approval
         </span>
         <span class="release-banner-arrow">→</span>
       </a>
@@ -83,10 +83,10 @@
       <h1>The lightweight code editor with <span class="grad">first-class AI</span>.</h1>
       <p class="tagline">
         Bring your own model — Anthropic, OpenAI, Ollama, or sign in with Claude Code to use your <a href="#claude-subscription">existing Claude subscription</a>.
-        ~30&nbsp;MB native, no telemetry, multi-window terminals, and a real BYOK AI panel built into the editor.
+        Now with a dedicated <a href="#whats-new">Agent Mode</a>, a plugin system, and a conversation-first chat — ~30&nbsp;MB native, no telemetry, built right into the editor.
       </p>
       <div class="cta-row">
-        <a id="heroDownload" class="btn btn-primary" href="https://github.com/getcodetta/codetta/releases/latest/download/Codetta_0.4.0_x64-setup.exe" data-os="windows">
+        <a id="heroDownload" class="btn btn-primary" href="https://github.com/getcodetta/codetta/releases/latest/download/Codetta_0.5.0_x64-setup.exe" data-os="windows">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
           <span data-download-label>Download for Windows</span>
         </a>
@@ -161,40 +161,40 @@
 
     <section id="whats-new">
       <div class="whats-new-head">
-        <h2>What's new in v0.4.0</h2>
-        <a class="whats-new-link" href="/changelog.html">Full changelog →</a>
+        <h2>What's new in v0.5.0</h2>
+        <a class="whats-new-link" href="/changelog">Full changelog →</a>
       </div>
-      <p class="lede">Codetta v0.4.0 is a 60+ feature batch focused on power-user fluency: navigation shortcuts, AI prompt templates, footprint controls, and a Problems panel. Six picks below.</p>
+      <p class="lede">Codetta v0.5.0 introduces <strong>Agent Mode</strong> — a dedicated, agent-centric workspace — plus a plugin system, a reimagined chat, and a richer MCP browser. Six picks below.</p>
       <div class="whats-new-grid">
         <div class="wn-card" data-reveal>
-          <div class="wn-icon" data-c="cyan">⌘</div>
-          <div class="wn-title">F1 shortcut reference + chord support</div>
-          <div class="wn-text">Press F1 for a categorised cheatsheet of every command. Two-step chord shortcuts (Ctrl+K Ctrl+0 fold all, Ctrl+K S save without formatting) now actually fire.</div>
+          <div class="wn-icon" data-c="purple">✦</div>
+          <div class="wn-title">Agent Mode</div>
+          <div class="wn-text">A dedicated agent layout — a workspace rail, a sessions list, and a conversation-first chat as the primary surface. Toggle it from the title bar or with Ctrl+Shift+A; your sessions and changes come with you.</div>
         </div>
         <div class="wn-card" data-reveal>
-          <div class="wn-icon" data-c="purple">🤖</div>
-          <div class="wn-title">Right-click "Ask AI to…"</div>
-          <div class="wn-text">Five quick actions in the editor context menu — explain, refactor, find bugs, write tests, add docs. Cmd/Ctrl+I for explain. Selection auto-wrapped in a fenced code block tagged with language + filename.</div>
+          <div class="wn-icon" data-c="cyan">💬</div>
+          <div class="wn-title">Conversation-first chat</div>
+          <div class="wn-text">Tool calls collapse into glanceable icon chips — quiet "read 16 files", loud "edited run.ts". File changes roll into a Changes card, the agent's to-do list lives in a sidebar, and reasoning folds inline.</div>
         </div>
         <div class="wn-card" data-reveal>
-          <div class="wn-icon" data-c="orange">📦</div>
-          <div class="wn-title">Workspace footprint controls</div>
-          <div class="wn-text">Status-bar chip shows open buffers + terminals; click for a detail modal. Optional idle-buffer unload + auto-close-idle-terminals keep long-running sessions lean.</div>
+          <div class="wn-icon" data-c="green">🧩</div>
+          <div class="wn-title">Plugins from any GitHub repo</div>
+          <div class="wn-text">Add any Claude Code plugin marketplace by URL — the official catalog or your own repo. Browse and install plugins that bundle skills, commands, subagents, hooks, and MCP servers.</div>
         </div>
         <div class="wn-card" data-reveal>
-          <div class="wn-icon" data-c="green">🔖</div>
-          <div class="wn-title">Line bookmarks + outline TOC</div>
-          <div class="wn-text">Ctrl+F2 toggles a line bookmark, F2 / Shift+F2 cycle. Markdown headings show in the outline panel and the Go-to-Symbol palette, with click-to-jump from the rendered preview.</div>
+          <div class="wn-icon" data-c="orange">🔌</div>
+          <div class="wn-title">MCP, your way</div>
+          <div class="wn-text">One-click catalog plus manual add — a stdio command, an HTTP/SSE remote URL, or an npm, pip, or Docker package — in user or project scope. Searchable, with live install state.</div>
         </div>
         <div class="wn-card" data-reveal>
           <div class="wn-icon" data-c="cyan">⚙</div>
-          <div class="wn-title">Smart task panel</div>
-          <div class="wn-text">Cargo (build / run / test / clippy / fmt + per-binary entries) and Makefile targets sit alongside package.json scripts. Tauri projects auto-detect src-tauri/Cargo.toml.</div>
+          <div class="wn-title">Agent Customizations</div>
+          <div class="wn-text">One tabbed home for Instructions, Skills, Plugins, MCP servers, tool permissions, providers, and privacy exclusions — everything that shapes how the agent works, in one place.</div>
         </div>
         <div class="wn-card" data-reveal>
-          <div class="wn-icon" data-c="red">🩺</div>
-          <div class="wn-title">Diagnostics panel</div>
-          <div class="wn-text">Every Monaco marker across every open file in one sidebar list. Click to jump to the offending line — TypeScript / JavaScript work out of the box.</div>
+          <div class="wn-icon" data-c="red">📋</div>
+          <div class="wn-title">Plan-mode approval</div>
+          <div class="wn-text">When the agent finishes planning, you get a clean review card with the plan rendered in full — then Approve &amp; start, or Keep planning to refine. No surprise edits.</div>
         </div>
       </div>
     </section>
@@ -203,6 +203,13 @@
       <h2>Why Codetta</h2>
       <p class="lede">A small, focused editor that gets out of the way — with the AI tools you actually use, built directly into the surface.</p>
       <div class="features">
+        <div class="feature" data-reveal>
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="9" x2="15" y2="21"/></svg>
+          </div>
+          <h3>Agent Mode</h3>
+          <p>A dedicated, agent-centric layout — a workspace rail, a sessions list, and a <strong>conversation-first chat</strong> where tool actions collapse to glanceable chips and changes roll into a review card. One keypress away (Ctrl+Shift+A), nothing lost switching back.</p>
+        </div>
         <div class="feature" data-reveal>
           <div class="icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 014 4v2h1a3 3 0 013 3v3a4 4 0 01-4 4h-1v1a3 3 0 01-6 0v-1H8a4 4 0 01-4-4v-3a3 3 0 013-3h1V6a4 4 0 014-4z"/></svg>
@@ -544,10 +551,10 @@ npm run tauri dev</code></pre>
         <a href="https://github.com/getcodetta/codetta/issues">Issues</a>
         <a href="https://github.com/getcodetta/codetta/releases">Releases</a>
         <a href="https://github.com/getcodetta/codetta/blob/main/LICENSE">License (FSL-1.1)</a>
-        <a href="/about.html">About</a>
+        <a href="/about">About</a>
         <a href="https://www.npmjs.com/package/codetta">npm</a>
       </div>
-      <p class="copy">Built with <a href="https://tauri.app">Tauri</a> by <a href="/about.html">Bishal Shrestha</a>. © 2026 Codetta Maintainers.</p>
+      <p class="copy">Built with <a href="https://tauri.app">Tauri</a> by <a href="/about">Bishal Shrestha</a>. © 2026 Codetta Maintainers.</p>
     </footer>
   </div>
 
