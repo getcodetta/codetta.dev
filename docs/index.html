@@ -62,13 +62,14 @@
         <div class="docs-toc-title">Contents</div>
         <a href="#install">1. Install</a>
         <a href="#first-launch">2. First launch</a>
-        <a href="#claude-code">3. Claude Code</a>
-        <a href="#api-keys">4. API keys</a>
-        <a href="#ollama">5. Local models (Ollama)</a>
-        <a href="#sftp">6. SFTP setup</a>
-        <a href="#mcp">7. MCP servers</a>
-        <a href="#shortcuts">8. Shortcuts</a>
-        <a href="#troubleshooting">9. Troubleshooting</a>
+        <a href="#agent-mode">3. Agent Mode</a>
+        <a href="#claude-code">4. Claude Code</a>
+        <a href="#api-keys">5. API keys</a>
+        <a href="#ollama">6. Local models (Ollama)</a>
+        <a href="#sftp">7. SFTP setup</a>
+        <a href="#mcp">8. MCP servers</a>
+        <a href="#shortcuts">9. Shortcuts</a>
+        <a href="#troubleshooting">10. Troubleshooting</a>
       </aside>
 
       <main class="docs-content">
@@ -77,8 +78,8 @@
           <h2>1. Install</h2>
           <p>Codetta ships native installers for Windows, macOS, and Linux. Pick from the <a href="/#install">Install section</a> on the homepage, or hit a direct download:</p>
           <ul>
-            <li><strong>Windows:</strong> <code>Codetta_0.4.0_x64-setup.exe</code> (NSIS, recommended) or <code>.msi</code></li>
-            <li><strong>macOS:</strong> <code>Codetta_0.4.0_universal.dmg</code> (Apple Silicon + Intel, unsigned — first launch needs Privacy &amp; Security → Open Anyway)</li>
+            <li><strong>Windows:</strong> <code>Codetta_0.5.0_x64-setup.exe</code> (NSIS, recommended) or <code>.msi</code></li>
+            <li><strong>macOS:</strong> <code>Codetta_0.5.0_universal.dmg</code> (Apple Silicon + Intel, unsigned — first launch needs Privacy &amp; Security → Open Anyway)</li>
             <li><strong>Linux:</strong> <code>.AppImage</code> (universal), <code>.deb</code>, or <code>.rpm</code></li>
           </ul>
           <p>Or build from source:</p>
@@ -109,8 +110,42 @@ npm run tauri dev</code></pre>
           </div>
         </section>
 
+        <section id="agent-mode">
+          <h2>3. Agent Mode</h2>
+          <p>Agent Mode turns the whole window into an agent-centric workspace — ideal when you're driving Claude Code (or any provider) to make changes rather than editing by hand. Toggle it from the <strong>Agent</strong> button in the title bar, or with <code>Ctrl+Shift+A</code>.</p>
+          <div class="docs-shot">
+            <a href="/screenshots/codetta_agent_overview.png" target="_blank" rel="noopener">
+              <img
+                src="/screenshots/codetta_agent_overview.png"
+                alt="Codetta Agent Mode — a workspace rail, a sessions list, a conversation-first chat with action chips, and a Changes panel"
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+            <span class="docs-shot-caption">Agent Mode — workspace rail, sessions, a conversation-first chat, and a Changes / Files panel.</span>
+          </div>
+          <h3>What you get</h3>
+          <ul>
+            <li><strong>Sessions on the left</strong> — every chat for the workspace, with a provider badge; switch or start a new one, state persists.</li>
+            <li><strong>Conversation-first chat</strong> — tool calls collapse to glanceable chips: a quiet "read 16 files" vs. a loud "edited run.ts". Click a chip to expand its diff or output; click an edit chip to open the file.</li>
+            <li><strong>Changes &amp; tasks</strong> — file edits roll into a Changes review card; the agent's to-do list lives in a Tasks section instead of scrolling past in the transcript.</li>
+            <li><strong>Plan-mode approval</strong> — switch the composer to <strong>Plan</strong>; when the agent finishes planning you get a review card with the plan rendered, and <em>Approve &amp; start</em> / <em>Keep planning</em>.</li>
+          </ul>
+          <h3>Customizations</h3>
+          <p>The <strong>Customizations</strong> panel (bottom of the sessions column) is one tabbed home for everything that shapes the agent:</p>
+          <ul>
+            <li><strong>Instructions</strong> — the workspace rules file (<code>.codetta/rules.md</code> or <code>CLAUDE.md</code>) fed into every prompt.</li>
+            <li><strong>Skills</strong> — <code>.claude/skills/&lt;name&gt;/SKILL.md</code>, project or user scope.</li>
+            <li><strong>Plugins</strong> — add any Claude Code plugin marketplace by GitHub URL and install the plugins it offers (skills, commands, subagents, hooks, MCP servers).</li>
+            <li><strong>MCP servers</strong>, <strong>Tool Access</strong>, <strong>Providers</strong>, and <strong>Privacy</strong> exclusions.</li>
+          </ul>
+          <div class="docs-callout">
+            Agent Mode shares all state with the normal editor — toggling back leaves your sessions, changes, and terminals exactly where they were.
+          </div>
+        </section>
+
         <section id="claude-code">
-          <h2>3. Claude Code (recommended)</h2>
+          <h2>4. Claude Code (recommended)</h2>
           <p>If you have a Claude Pro or Max subscription, Claude Code is the cheapest way to use Codetta — your subscription covers usage, no per-token bills.</p>
           <h3>Install the CLI</h3>
 <pre><code>npm install -g @anthropic-ai/claude-code
@@ -118,7 +153,7 @@ claude /login</code></pre>
           <p>Follow the OAuth flow. Once <code>claude --version</code> works in your terminal, Codetta auto-detects it on the next AI panel refresh.</p>
           <h3>Use it in Codetta</h3>
           <ol>
-            <li>Open the AI panel (☁ icon's neighbour, or <code>Ctrl+Shift+A</code>).</li>
+            <li>Open an AI chat — the <strong>AI</strong> icon in the activity bar, a <strong>New AI</strong> tab, or full <a href="#agent-mode">Agent Mode</a> (<code>Ctrl+Shift+A</code>).</li>
             <li>Click the model dropdown → pick <strong>claude-code: default</strong>.</li>
             <li>Type a question. The CLI runs in a subprocess; you see its tool calls (Read / Edit / Bash) live in the panel.</li>
           </ol>
@@ -135,7 +170,7 @@ claude /login</code></pre>
         </section>
 
         <section id="api-keys">
-          <h2>4. API keys (Anthropic / OpenAI)</h2>
+          <h2>5. API keys (Anthropic / OpenAI)</h2>
           <p>If you'd rather pay per-token than subscribe, drop in an Anthropic or OpenAI key:</p>
           <ol>
             <li>Settings → <strong>AI Providers (Bring Your Own Key)</strong></li>
@@ -146,7 +181,7 @@ claude /login</code></pre>
         </section>
 
         <section id="ollama">
-          <h2>5. Local models (Ollama)</h2>
+          <h2>6. Local models (Ollama)</h2>
           <p>For fully-offline AI, install <a href="https://ollama.com">Ollama</a> and pull a model:</p>
 <pre><code>ollama pull qwen2.5-coder:7b
 # or larger
@@ -158,7 +193,7 @@ ollama pull deepseek-coder-v2:16b</code></pre>
         </section>
 
         <section id="sftp">
-          <h2>6. SFTP setup</h2>
+          <h2>7. SFTP setup</h2>
           <p>New in v0.4.0: edit remote files in the same Monaco buffer as local code, with auto-push on save and recursive directory sync.</p>
           <h3>Add a connection</h3>
           <ol>
@@ -184,13 +219,13 @@ ollama pull deepseek-coder-v2:16b</code></pre>
         </section>
 
         <section id="mcp">
-          <h2>7. MCP servers</h2>
-          <p>Settings → <strong>Claude Code — MCP servers</strong> opens a catalog of pre-configured Model Context Protocol servers (filesystem, git, github, postgres, puppeteer, sqlite). Click <em>+ User</em> or <em>+ Project</em> to install — Codetta prompts for any required values (paths, tokens, URLs) and writes a valid config to <code>~/.claude.json</code> or <code>./.mcp.json</code>.</p>
-          <p>Manual JSON editing is supported — just don't break the schema. Codetta reads <code>~/.claude.json</code> on every refresh.</p>
+          <h2>8. MCP servers</h2>
+          <p>Settings → <strong>Claude Code — MCP servers</strong> (or the <strong>MCP Servers</strong> tab in Agent Mode's Customizations) opens a catalog of pre-configured Model Context Protocol servers (filesystem, git, github, postgres, puppeteer, sqlite). Click <em>+ User</em> or <em>+ Project</em> to install — Codetta prompts for any required values (paths, tokens, URLs) and writes a valid config to <code>~/.claude.json</code> or <code>./.mcp.json</code>.</p>
+          <p><strong>Add your own (v0.5.0):</strong> the <em>Add server</em> menu accepts a local <strong>command (stdio)</strong>, an <strong>HTTP / SSE</strong> remote URL, or an <strong>npm</strong>, <strong>pip</strong>, or <strong>Docker</strong> package — in user or project scope, with search and live install state. Manual JSON editing still works; Codetta re-reads <code>~/.claude.json</code> on every refresh.</p>
         </section>
 
         <section id="shortcuts">
-          <h2>8. Keyboard shortcuts</h2>
+          <h2>9. Keyboard shortcuts</h2>
           <ul>
             <li><code>Ctrl/Cmd + S</code> — save active file</li>
             <li><code>Ctrl/Cmd + Shift + S</code> — save all dirty files</li>
@@ -204,7 +239,7 @@ ollama pull deepseek-coder-v2:16b</code></pre>
         </section>
 
         <section id="troubleshooting">
-          <h2>9. Troubleshooting</h2>
+          <h2>10. Troubleshooting</h2>
           <h3>"claude CLI not found"</h3>
           <p>Codetta looks for <code>claude</code> on PATH. If <code>claude --version</code> works in a fresh terminal but Codetta can't find it, restart the editor — it may have launched before the install completed. On Windows, the npm-installed Claude Code is <code>claude.cmd</code>; Codetta handles this but only after the first detection succeeds.</p>
           <h3>SFTP connect hangs / times out</h3>
